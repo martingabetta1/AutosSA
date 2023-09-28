@@ -1,4 +1,5 @@
 import './App.css';
+import "./sass/styles.css";
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from "react-router-dom";
 import Marca from './pages/Marca';
 import Modelo from './pages/Modelo';
