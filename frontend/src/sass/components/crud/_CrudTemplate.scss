@@ -28,6 +28,7 @@ $crud_button_image-size: calc($crud_button-size - 20px);
 
 .MuiDataGrid-root {
     @extend %box-shadow;
+    height: 80vh!important;
 }
 
 
