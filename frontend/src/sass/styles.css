@@ -1,0 +1,59 @@
+.MuiDataGrid-root {
+  box-shadow: 10px 10px 5px 0px rgba(219, 206, 206, 0.75);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(219, 206, 206, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(219, 206, 206, 0.75);
+}
+
+.crud-title {
+  text-shadow: 4px 4px 2px rgba(227, 227, 227, 0.6);
+}
+
+.crud-template-container {
+  padding: 10px;
+}
+
+.crud-title {
+  display: flex;
+}
+
+.MuiDataGrid-root {
+  height: 80vh !important;
+}
+
+[data-rowindex]:nth-child(odd) {
+  background-color: rgb(230, 230, 230);
+}
+[data-rowindex]:nth-child(odd):hover {
+  background-color: rgb(220, 220, 220) !important;
+}
+
+[data-rowindex]:nth-child(even) {
+  background-color: rgb(250, 250, 250);
+}
+[data-rowindex]:nth-child(even):hover {
+  background-color: rgb(240, 240, 240) !important;
+}
+
+.crud_accions_box {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.crud_button_edit {
+  background-color: rgb(44, 44, 192) !important;
+  min-width: unset !important;
+  width: 45px;
+}
+
+.crud_button_delete {
+  background-color: red !important;
+  min-width: unset !important;
+  width: 45px;
+}
+
+.crud_button_image {
+  filter: invert(1);
+  width: 25px;
+}/*# sourceMappingURL=styles.css.map */

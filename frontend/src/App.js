@@ -1,5 +1,6 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes,Navigate, Outlet   } from "react-router-dom";
+import "./sass/styles.css";
+import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from "react-router-dom";
 import Marca from './pages/Marca';
 import Modelo from './pages/Modelo';
 import Tecnico from './pages/Tecnico';
