@@ -10,6 +10,7 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -85,7 +86,12 @@ export default function PersistentDrawerRight() {
     setOpen(false);
   };
 
-  const listContent = [{
+  const listContent = [ {
+    nombre:"Inicio",
+    icono:<HomeIcon/>,
+    ruta:"/"
+  },
+  {
     nombre:"Marcas",
     icono:<SellIcon/>,
     ruta:"/marca"
@@ -120,7 +126,7 @@ export default function PersistentDrawerRight() {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1,display:'inline-flex' }} component="div">
             Autos S.A.
           </Typography>
           <IconButton
@@ -134,7 +140,7 @@ export default function PersistentDrawerRight() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Main open={open}>
+      <Main style={{padding:'0px'}} open={open}>
       <DrawerHeader />
       </Main>
       <Drawer
