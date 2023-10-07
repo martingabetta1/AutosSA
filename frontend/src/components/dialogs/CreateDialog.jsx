@@ -16,7 +16,9 @@ export default function CreateDialog() {
         [openCreateDialog] = CrudContext.dialogs.create,
         [dialogData] = CrudContext.dialogs.data,
         [bodyData] = CrudContext.query.bodyData.data,
-        [endpoints] = CrudContext.query.endpoints
+        [endpoints] = CrudContext.query.endpoints,
+        [buttonState] = CrudContext.validations.buttonState
+
 
     const handleClose = () => {
         handleOpenDialog("create",false);
@@ -66,7 +68,7 @@ export default function CreateDialog() {
                     </DialogsUtils.Styles.InputStyles>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant='contained' onClick={handleCreate}>
+                    <Button variant='contained' onClick={handleCreate} disabled={buttonState}>
                         Agregar
                     </Button>
                     <Button onClick={handleClose}>

@@ -12,7 +12,8 @@ export default function Modelo() {
   const [, setDialogData] = CrudContext.dialogs.data,
     [, setDialogInputs] = CrudContext.inputs,
     [endpoints, setEndpoints] = CrudContext.query.endpoints,
-    [rows, setRows] = CrudContext.crudStructure.rows
+    [rows, setRows] = CrudContext.crudStructure.rows,
+    [columns, setColumns] = CrudContext.crudStructure.columns
 
   let rowsTemplate = [
     { id: 1, marca: { id: 101, descripcion: 'Marca1' }, nombre: '206' },
@@ -25,6 +26,18 @@ export default function Modelo() {
     { id: 8, marca: { id: 108, descripcion: 'Marca8' }, nombre: 'veneno' },
     { id: 9, marca: { id: 109, descripcion: 'Marca9' }, nombre: 'f100' }
   ];
+
+  const columnsTemplate = [
+    { field: 'id', headerName: 'ID', flex: 1 },
+    { field: 'nombre', headerName: 'Nombre', flex: 1 },
+    {
+      field: 'marca.descripcion',
+      headerName: 'Marca',
+      flex: 1,
+      valueGetter: (params) => params.row.marca?.descripcion
+    },
+  ];
+
   useEffect(() => {
     setEndpoints({
       fetch: '/modelo',
@@ -55,19 +68,10 @@ export default function Modelo() {
       },
     ])
     setRows(rowsTemplate)
+    setColumns(columnsTemplate)
     // getRegisters()
   }, [])
 
-  const columns = [
-    { field: 'id', headerName: 'ID', flex: 1 },
-    { field: 'nombre', headerName: 'Nombre', flex: 1 },
-    {
-      field: 'marca.descripcion',
-      headerName: 'Marca',
-      flex: 1,
-      valueGetter: (params) => params.row.marca.descripcion
-    },
-  ];
 
   const getRegisters = async () => {
     await Api.getQuery(endpoints.fetch)

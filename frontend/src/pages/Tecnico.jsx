@@ -12,7 +12,8 @@ export default function Tecnico() {
   const [, setDialogData] = CrudContext.dialogs.data,
     [, setDialogInputs] = CrudContext.inputs,
     [endpoints, setEndpoints] = CrudContext.query.endpoints,
-    [rows, setRows] = CrudContext.crudStructure.rows
+    [rows, setRows] = CrudContext.crudStructure.rows,
+    [columns, setColumns] = CrudContext.crudStructure.columns
 
   let rowsTemplate = [
     { id: 1, apellido: 'García', nombre: 'Ana', documento: '12345678-A', telefono: '555-1234', direccion: 'Calle 123, Ciudad' },
@@ -26,6 +27,14 @@ export default function Tecnico() {
     { id: 9, apellido: 'Ramírez', nombre: 'Isabel', documento: '90123456-I', telefono: '555-3690', direccion: 'Calle Residencial, Villa' }
   ];
 
+  const columnsTemplate = [
+    { field: 'id', headerName: 'ID', flex: 1 },
+    { field: 'nombre', headerName: 'Nombre', flex: 1 },
+    { field: 'apellido', headerName: 'Apellido', flex: 1 },
+    { field: 'documento', headerName: 'Documento', flex: 1 },
+    { field: 'telefono', headerName: 'Telefono', flex: 1 },
+    { field: 'direccion', headerName: 'Direccion', flex: 1 },
+  ];
 
   useEffect(() => {
     setEndpoints({
@@ -65,17 +74,9 @@ export default function Tecnico() {
       },
     ])
     setRows(rowsTemplate)
+    setColumns(columnsTemplate)
     // getRegisters()
   }, [])
-
-  const columns = [
-    { field: 'id', headerName: 'ID', flex: 1 },
-    { field: 'nombre', headerName: 'Nombre', flex: 1 },
-    { field: 'apellido', headerName: 'Apellido', flex: 1 },
-    { field: 'documento', headerName: 'Documento', flex: 1 },
-    { field: 'telefono', headerName: 'Telefono', flex: 1 },
-    { field: 'direccion', headerName: 'Direccion', flex: 1 },
-  ];
 
   const getRegisters = async () => {
     await Api.getQuery(endpoints.fetch)

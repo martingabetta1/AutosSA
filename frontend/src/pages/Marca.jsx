@@ -12,7 +12,8 @@ export default function Marca() {
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
         [endpoints, setEndpoints] = CrudContext.query.endpoints,
-        [rows, setRows] = CrudContext.crudStructure.rows
+        [rows, setRows] = CrudContext.crudStructure.rows,
+        [columns, setColumns] = CrudContext.crudStructure.columns
 
     let rowsTemplate = [
         { id: 1, nombre: 'Ford' },
@@ -22,6 +23,12 @@ export default function Marca() {
         { id: 5, nombre: 'Zanella' },
         
     ];
+
+    const columnsTemplate = [
+        { field: 'id', headerName: 'ID', flex: 1 },
+        { field: 'nombre', headerName: 'Nombre', flex: 1 },
+    ];
+
     useEffect(() => {
         setEndpoints({
             create: '/marca',
@@ -39,13 +46,11 @@ export default function Marca() {
             },
         ])
         setRows(rowsTemplate)
+        setColumns(columnsTemplate)
         // getRegisters()
     }, [])
 
-    const columns = [
-        { field: 'id', headerName: 'ID', flex: 1 },
-        { field: 'nombre', headerName: 'Nombre', flex: 1 },
-    ];
+
 
     const getRegisters = async () => {
         await Api.getQuery(endpoints.create)
