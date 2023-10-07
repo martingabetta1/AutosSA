@@ -9,7 +9,7 @@ public interface IMarcaService {
     List<Marca> listarMarcas();
     Marca registrar(Marca marca);
 
-    Marca actualizar(Marca marca);
+   void actualizar(Integer marcaId, String nombre);
 
     void eliminar(Integer id);
 }

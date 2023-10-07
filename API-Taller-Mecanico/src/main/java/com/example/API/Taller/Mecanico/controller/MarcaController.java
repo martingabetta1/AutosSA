@@ -2,6 +2,8 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.service.IMarcaService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +33,12 @@ public class MarcaController {
         return new ResponseEntity<Marca>(resMarca, HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<Marca> actualizar(@RequestBody Marca reqMarca) {
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Marca marca) {
 
-        Marca resMarca = serviceMarca.actualizar(reqMarca);
+        serviceMarca.actualizar(id, marca.getNombre());
 
-        return new ResponseEntity<>(resMarca, HttpStatus.CREATED);
+       return ResponseEntity.ok("La marca se actualizo correctamente");
     }
 
 

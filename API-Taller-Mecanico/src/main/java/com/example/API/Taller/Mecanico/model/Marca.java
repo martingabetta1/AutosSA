@@ -23,6 +23,10 @@ public class Marca {
         return nombre;
     }
 
+    public Integer getIdMarca() {
+        return idMarca;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

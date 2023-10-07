@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -26,9 +28,9 @@ public class MarcaServiceImpl implements IMarcaService {
         return repoMarca.save(marca);
     }
 
-    @Override
-    public Marca actualizar(Marca marca) {
-        return repoMarca.save(marca);
+
+    public void actualizar(Integer marcaId, String nombre) {
+        repoMarca.actualizar(marcaId, nombre);
     }
 
     public void eliminar(Integer marcaId) {
