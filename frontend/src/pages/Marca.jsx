@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import CrudTemplate from '../components/CrudTemplate'
 import CreateDialog from '../components/dialogs/CreateDialog'
-import { useCrudData } from '../contexts/CrudContext';
+import { useCrudData } from '../contexts/CrudContext/CrudContext';
 import Api from '../services/Api'
 
 export default function Marca() {
