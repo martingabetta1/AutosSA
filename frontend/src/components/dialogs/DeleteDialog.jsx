@@ -61,9 +61,13 @@ export default function DeleteDialog() {
                         ¿Está seguro/a que desea eliminar el siguiente registro?
                     </div>
                     <li key={0}><b>ID:</b> {bodyData.id}</li>
+
                     {dialogInputs.map((input, key) => {
-                        return <li key={key + 1}><b>{input.label}:</b> {bodyData[input.name]}</li>
+                        return typeof bodyData[input.name] === "object"
+                        ? <li key={key + 1}><b>{input.label}:</b> {bodyData[input.name].descripcion}</li>
+                        : <li key={key + 1}><b>{input.label}:</b> {bodyData[input.name]}</li>
                     })}
+                    
                 </DialogContent>
                 <DialogActions>
                     <Button variant='contained' onClick={handleDelete}>

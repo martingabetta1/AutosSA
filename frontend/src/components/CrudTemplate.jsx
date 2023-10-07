@@ -9,7 +9,9 @@ export default function CrudTemplate(props) {
     // Columnas
 
     const { CrudContext } = useCrudData(),
-        handleOpenDialog = CrudContext.dialogs.handleOpenDialog
+        handleOpenDialog = CrudContext.dialogs.handleOpenDialog,
+        [openEditDialog] = CrudContext.dialogs.edit,
+        [openDeleteDialog] = CrudContext.dialogs.delete
 
     const actionsColumn = {
         field: 'acc',
@@ -52,8 +54,12 @@ export default function CrudTemplate(props) {
                         pageSizeOptions={[5, 10]}
                         checkboxSelection
                     />
-                    <EditDialog />
-                    <DeleteDialog />
+                    {openEditDialog && (
+                        <EditDialog />
+                    )}
+                    {openDeleteDialog && (
+                        <DeleteDialog />
+                    )}
                 </div>
             </div>
         </div>
