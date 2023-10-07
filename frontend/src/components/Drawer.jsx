@@ -18,6 +18,7 @@ import SellIcon from '@mui/icons-material/Sell';//Marca
 import InventoryIcon from '@mui/icons-material/Inventory';//Modelo
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';//Vehiculo
 import PersonIcon from '@mui/icons-material/Person';//Cliente
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';//Visita
 import BadgeIcon from '@mui/icons-material/Badge';//Tecnico
 import ReceiptIcon from '@mui/icons-material/Receipt';//Orden
 import ListItem from '@mui/material/ListItem';
@@ -110,6 +111,11 @@ export default function PersistentDrawerRight() {
     nombre:"Clientes",
     icono:<PersonIcon/>,
     ruta:"/cliente"
+  },
+  {
+    nombre:"Visitas",
+    icono:<EmojiPeopleIcon/>,
+    ruta:"/visita"
   },
   {
     nombre:"Tecnicos",

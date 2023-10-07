@@ -13,7 +13,8 @@ export default function Marca() {
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
         [endpoints, setEndpoints] = CrudContext.query.endpoints,
-        [rows, setRows] = CrudContext.crudStructure.rows
+        [rows, setRows] = CrudContext.crudStructure.rows,
+        [columns, setColumns] = CrudContext.crudStructure.columns
 
     let rowsTemplate = [
         {
@@ -39,6 +40,37 @@ export default function Marca() {
             cliente: {id:2,descripcion:"Fulanito"}
         },
 
+    ];
+
+    const columnsTemplate = [
+        { field: 'id', headerName: 'ID', flex: 1 },
+        { field: 'fechaInicio', headerName: 'Fecha inicio', flex: 1 },
+        { field: 'fechaFin', headerName: 'Fecha fin', flex: 1 },
+        {
+            field: 'vehiculo.descripcion',
+            headerName: 'Vehiculo',
+            flex: 1,
+            valueGetter: (params) => params.row.vehiculo?.descripcion
+        },
+        {
+            field: 'tecnico.descripcion',
+            headerName: 'Tecnico',
+            flex: 1,
+            valueGetter: (params) => params.row.tecnico?.descripcion
+        },
+        {
+            field: 'estado.descripcion',
+            headerName: 'Estado',
+            flex: 1,
+            valueGetter: (params) => params.row.estado?.descripcion
+        },
+        { field: 'comentario', headerName: 'Comentario', flex: 1 },
+        {
+            field: 'cliente.descripcion',
+            headerName: 'Cliente',
+            flex: 1,
+            valueGetter: (params) => params.row.cliente?.descripcion
+        },
     ];
     useEffect(() => {
         setEndpoints({
@@ -88,39 +120,11 @@ export default function Marca() {
             },
         ])
         setRows(rowsTemplate)
+        setColumns(columnsTemplate)
         // getRegisters()
     }, [])
 
-    const columns = [
-        { field: 'id', headerName: 'ID', flex: 1 },
-        { field: 'fechaInicio', headerName: 'Fecha inicio', flex: 1 },
-        { field: 'fechaFin', headerName: 'Fecha fin', flex: 1 },
-        {
-            field: 'vehiculo.descripcion',
-            headerName: 'Vehiculo',
-            flex: 1,
-            valueGetter: (params) => params.row.vehiculo.descripcion
-        },
-        {
-            field: 'tecnico.descripcion',
-            headerName: 'Tecnico',
-            flex: 1,
-            valueGetter: (params) => params.row.tecnico.descripcion
-        },
-        {
-            field: 'estado.descripcion',
-            headerName: 'Estado',
-            flex: 1,
-            valueGetter: (params) => params.row.estado.descripcion
-        },
-        { field: 'comentario', headerName: 'Comentario', flex: 1 },
-        {
-            field: 'cliente.descripcion',
-            headerName: 'Cliente',
-            flex: 1,
-            valueGetter: (params) => params.row.cliente.descripcion
-        },
-    ];
+   
 
     const getRegisters = async () => {
         await Api.getQuery(endpoints.create)

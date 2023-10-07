@@ -43,6 +43,7 @@ export default function SelectInput(props) {
           labelId={props.input.name}
           value={value}
           onChange={(event) => handleValueChange(event.target.value)}
+          required
         >
           <MenuItem key={0} value={0}>{"--Sin seleccionar--"}</MenuItem>
           {options.map((option, key) => {

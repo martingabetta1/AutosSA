@@ -24,12 +24,12 @@ export default function CrudTemplate(props) {
         renderCell: (params) => (
             <div className='crud_accions_box'>
                 <div>
-                    <Button variant="contained" className='crud_button_edit' onClick={() => { handleOpenDialog("edit",true,params.row) }}>
+                    <Button variant="contained" className='crud_button_edit' onClick={() => { handleOpenDialog("edit", true, params.row) }}>
                         <img className='crud_button_image' button-type="edit" alt="Edit icon" src="/images/crud/icon-edit.png" />
                     </Button>
                 </div>
                 <div>
-                    <Button variant="contained" className='crud_button_delete' onClick={() => { handleOpenDialog("delete",true,params.row) }}>
+                    <Button variant="contained" className='crud_button_delete' onClick={() => { handleOpenDialog("delete", true, params.row) }}>
                         <img className='crud_button_image' button-type="delete" alt="Delete icon" src="/images/crud/icon-delete.png" />
                     </Button>
                 </div>
@@ -37,6 +37,10 @@ export default function CrudTemplate(props) {
         )
     };
     const [tableColumns, setTableColumns] = useState([...props.columns, actionsColumn])
+
+    useEffect(() => {
+        setTableColumns([...props.columns, actionsColumn])
+    }, [props.columns])
 
     return (
         <div className='crud-template-container'>
@@ -64,4 +68,5 @@ export default function CrudTemplate(props) {
             </div>
         </div>
     )
+
 }

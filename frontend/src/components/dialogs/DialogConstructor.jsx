@@ -11,12 +11,14 @@ export default function DialogConstructor() {
     const { CrudContext } = useCrudData(),
         [dialogInputs] = CrudContext.inputs,
         [bodyData] = CrudContext.query.bodyData.data,
-        handleInputValueChange = CrudContext.query.bodyData.handleInputValueChange
+        handleInputValueChange = CrudContext.query.bodyData.handleInputValueChange,
+        [inputStates] = CrudContext.validations.inputStates
 
     return (
         <>
             {dialogInputs.map((input, key) => {
-                let value = bodyData[input.name]
+                let value = bodyData[input.name],
+                    state = inputStates[input.name]
                 switch (input.type) {
                     case 'text':
                     case 'number':
@@ -26,8 +28,8 @@ export default function DialogConstructor() {
                             input={input}
                             handleInputValueChange={handleInputValueChange}
                             value={value}
-                            isNumber={input.type === 'number'}
-                            isMultiline={input.type === 'multiline'}
+                            type={input.type}
+                            state={state}
                         />
                     case 'select':
                         return <SelectInput
@@ -35,6 +37,7 @@ export default function DialogConstructor() {
                             input={input}
                             handleInputValueChange={handleInputValueChange}
                             value={value?.id}
+                            state={state}
                         />
                     case 'date':
                         return <DateInput
@@ -42,6 +45,7 @@ export default function DialogConstructor() {
                             input={input}
                             handleInputValueChange={handleInputValueChange}
                             value={value}
+                            state={state}
                         />
                     default:
                         return void (0)

@@ -11,26 +11,24 @@ export default function TextInput(props) {
         setValue(props.value)
     }, [props.value])
 
-    //Acá
     const handleValueChange = (newValue)=>{
-        props.isNumber ? newValue = parseInt(newValue) : void (0)
+        props.type === "number" ? newValue = parseInt(newValue) : void (0)
         setValue(newValue)
         props.handleInputValueChange(props.input.name, newValue)
     }
 
-    console.log(bodyData);
     return (
         <>
             <TextField
                 label={props.input.label}
                 variant="outlined"
-
-                //multilinea
-                multiline={props.isMultiline}
-                rows={4}
-                
+                multiline={props.type === "multiline"}
+                rows={4}   
                 value={value || ""}
                 onChange={(event) => handleValueChange(event.target.value)}
+                error = {props.state?.state}
+                helperText={props.state?.message}
+                required
             />
         </>
     )  

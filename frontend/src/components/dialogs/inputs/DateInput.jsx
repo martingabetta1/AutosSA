@@ -8,8 +8,6 @@ export default function DateInput(props) {
 
     const [value,setValue] = useState(dayjs(props.value) || dayjs())
 
-    console.log(props.value);
-
     const handleChangeValue = (newValue)=>{
         setValue(newValue)
         props.handleInputValueChange(props.input.name,newValue)
@@ -20,7 +18,7 @@ export default function DateInput(props) {
             <DatePicker
                 label={props.input.label}
                 value={value}
-                oncChange={(event) => handleChangeValue(event.target.value)}
+                onChange={(event) => handleChangeValue(event.target.value)}
             />
         </LocalizationProvider>
     );

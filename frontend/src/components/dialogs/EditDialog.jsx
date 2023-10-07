@@ -16,7 +16,8 @@ export default function EditDialog() {
         [openEditDialog] = CrudContext.dialogs.edit,
         [dialogData] = CrudContext.dialogs.data,
         [bodyData] = CrudContext.query.bodyData.data,
-        [endpoints] = CrudContext.query.endpoints
+        [endpoints] = CrudContext.query.endpoints,
+        [buttonState] = CrudContext.validations.buttonState
 
     const handleClose = () => {
         handleOpenDialog("edit", false);
@@ -62,7 +63,7 @@ export default function EditDialog() {
                     </DialogsUtils.Styles.InputStyles>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant='contained' onClick={handleEdit}>
+                    <Button variant='contained' onClick={handleEdit} disabled={buttonState}>
                         Editar
                     </Button>
                     <Button onClick={handleClose}>

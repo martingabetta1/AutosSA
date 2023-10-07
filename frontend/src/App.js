@@ -6,6 +6,7 @@ import Modelo from './pages/Modelo';
 import Tecnico from './pages/Tecnico';
 import Vehiculo from './pages/Vehiculo';
 import Cliente from './pages/Cliente';
+import Visita from './pages/Visita';
 import Orden from './pages/ordenes/Orden';
 import Home from './pages/Home';
 import Drawer from './components/Drawer';
@@ -24,6 +25,7 @@ function App() {
             <Route path={"/tecnico"} element={<Tecnico />} />
             <Route path={"/vehiculo"} element={<Vehiculo />} />
             <Route path={"/cliente"} element={<Cliente />} />
+            <Route path={"/visita"} element={<Visita />} />
             <Route path={"/orden"} element={<Orden />} />
           </Routes>
         </Router>

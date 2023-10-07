@@ -7,6 +7,7 @@ export default function CrudContextProvider({ children }) {
     // Estados
     const [bodyData, setBodyData] = useState({}),
         [rows, setRows] = useState([]),
+        [columns, setColums] = useState([]),
         [openCreateDialog, setOpenCreateDialog] = useState(false),
         [openEditDialog, setOpenEditDialog] = useState(false),
         [openDeleteDialog, setOpenDeleteDialog] = useState(false),
@@ -15,12 +16,29 @@ export default function CrudContextProvider({ children }) {
         [endpoints, setEndpoints] = useState({}),
         [inputValues, setInputValues] = useState({}),
         [inputStates, setInputStates] = useState({}),
-        [inputFocus, setInputFocus] = useState()
+        [inputFocus, setInputFocus] = useState(),
+        [buttonState, setButtonState] = useState(false)
 
 
-    useEffect(()=>{
-        setInputValues({...bodyData})
-    },[bodyData])
+    useEffect(() => {
+        setInputValues((prevValues)=>{
+            let newValues = {...prevValues,...bodyData}
+            return newValues
+        })
+    }, [bodyData])
+
+    useEffect(() => {
+        handleSetInputValues()
+    }, [dialogInputs])
+
+    const handleSetInputValues = () => {
+        let initialValues = {}
+
+        for(let index in dialogInputs){
+            initialValues[dialogInputs[index].name] = ""
+        }
+        setInputValues(initialValues)
+    };
 
     // Funciones
     const handleInputValueChange = (inputName, newValue) => {
@@ -29,22 +47,35 @@ export default function CrudContextProvider({ children }) {
             updatedBodyData[inputName] = newValue;
             return updatedBodyData;
         });
-        setInputValues((prevData) => {
-            const updatedInputValues = { ...prevData };
-            updatedInputValues[inputName] = newValue;
-            return updatedInputValues;
-        });
         setInputFocus(inputName)
     };
+
+    const handleSetInputStates = (params) => {
+        let newInputStates = {}
+        for (let index in params) {
+            newInputStates[index] = { state: false, message: "" }
+        }
+        setInputStates(newInputStates)
+    }
+
+    const handleChangeInputStates = (inputFocus,state)=>{
+        setInputStates((prevStates) => {
+            let newState = { ...prevStates }
+            newState[inputFocus] = state
+            return newState
+          })
+    }
 
     const handleOpenDialog = (type, state, params) => {
         switch (type) {
             case "create":
-                state ? void(0) : setBodyData({})
+                state ? void (0) : setBodyData({})
+                handleSetInputStates()
                 setOpenCreateDialog(state)
                 break
             case "edit":
                 state ? setBodyData(params) : setBodyData({})
+                handleSetInputStates(params)
                 setOpenEditDialog(state)
                 break
             case "delete":
@@ -61,6 +92,7 @@ export default function CrudContextProvider({ children }) {
         // Estructura de la tabla del CRUD
         crudStructure: {
             rows: [rows, setRows],
+            columns: [columns, setColums]
         },
         // Utils de los dialogs
         dialogs: {
@@ -72,10 +104,12 @@ export default function CrudContextProvider({ children }) {
         },
         // Inputs de los dialogs
         inputs: [dialogInputs, setDialogInputs],
-        validations:{
-            inputValues:[inputValues, setInputValues],
-            inputStates:[inputStates, setInputStates],
-            inputFocus:[inputFocus, setInputFocus]
+        validations: {
+            inputValues: [inputValues, setInputValues],
+            inputStates: [inputStates, setInputStates],
+            inputFocus: [inputFocus, setInputFocus],
+            buttonState: [buttonState, setButtonState],
+            handleChangeInputStates
         },
         // Datos para realizar las querys
         query: {
@@ -86,7 +120,7 @@ export default function CrudContextProvider({ children }) {
             endpoints: [endpoints, setEndpoints],
         },
     }
-    
+
 
     return (
         <CrudContexto.Provider value={CrudData}>
