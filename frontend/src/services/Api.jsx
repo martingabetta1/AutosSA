@@ -1,5 +1,6 @@
-const axios = require('axios'),
-    domain = process.env.BASE_URL
+import axios from 'axios'
+
+const domain = process.env.BASE_URL
 
 async function getQuery(endpoint,params = null) {
     try {

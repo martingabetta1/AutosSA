@@ -9,7 +9,7 @@ import Cliente from './pages/Cliente';
 import Orden from './pages/Orden';
 import Home from './pages/Home';
 import Drawer from './components/Drawer';
-import CrudContextProvider from './contexts/CrudContext'
+import CrudContextProvider from './contexts/CrudContext/CrudContext'
 
 function App() {
   return (

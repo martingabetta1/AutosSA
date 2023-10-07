@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import { useCrudData } from '../contexts/CrudContext';
+import { useCrudData } from '../contexts/CrudContext/CrudContext';
 import Button from '@mui/material/Button';
 import EditDialog from './dialogs/EditDialog';
 import DeleteDialog from './dialogs/DeleteDialog'

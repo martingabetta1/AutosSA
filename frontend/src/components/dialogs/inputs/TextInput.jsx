@@ -11,7 +11,7 @@ export default function TextInput(props) {
 
     const handleValueChange = (newValue)=>{
         setValue(newValue)
-        props.handleChangeBodyData(props.input.name, newValue)
+        props.handleInputValueChange(props.input.name, newValue)
     }
     
 

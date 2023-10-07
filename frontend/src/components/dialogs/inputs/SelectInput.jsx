@@ -4,10 +4,25 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Api from '../../../services/Api'
 
 export default function SelectInput(props) {
 
-  const [value, setValue] = useState()
+  const [value, setValue] = useState(),
+    [options, setOptions] = useState([])
+
+  const getOptions = () => {
+    Api.getQuery(props.input.endpoint)
+      .then((res) => {
+        setOptions(res)
+      }).catch((error) => {
+        throw new Error(error.message)
+      })
+  }
+
+  useEffect(() => {
+    // getOptions()
+  }, [])
 
   useEffect(() => {
     setValue(props.value)
@@ -15,23 +30,22 @@ export default function SelectInput(props) {
 
   const handleValueChange = (newValue) => {
     setValue(newValue)
-    props.handleChangeBodyData(props.input.name, newValue)
+    props.handleChangehandleInputValueChangeBodyData(props.input.name, newValue)
   }
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id={props.input.name}>Age</InputLabel>
+        <InputLabel id={props.input.name}>{props.input.label}</InputLabel>
         <Select
           labelId={props.input.name}
           defaultValue={props.value}
           value={value}
-          label="Age"
           onChange={(event) => handleValueChange(event.target.value)}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {options.map((value, key) => {
+            return <MenuItem key={key} value={value}>{value}</MenuItem>
+          })}
         </Select>
       </FormControl>
     </Box>
