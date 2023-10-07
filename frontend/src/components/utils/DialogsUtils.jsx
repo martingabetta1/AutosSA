@@ -9,7 +9,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
-    position: 'relative'
+    position: 'relative',
+    'overflow-y':'scroll',
   },
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
@@ -20,6 +21,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const InputStyles = styled('div')({
+  '& .MuiBox-root':{
+    margin: '0px 0px 10px 0px'
+  },
   '& .MuiTextField-root': {
     display: 'block',
     margin: '0px 0px 10px 0px'

@@ -19,11 +19,15 @@ export default function DialogConstructor() {
                 let value = bodyData[input.name]
                 switch (input.type) {
                     case 'text':
+                    case 'number':
+                    case 'multiline':
                         return <TextInput
                             key={key}
                             input={input}
                             handleInputValueChange={handleInputValueChange}
                             value={value}
+                            isNumber={input.type === 'number'}
+                            isMultiline={input.type === 'multiline'}
                         />
                     case 'select':
                         return <SelectInput
