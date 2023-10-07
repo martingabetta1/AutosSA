@@ -6,7 +6,7 @@ import Modelo from './pages/Modelo';
 import Tecnico from './pages/Tecnico';
 import Vehiculo from './pages/Vehiculo';
 import Cliente from './pages/Cliente';
-import Orden from './pages/Orden';
+import Orden from './pages/ordenes/Orden';
 import Home from './pages/Home';
 import Drawer from './components/Drawer';
 import CrudContextProvider from './contexts/CrudContext/CrudContext'

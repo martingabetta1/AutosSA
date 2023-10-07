@@ -60,7 +60,7 @@ export default function CrudContextProvider({ children }) {
     const CrudData = {
         // Estructura de la tabla del CRUD
         crudStructure: {
-            rows: [rows, setRows]
+            rows: [rows, setRows],
         },
         // Utils de los dialogs
         dialogs: {
