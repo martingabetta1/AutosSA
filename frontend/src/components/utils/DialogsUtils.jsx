@@ -21,6 +21,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const InputStyles = styled('div')({
+  '& .MuiButtonBase-root':{
+    margin: '0px 0px 10px 0px'
+  },
   '& .MuiBox-root':{
     margin: '0px 0px 10px 0px'
   },

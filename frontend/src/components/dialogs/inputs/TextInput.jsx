@@ -11,14 +11,13 @@ export default function TextInput(props) {
         setValue(props.value)
     }, [props.value])
 
-    //Acá
+    
     const handleValueChange = (newValue)=>{
         props.isNumber ? newValue = parseInt(newValue) : void (0)
         setValue(newValue)
         props.handleInputValueChange(props.input.name, newValue)
     }
 
-    console.log(bodyData);
     return (
         <>
             <TextField

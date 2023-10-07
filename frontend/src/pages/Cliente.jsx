@@ -77,6 +77,20 @@ export default function Cliente() {
                     length: 10
                 }
             },
+            {
+                name: 'frenteLicencia',
+                label: 'Frente de licencia',
+                type: 'file',
+                validations: {
+                }
+            },
+            {
+                name: 'dorsoLicencia',
+                label: 'Dorso de licencia',
+                type: 'file',
+                validations: {
+                }
+            },
         ])
         setRows(rowsTemplate)
         // getRegisters()
@@ -89,6 +103,8 @@ export default function Cliente() {
         { field: 'telefono', headerName: 'Telefono', flex: 1 },
         { field: 'direccion', headerName: 'Direccion', flex: 1 },
         { field: 'email', headerName: 'Email', flex: 1 },
+        { field: 'frenteLicencia', headerName: 'Frente Licencia', flex: 1 },
+        { field: 'dorsoLicencia', headerName: 'Dorso Licencia', flex: 1 },
     ];
 
     const getRegisters = async () => {

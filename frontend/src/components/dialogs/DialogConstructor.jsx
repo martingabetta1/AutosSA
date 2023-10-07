@@ -5,6 +5,7 @@ import SelectInput from './inputs/SelectInput';
 import DateInput from './inputs/DateInput';
 import { useCrudData } from '../../contexts/CrudContext/CrudContext';
 import Validator from '../Validator.jsx'
+import FileInput from './inputs/FileInput';
 
 export default function DialogConstructor() {
 
@@ -38,6 +39,13 @@ export default function DialogConstructor() {
                         />
                     case 'date':
                         return <DateInput
+                            key={key}
+                            input={input}
+                            handleInputValueChange={handleInputValueChange}
+                            value={value}
+                        />
+                    case 'file':
+                        return <FileInput
                             key={key}
                             input={input}
                             handleInputValueChange={handleInputValueChange}
