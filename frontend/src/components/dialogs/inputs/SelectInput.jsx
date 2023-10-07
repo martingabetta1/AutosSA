@@ -5,10 +5,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Api from '../../../services/Api'
+import { useCrudData } from '../../../contexts/CrudContext/CrudContext';
 
 export default function SelectInput(props) {
 
-  const [value, setValue] = useState(),
+  const [value, setValue] = useState(props.value || 0),
     [options, setOptions] = useState([])
 
   const getOptions = () => {
@@ -25,12 +26,13 @@ export default function SelectInput(props) {
   }, [])
 
   useEffect(() => {
-    setValue(props.value)
-  }, [props.value])
+    setValue(props.value || 0)
+  }, [])
 
   const handleValueChange = (newValue) => {
+    const selectedOption = options.find((option) => option.id === newValue);
     setValue(newValue)
-    props.handleChangehandleInputValueChangeBodyData(props.input.name, newValue)
+    props.handleInputValueChange(props.input.name, selectedOption)
   }
 
   return (
@@ -39,12 +41,12 @@ export default function SelectInput(props) {
         <InputLabel id={props.input.name}>{props.input.label}</InputLabel>
         <Select
           labelId={props.input.name}
-          defaultValue={props.value}
           value={value}
           onChange={(event) => handleValueChange(event.target.value)}
         >
-          {options.map((value, key) => {
-            return <MenuItem key={key} value={value}>{value}</MenuItem>
+          <MenuItem key={0} value={0}>{"--Sin seleccionar--"}</MenuItem>
+          {options.map((option, key) => {
+            return <MenuItem key={key + 1} value={option?.id}>{option?.descripcion}</MenuItem>
           })}
         </Select>
       </FormControl>

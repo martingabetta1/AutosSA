@@ -35,7 +35,7 @@ export default function AutocompleteInput(props) {
             <Autocomplete
                 disablePortal
                 options={options}
-                defaultValue={value}
+                defaultValue={value.id}
                 value={value}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label={props.input.label} />}

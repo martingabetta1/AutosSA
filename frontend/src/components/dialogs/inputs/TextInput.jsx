@@ -3,17 +3,16 @@ import TextField from '@mui/material/TextField';
 
 export default function TextInput(props) {
 
-    const[value,setValue] = useState()
+    const [value, setValue] = useState()
 
-    useEffect(()=>{
+    useEffect(() => {
         setValue(props.value)
-    },[props.value])
+    }, [props.value])
 
-    const handleValueChange = (newValue)=>{
+    const handleValueChange = (newValue) => {
         setValue(newValue)
         props.handleInputValueChange(props.input.name, newValue)
     }
-    
 
     return (
         <>

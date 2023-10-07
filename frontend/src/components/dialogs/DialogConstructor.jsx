@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import TextInput from './inputs/TextInput';
 import AutocompleteInput from './inputs/AutocompleteInput';
 import SelectInput from './inputs/SelectInput';
+import DateInput from './inputs/DateInput';
 import { useCrudData } from '../../contexts/CrudContext/CrudContext';
 import Validator from '../Validator.jsx'
 
@@ -24,19 +25,19 @@ export default function DialogConstructor() {
                             handleInputValueChange={handleInputValueChange}
                             value={value}
                         />
-                    case 'autocomplete':
-                        return <AutocompleteInput
-                            key={key}
-                            input={input}
-                            handleInputValueChange={handleInputValueChange}
-                            value={value?.id}
-                        />
                     case 'select':
                         return <SelectInput
                             key={key}
                             input={input}
                             handleInputValueChange={handleInputValueChange}
                             value={value?.id}
+                        />
+                    case 'date':
+                        return <DateInput
+                            key={key}
+                            input={input}
+                            handleInputValueChange={handleInputValueChange}
+                            value={value}
                         />
                     default:
                         return void (0)
