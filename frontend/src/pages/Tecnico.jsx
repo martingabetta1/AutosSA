@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import CrudTemplate from '../components/CrudTemplate'
 import CreateDialog from '../components/dialogs/CreateDialog'
-import { useCrudData } from '../contexts/CrudContext';
+import { useCrudData } from '../contexts/CrudContext/CrudContext';
 import Api from '../services/Api'
 
 export default function Tecnico() {
@@ -29,6 +29,7 @@ export default function Tecnico() {
 
   useEffect(() => {
     setEndpoints({
+      fetch:'/tecnico',
       create: '/tecnico',
       edit: '/tecnico',
       delete: '/tecnico'
@@ -59,7 +60,7 @@ export default function Tecnico() {
   ];
 
   const getRegisters = async () => {
-    await Api.getQuery(endpoints.create)
+    await Api.getQuery(endpoints.fetch)
       .then((res) => {
         setRows(res)
       }).catch((error) => {

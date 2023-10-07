@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DialogsUtils from '../utils/DialogsUtils';
-import { useCrudData } from '../../contexts/CrudContext';
+import { useCrudData } from '../../contexts/CrudContext/CrudContext';
 import Api from '../../services/Api'
 
 export default function DeleteDialog() {
@@ -33,13 +33,14 @@ export default function DeleteDialog() {
 
     return (
         <div>
-            <DialogsUtils.BootstrapDialog
+            <DialogsUtils.Styles.BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="delete-dialog"
                 open={openDeleteDialog}
-                TransitionComponent={DialogsUtils.Transition}
+                TransitionComponent={DialogsUtils.Functions.Transition}
                 keepMounted
             >
+                <DialogsUtils.Components.DialogLoader show={openDeleteDialog} />
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
                     Eliminar {dialogData.title}
                 </DialogTitle>
@@ -56,12 +57,12 @@ export default function DeleteDialog() {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <div className="deleteDialog-label" style={{margin:'0 0 20px 0'}}>
+                    <div className="deleteDialog-label" style={{ margin: '0 0 20px 0' }}>
                         ¿Está seguro/a que desea eliminar el siguiente registro?
                     </div>
                     <li key={0}><b>ID:</b> {bodyData.id}</li>
                     {dialogInputs.map((input, key) => {
-                        return <li key={key+1}><b>{input.label}:</b> {bodyData[input.name]}</li>
+                        return <li key={key + 1}><b>{input.label}:</b> {bodyData[input.name]}</li>
                     })}
                 </DialogContent>
                 <DialogActions>
@@ -72,7 +73,7 @@ export default function DeleteDialog() {
                         Cancelar
                     </Button>
                 </DialogActions>
-            </DialogsUtils.BootstrapDialog>
+            </DialogsUtils.Styles.BootstrapDialog>
         </div>
     );
 }

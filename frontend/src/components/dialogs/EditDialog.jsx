@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DialogsUtils from '../utils/DialogsUtils';
-import { useCrudData } from '../../contexts/CrudContext';
+import { useCrudData } from '../../contexts/CrudContext/CrudContext';
 import DialogConstructor from './DialogConstructor';
 import Api from '../../services/Api'
 
@@ -19,11 +19,11 @@ export default function EditDialog() {
         [endpoints] = CrudContext.query.endpoints
 
     const handleClose = () => {
-        handleOpenDialog("edit",false);
+        handleOpenDialog("edit", false);
     };
 
     const handleEdit = async () => {
-        await Api.putQuery(endpoints.edit,bodyData)
+        await Api.putQuery(endpoints.edit, bodyData)
             .then((res) => {
                 console.log(res)
             }).catch((error) => {
@@ -33,13 +33,14 @@ export default function EditDialog() {
 
     return (
         <div>
-            <DialogsUtils.BootstrapDialog
+            <DialogsUtils.Styles.BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="edit-dialog"
                 open={openEditDialog}
-                TransitionComponent={DialogsUtils.Transition}
+                TransitionComponent={DialogsUtils.Functions.Transition}
                 keepMounted
             >
+                <DialogsUtils.Components.DialogLoader show={openEditDialog} />
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
                     Editar {dialogData.title}
                 </DialogTitle>
@@ -56,9 +57,9 @@ export default function EditDialog() {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <DialogsUtils.InputStyles>
+                    <DialogsUtils.Styles.InputStyles>
                         <DialogConstructor />
-                    </DialogsUtils.InputStyles>
+                    </DialogsUtils.Styles.InputStyles>
                 </DialogContent>
                 <DialogActions>
                     <Button variant='contained' onClick={handleEdit}>
@@ -68,7 +69,7 @@ export default function EditDialog() {
                         Cancelar
                     </Button>
                 </DialogActions>
-            </DialogsUtils.BootstrapDialog>
+            </DialogsUtils.Styles.BootstrapDialog>
         </div>
     );
 }

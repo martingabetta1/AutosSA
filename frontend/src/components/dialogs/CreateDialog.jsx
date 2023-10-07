@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DialogsUtils from '../utils/DialogsUtils';
-import { useCrudData } from '../../contexts/CrudContext';
+import { useCrudData } from '../../contexts/CrudContext/CrudContext';
 import DialogConstructor from './DialogConstructor';
 import Api from '../../services/Api'
 
@@ -38,11 +38,11 @@ export default function CreateDialog() {
                     <Button variant='contained' onClick={() => handleOpenDialog("create",true)}>Agregar {dialogData.title}</Button>
                 </div>
             </div>
-            <DialogsUtils.BootstrapDialog
+            <DialogsUtils.Styles.BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="create-dialog"
                 open={openCreateDialog}
-                TransitionComponent={DialogsUtils.Transition}
+                TransitionComponent={DialogsUtils.Functions.Transition}
                 keepMounted
             >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
@@ -61,9 +61,9 @@ export default function CreateDialog() {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <DialogsUtils.InputStyles>
+                    <DialogsUtils.Styles.InputStyles>
                         <DialogConstructor />
-                    </DialogsUtils.InputStyles>
+                    </DialogsUtils.Styles.InputStyles>
                 </DialogContent>
                 <DialogActions>
                     <Button variant='contained' onClick={handleCreate}>
@@ -73,7 +73,7 @@ export default function CreateDialog() {
                         Cancelar
                     </Button>
                 </DialogActions>
-            </DialogsUtils.BootstrapDialog>
+            </DialogsUtils.Styles.BootstrapDialog>
         </>
     );
 }

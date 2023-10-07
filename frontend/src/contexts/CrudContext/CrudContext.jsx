@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const CrudContexto = createContext();
 
@@ -12,18 +12,32 @@ export default function CrudContextProvider({ children }) {
         [openDeleteDialog, setOpenDeleteDialog] = useState(false),
         [dialogData, setDialogData] = useState({}),
         [dialogInputs, setDialogInputs] = useState([]),
-        [endpoints, setEndpoints] = useState({})
+        [endpoints, setEndpoints] = useState({}),
+        [inputValues, setInputValues] = useState({}),
+        [inputStates, setInputStates] = useState({}),
+        [inputFocus, setInputFocus] = useState()
+
+
+    useEffect(()=>{
+        setInputValues({...bodyData})
+    },[bodyData])
 
     // Funciones
-    const handleChangeBodyData = (index, newValue) => {
+    const handleInputValueChange = (inputName, newValue) => {
         setBodyData((prevData) => {
             const updatedBodyData = { ...prevData };
-            updatedBodyData[index] = newValue;
+            updatedBodyData[inputName] = newValue;
             return updatedBodyData;
         });
+        setInputValues((prevData) => {
+            const updatedInputValues = { ...prevData };
+            updatedInputValues[inputName] = newValue;
+            return updatedInputValues;
+        });
+        setInputFocus(inputName)
     };
 
-    function handleOpenDialog(type, state, params) {
+    const handleOpenDialog = (type, state, params) => {
         switch (type) {
             case "create":
                 state ? void(0) : setBodyData({})
@@ -58,15 +72,21 @@ export default function CrudContextProvider({ children }) {
         },
         // Inputs de los dialogs
         inputs: [dialogInputs, setDialogInputs],
+        validations:{
+            inputValues:[inputValues, setInputValues],
+            inputStates:[inputStates, setInputStates],
+            inputFocus:[inputFocus, setInputFocus]
+        },
         // Datos para realizar las querys
         query: {
             bodyData: {
                 data: [bodyData, setBodyData],
-                handleChangeBodyData
+                handleInputValueChange
             },
             endpoints: [endpoints, setEndpoints],
         },
     }
+    
 
     return (
         <CrudContexto.Provider value={CrudData}>
@@ -74,6 +94,7 @@ export default function CrudContextProvider({ children }) {
         </CrudContexto.Provider>
     );
 }
+
 
 export const useCrudData = () => {
     const CrudContext = useContext(CrudContexto);
