@@ -15,19 +15,19 @@ export default function Modelo() {
     [rows, setRows] = CrudContext.crudStructure.rows
 
   let rowsTemplate = [
-    { id: 1, marca: 2, nombre: '206' },
-    { id: 2, marca: 5, nombre: 'prisma' },
-    { id: 3, marca: 7, nombre: 'onix' },
-    { id: 4, marca: 3, nombre: 'golf' },
-    { id: 5, marca: 9, nombre: 'gol' },
-    { id: 6, marca: 4, nombre: 'sedan' },
-    { id: 7, marca: 1, nombre: 'tt' },
-    { id: 8, marca: 6, nombre: 'veneno' },
-    { id: 9, marca: 10, nombre: 'f100' }
+    { id: 1, marca: { id: 101, descripcion: 'Marca1' }, nombre: '206' },
+    { id: 2, marca: { id: 102, descripcion: 'Marca2' }, nombre: 'prisma' },
+    { id: 3, marca: { id: 103, descripcion: 'Marca3' }, nombre: 'onix' },
+    { id: 4, marca: { id: 104, descripcion: 'Marca4' }, nombre: 'golf' },
+    { id: 5, marca: { id: 105, descripcion: 'Marca5' }, nombre: 'gol' },
+    { id: 6, marca: { id: 106, descripcion: 'Marca6' }, nombre: 'sedan' },
+    { id: 7, marca: { id: 107, descripcion: 'Marca7' }, nombre: 'tt' },
+    { id: 8, marca: { id: 108, descripcion: 'Marca8' }, nombre: 'veneno' },
+    { id: 9, marca: { id: 109, descripcion: 'Marca9' }, nombre: 'f100' }
   ];
   useEffect(() => {
     setEndpoints({
-      fetch:'/modelo',
+      fetch: '/modelo',
       create: '/modelo',
       edit: '/modelo',
       delete: '/modelo'
@@ -47,6 +47,12 @@ export default function Modelo() {
         type: 'select',
         endpoint: '/marca'
       },
+      {
+        name: 'date',
+        label: 'Date',
+        type: 'date',
+        endpoint: '/marca'
+      },
     ])
     setRows(rowsTemplate)
     // getRegisters()
@@ -55,7 +61,12 @@ export default function Modelo() {
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'nombre', headerName: 'Nombre', flex: 1 },
-    { field: 'marca', headerName: 'Marca', flex: 1 },
+    {
+      field: 'marca.descripcion',
+      headerName: 'Marca',
+      flex: 1,
+      valueGetter: (params) => params.row.marca.descripcion
+    },
   ];
 
   const getRegisters = async () => {

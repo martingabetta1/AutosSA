@@ -3,6 +3,7 @@ import CrudTemplate from '../../components/CrudTemplate'
 import CreateDialog from '../../components/dialogs/CreateDialog'
 import { useCrudData } from '../../contexts/CrudContext/CrudContext';
 import Api from '../../services/Api'
+import dayjs from 'dayjs';
 
 export default function Marca() {
 
@@ -16,26 +17,26 @@ export default function Marca() {
 
     let rowsTemplate = [
         {
-            id:1,
+            id: 1,
             nroOrden: 1,
-            fechaInicio: new Date('2023-01-10'),
-            fechaFin: new Date('2023-01-15'),
-            vehiculo: 1,
-            tecnico: 1,
-            estado: 1,
+            fechaInicio: dayjs('2023-01-10'),
+            fechaFin: dayjs('2023-01-15'),
+            vehiculo: {id:1,descripcion:"Onix"},
+            tecnico: {id:1,descripcion:"Pedro"},
+            estado: {id:1,descripcion:"En espera"},
             comentario: 'El vehículo necesita un cambio de aceite urgente.',
-            cliente: 1
+            cliente: {id:1,descripcion:"Menganito"}
         },
         {
-            id:2,
+            id: 2,
             nroOrden: 2,
-            fechaInicio: new Date('2023-02-05'),
-            fechaFin: new Date('2023-02-10'),
-            vehiculo: 2,
-            tecnico: 2,
-            estado: 2,
+            fechaInicio: dayjs('2023-02-05'),
+            fechaFin: dayjs('2023-02-10'),
+            vehiculo: {id:2,descripcion:"Ford"},
+            tecnico: {id:2,descripcion:"Juan"},
+            estado: {id:2,descripcion:"En curso"},
             comentario: 'El vehículo está en buenas condiciones.',
-            cliente: 2
+            cliente: {id:2,descripcion:"Fulanito"}
         },
 
     ];
@@ -62,28 +63,28 @@ export default function Marca() {
             {
                 name: 'vehiculo',
                 label: 'Vehiculo',
-                type: 'autocomplete'
+                type: 'select'
             },
             {
                 name: 'tecnico',
                 label: 'Tecnico',
-                type: 'autocomplete'
+                type: 'select'
             },
             {
                 name: 'estado',
                 label: 'Estado',
-                type: 'autocomplete'
+                type: 'select'
             },
             {
                 name: 'comentario',
                 label: 'Comentario',
                 type: 'text',
-                multiline:true
+                multiline: true
             },
             {
                 name: 'cliente',
                 label: 'Cliente',
-                type: 'autocomplete'
+                type: 'select'
             },
         ])
         setRows(rowsTemplate)
@@ -94,11 +95,31 @@ export default function Marca() {
         { field: 'id', headerName: 'ID', flex: 1 },
         { field: 'fechaInicio', headerName: 'Fecha inicio', flex: 1 },
         { field: 'fechaFin', headerName: 'Fecha fin', flex: 1 },
-        { field: 'vehiculo', headerName: 'Vehiculo', flex: 1 },
-        { field: 'tecnico', headerName: 'Tecnico', flex: 1 },
-        { field: 'estado', headerName: 'Estado', flex: 1 },
+        {
+            field: 'vehiculo.descripcion',
+            headerName: 'Vehiculo',
+            flex: 1,
+            valueGetter: (params) => params.row.vehiculo.descripcion
+        },
+        {
+            field: 'tecnico.descripcion',
+            headerName: 'Tecnico',
+            flex: 1,
+            valueGetter: (params) => params.row.tecnico.descripcion
+        },
+        {
+            field: 'estado.descripcion',
+            headerName: 'Estado',
+            flex: 1,
+            valueGetter: (params) => params.row.estado.descripcion
+        },
         { field: 'comentario', headerName: 'Comentario', flex: 1 },
-        { field: 'cliente', headerName: 'Cliente', flex: 1 },
+        {
+            field: 'cliente.descripcion',
+            headerName: 'Cliente',
+            flex: 1,
+            valueGetter: (params) => params.row.cliente.descripcion
+        },
     ];
 
     const getRegisters = async () => {
