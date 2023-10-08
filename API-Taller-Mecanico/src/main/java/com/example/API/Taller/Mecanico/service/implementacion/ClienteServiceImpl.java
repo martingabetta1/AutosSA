@@ -23,19 +23,37 @@ public class ClienteServiceImpl implements IClienteService {
         return repoCliente.findByEliminadoFalse();
     }
 
+    @Override
+    public Cliente listarClientePorId(Integer idCliente) {
+        return repoCliente.findById(idCliente).orElse(null);
+    }
+
 
     @Override
-    public Cliente registrar(Cliente cliente, MultipartFile licenciaFrente, MultipartFile licenciaDorso) throws IOException {
-
-
-        cliente.setLicenciaFrente(licenciaFrente.getBytes());
-        cliente.setLicenciaDorso(licenciaDorso.getBytes());
+    public Cliente registrar(Cliente cliente)  {
 
         return repoCliente.save(cliente);
     }
 
-    public void actualizar(Integer clienteId, String nombre, String apellido, String direccion, String telefono, String email) {
-        repoCliente.actualizar(clienteId, nombre, apellido, direccion, telefono, email);
+    @Override
+    public Cliente registrarLicencias(Integer idCliente, MultipartFile licenciaFrente, MultipartFile licenciaDorso) throws IOException {
+
+        Cliente cliente = repoCliente.findById(idCliente).orElse(null);
+
+        if (licenciaFrente != null && !licenciaFrente.isEmpty() && cliente != null) {
+            cliente.setLicenciaFrente(licenciaFrente.getBytes());
+        }
+
+        if (licenciaDorso != null && !licenciaDorso.isEmpty() && cliente != null) {
+            cliente.setLicenciaDorso(licenciaDorso.getBytes());
+        }
+
+        assert cliente != null;
+        return repoCliente.save(cliente);
+    }
+
+    public void actualizar(Integer clienteId, String nombre, String apellido, String direccion, String telefono, String mail, String localidad) {
+        repoCliente.actualizar(clienteId, nombre, apellido, direccion, telefono, mail, localidad);
     }
 
     public void eliminar(Integer clienteId) {

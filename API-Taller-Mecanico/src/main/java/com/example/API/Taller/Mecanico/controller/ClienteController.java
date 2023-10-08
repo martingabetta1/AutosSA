@@ -21,17 +21,28 @@ public class ClienteController {
     IClienteService serviceCliente;
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> listarMarcas() {
+    public ResponseEntity<List<Cliente>> listarClientes() {
         List<Cliente> clientes = serviceCliente.listarClientes();
 
         return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<Cliente> registrar(@RequestBody Cliente reqCliente, @RequestParam("file") MultipartFile licenciaFrente, @RequestParam("file") MultipartFile licenciaDorso) throws IOException {
+    public ResponseEntity<Cliente> registrar(@RequestBody Cliente cliente) {
 
+        Cliente resCliente = serviceCliente.registrar(cliente);
 
-        Cliente resCliente = serviceCliente.registrar(reqCliente, licenciaFrente, licenciaDorso);
+        return new ResponseEntity<Cliente>(resCliente, HttpStatus.CREATED);
+    }
+
+    //Endpoint para registrar las licencias del cliente
+    @PostMapping("/licencias/{id}")
+        public ResponseEntity<Cliente> registrarLicencia(@PathVariable Integer id, @RequestParam("frente") MultipartFile licenciaFrente, @RequestParam("dorso") MultipartFile licenciaDorso) throws IOException {
+
+        System.out.println("La licencia frente es: " + licenciaFrente);
+        System.out.println("La licencia dorso es: " + licenciaDorso);
+
+        Cliente resCliente = serviceCliente.registrarLicencias(id, licenciaFrente, licenciaDorso);
 
         return new ResponseEntity<Cliente>(resCliente, HttpStatus.CREATED);
     }
@@ -39,7 +50,7 @@ public class ClienteController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Cliente cliente) {
 
-        serviceCliente.actualizar(id, cliente.getNombre(), cliente.getApellido(), cliente.getDireccion(), cliente.getTelefono(), cliente.getEmail());
+        serviceCliente.actualizar(id, cliente.getNombre(), cliente.getApellido(), cliente.getDireccion(), cliente.getTelefono(), cliente.getMail(), cliente.getLocalidad());
 
         return ResponseEntity.ok("El cliente se actualizo correctamente");
     }

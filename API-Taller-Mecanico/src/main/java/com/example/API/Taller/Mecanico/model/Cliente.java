@@ -7,9 +7,17 @@ import jakarta.validation.constraints.Size;
 @Table(name = "Cliente")
 public class Cliente {
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCliente;
+    private Integer id;
 
     @Size(max = 100)
     @Column(name = "nombre", length = 100, nullable = false)
@@ -28,27 +36,32 @@ public class Cliente {
     private String telefono;
 
     @Size(max = 100)
-    @Column(name = "email", length = 100, nullable = false)
-    private String email;
+    @Column(name = "mail", length = 100, nullable = false)
+    private String mail;
+
+    @Size(max = 100)
+    @Column(name = "localidad", length = 100, nullable = false)
+    private String localidad;
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
 
     @Size(max = 100)
     @Column(name = "eliminado", nullable = false)
     private boolean eliminado;
 
+
+
     @Lob
-    @Column(name = "imagedata", length = 1000)
     private byte[] licenciaFrente;
 
     @Lob
     private byte[] licenciaDorso;
-
-    public byte[] getLicenciaFrente() {
-        return licenciaFrente;
-    }
-
-    public void setLicenciaFrente(byte[] licenciaFrente) {
-        this.licenciaFrente = licenciaFrente;
-    }
 
     public byte[] getLicenciaDorso() {
         return licenciaDorso;
@@ -58,9 +71,14 @@ public class Cliente {
         this.licenciaDorso = licenciaDorso;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public byte[] getLicenciaFrente() {
+        return licenciaFrente;
     }
+
+    public void setLicenciaFrente(byte[] licenciaFrente) {
+        this.licenciaFrente = licenciaFrente;
+    }
+
 
     public String getNombre() {
         return nombre;
@@ -94,11 +112,11 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
