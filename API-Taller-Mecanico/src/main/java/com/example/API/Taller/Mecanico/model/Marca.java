@@ -23,7 +23,7 @@ public class Marca {
         return nombre;
     }
 
-    public Integer getId() {
+    public Integer getIdMarca() {
         return id;
     }
 

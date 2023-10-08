@@ -2,8 +2,6 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.service.IMarcaService;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +45,5 @@ public class MarcaController {
     public void eliminar(@PathVariable Integer id) {
         serviceMarca.eliminar(id);
     }
-
 
 }
