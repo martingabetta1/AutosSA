@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 
 export default function Cliente() {
 
-    const title = "Cliente",
+    const title = "Visita",
         { CrudContext } = useCrudData()
 
     const [, setDialogData] = CrudContext.dialogs.data,

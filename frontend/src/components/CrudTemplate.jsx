@@ -41,6 +41,7 @@ export default function CrudTemplate(props) {
     useEffect(() => {
         setTableColumns([...props.columns, actionsColumn])
     }, [props.columns])
+    
 
     return (
         <div className='crud-template-container'>

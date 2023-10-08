@@ -16,6 +16,7 @@ export default function CreateDialog() {
         [openCreateDialog] = CrudContext.dialogs.create,
         [dialogData] = CrudContext.dialogs.data,
         [bodyData] = CrudContext.query.bodyData.data,
+        [args] = CrudContext.query.args,
         [endpoints] = CrudContext.query.endpoints,
         [buttonState] = CrudContext.validations.buttonState
 
@@ -25,9 +26,9 @@ export default function CreateDialog() {
     };
 
     const handleCreate = async () => {
-        await Api.postQuery(endpoints.create,bodyData)
+        await Api.postQuery(endpoints.create,bodyData,null,args)
             .then((res) => {
-                console.log(res)
+                window.location.reload()
             }).catch((error) => {
                 throw new Error(error.message)
             })

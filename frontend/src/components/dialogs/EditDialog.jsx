@@ -26,7 +26,7 @@ export default function EditDialog() {
     const handleEdit = async () => {
         await Api.putQuery(endpoints.edit, bodyData)
             .then((res) => {
-                console.log(res)
+                window.location.reload()
             }).catch((error) => {
                 throw new Error(error.message)
             })

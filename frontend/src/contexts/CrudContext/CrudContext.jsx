@@ -6,6 +6,7 @@ export default function CrudContextProvider({ children }) {
 
     // Estados
     const [bodyData, setBodyData] = useState({}),
+        [args, setArgs] = useState({}),
         [rows, setRows] = useState([]),
         [columns, setColums] = useState([]),
         [openCreateDialog, setOpenCreateDialog] = useState(false),
@@ -21,8 +22,8 @@ export default function CrudContextProvider({ children }) {
 
 
     useEffect(() => {
-        setInputValues((prevValues)=>{
-            let newValues = {...prevValues,...bodyData}
+        setInputValues((prevValues) => {
+            let newValues = { ...prevValues, ...bodyData }
             return newValues
         })
     }, [bodyData])
@@ -34,7 +35,7 @@ export default function CrudContextProvider({ children }) {
     const handleSetInputValues = () => {
         let initialValues = {}
 
-        for(let index in dialogInputs){
+        for (let index in dialogInputs) {
             initialValues[dialogInputs[index].name] = ""
         }
         setInputValues(initialValues)
@@ -58,12 +59,16 @@ export default function CrudContextProvider({ children }) {
         setInputStates(newInputStates)
     }
 
-    const handleChangeInputStates = (inputFocus,state)=>{
+    const handleChangeInputStates = (inputFocus, state) => {
         setInputStates((prevStates) => {
             let newState = { ...prevStates }
             newState[inputFocus] = state
             return newState
-          })
+        })
+    }
+
+    const handleSetButtonState = (state) => {
+        setButtonState(state)
     }
 
     const handleOpenDialog = (type, state, params) => {
@@ -109,7 +114,8 @@ export default function CrudContextProvider({ children }) {
             inputStates: [inputStates, setInputStates],
             inputFocus: [inputFocus, setInputFocus],
             buttonState: [buttonState, setButtonState],
-            handleChangeInputStates
+            handleChangeInputStates,
+            handleSetButtonState
         },
         // Datos para realizar las querys
         query: {
@@ -118,6 +124,7 @@ export default function CrudContextProvider({ children }) {
                 handleInputValueChange
             },
             endpoints: [endpoints, setEndpoints],
+            args: [args, setArgs]
         },
     }
 

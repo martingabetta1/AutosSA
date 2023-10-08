@@ -11,7 +11,8 @@ export default function Cliente() {
 
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
-        [endpoints, setEndpoints] = CrudContext.query.endpoints,
+        [,setEndpoints] = CrudContext.query.endpoints,
+        [,setArgs] = CrudContext.query.args,
         [rows, setRows] = CrudContext.crudStructure.rows,
         [columns, setColumns] = CrudContext.crudStructure.columns
 
@@ -39,10 +40,13 @@ export default function Cliente() {
 
     useEffect(() => {
         setEndpoints({
-            fetch: '/cliente',
-            create: '/cliente',
-            edit: '/cliente',
-            delete: '/cliente'
+            fetch: '/clientes',
+            create: '/clientes',
+            edit: '/clientes',
+            delete: '/clientes'
+        })
+        setArgs({
+            multipart:true
         })
         setDialogData({
             title: 'cliente'
@@ -103,12 +107,12 @@ export default function Cliente() {
                 }
             },
         ])
-        setRows(rowsTemplate)
+        getRegisters()
         setColumns(columnsTemplate)
     }, [])
 
     const getRegisters = async () => {
-        await Api.getQuery(endpoints.fetch)
+        await Api.getQuery('/clientes')
             .then((res) => {
                 setRows(res)
             }).catch((error) => {

@@ -31,9 +31,9 @@ export default function Marca() {
 
     useEffect(() => {
         setEndpoints({
-            create: '/marca',
-            edit: '/marca',
-            delete: '/marca'
+            create: '/marcas',
+            edit: '/marcas',
+            delete: '/marcas'
         })
         setDialogData({
             title: 'marca'
@@ -42,18 +42,22 @@ export default function Marca() {
             {
                 name: 'nombre',
                 label: 'Nombre',
-                type: 'text'
+                type: 'text',
+                validations:{
+                    length:20,
+                    type:'text'
+                }
             },
         ])
-        setRows(rowsTemplate)
+        // setRows(rowsTemplate)
         setColumns(columnsTemplate)
-        // getRegisters()
+        getRegisters()
     }, [])
 
 
 
     const getRegisters = async () => {
-        await Api.getQuery(endpoints.create)
+        await Api.getQuery('/marcas')
             .then((res) => {
                 setRows(res)
             }).catch((error) => {

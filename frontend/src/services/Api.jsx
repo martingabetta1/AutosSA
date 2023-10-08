@@ -1,66 +1,80 @@
 import axios from 'axios'
 
-const domain = process.env.BASE_URL
+const domain = 'http://localhost:8080'
 
-async function getQuery(endpoint,params = null) {
+async function getQuery(endpoint, params = null) {
     try {
-        const res = await axios.get(`${domain}${endpoint}/`, {
+        const res = await axios.get(`${domain}${endpoint}`, {
             params: {
                 params
             }
         })
 
-        return res
-    }catch(error){
+        return res.data
+    } catch (error) {
         throw new Error(error.message)
-    }finally{
+    } finally {
         console.log("Petición realizada")
     }
 }
 
-async function postQuery(endpoint,body,params = null) {
+async function postQuery(endpoint, body, params = null,args = {}) {
+    let res
     try {
-        const res = await axios.post(`${domain}${endpoint}/`,{body}, {
+        if (!args.multipart) {
+            res = await axios.post(`${domain}${endpoint}`, { ...body }, {
+                params
+            })
+        } else {
+            const formData = new FormData();
+            for (const key in body) {
+                formData.append(key, body[key]);
+            }
+
+            res = await axios.post(`${domain}${endpoint}`, formData, {
+                params,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+        }
+        return res
+    } catch (error) {
+        throw new Error(error.message)
+    } finally {
+        console.log("Petición realizada")
+    }
+
+}
+
+async function putQuery(endpoint, body, params = null) {
+    try {
+        const res = await axios.put(`${domain}${endpoint}/actualizar/${body.id}`, { ...body }, {
             params: {
                 params
             }
         })
+
         return res
-    }catch(error){
+    } catch (error) {
         throw new Error(error.message)
-    }finally{
+    } finally {
         console.log("Petición realizada")
     }
 }
 
-async function putQuery(endpoint,body,params = null) {
+async function deleteQuery(endpoint, id, params = null) {
     try {
-        const res = await axios.put(`${domain}${endpoint}/${body.id}/`,{body}, {
+        const res = await axios.post(`${domain}${endpoint}/eliminar/${id}`, {
             params: {
                 params
             }
         })
 
         return res
-    }catch(error){
+    } catch (error) {
         throw new Error(error.message)
-    }finally{
-        console.log("Petición realizada")
-    }
-}
-
-async function deleteQuery(endpoint,id,params = null) {
-    try {
-        const res = await axios.delete(`${domain}${endpoint}/${id}/`, {
-            params: {
-                params
-            }
-        })
-
-        return res
-    }catch(error){
-        throw new Error(error.message)
-    }finally{
+    } finally {
         console.log("Petición realizada")
     }
 }
@@ -68,7 +82,8 @@ async function deleteQuery(endpoint,id,params = null) {
 const Api = {
     getQuery,
     postQuery,
-    putQuery
+    putQuery,
+    deleteQuery
 }
 
 export default Api

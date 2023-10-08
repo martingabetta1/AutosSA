@@ -25,7 +25,7 @@ export default function DeleteDialog() {
     const handleDelete = async () => {
         await Api.deleteQuery(endpoints.delete, bodyData.id)
             .then((res) => {
-                console.log(res)
+                window.location.reload()
             }).catch((error) => {
                 throw new Error(error.message)
             })

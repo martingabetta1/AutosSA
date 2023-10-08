@@ -9,7 +9,7 @@ public class Marca {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idMarca;
+    private Integer id;
 
     @Size(max = 100)
     @Column(name = "nombre", length = 100, nullable = false)
@@ -23,8 +23,8 @@ public class Marca {
         return nombre;
     }
 
-    public Integer getIdMarca() {
-        return idMarca;
+    public Integer getId() {
+        return id;
     }
 
     public void setNombre(String nombre) {

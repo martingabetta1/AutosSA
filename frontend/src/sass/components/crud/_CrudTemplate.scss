@@ -23,6 +23,7 @@ $crud_button_image-size: calc($crud_button-size - 20px);
 
 .crud-title {
     display: flex;
+    margin-left: 10px;
     @extend %text-shadow;
 }
 
