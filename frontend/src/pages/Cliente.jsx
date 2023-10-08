@@ -106,6 +106,20 @@ export default function Cliente() {
                     type: "email"
                 }
             },
+            {
+                name: 'frenteLicencia',
+                label: 'Frente de licencia',
+                type: 'file',
+                validations: {
+                }
+            },
+            {
+                name: 'dorsoLicencia',
+                label: 'Dorso de licencia',
+                type: 'file',
+                validations: {
+                }
+            },
         ])
         getRegisters()
         setColumns(columnsTemplate)
