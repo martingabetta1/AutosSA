@@ -70,10 +70,6 @@ export default function Cliente() {
                 name: 'cliente',
                 label: 'Cliente',
                 type: 'select',
-                validations: {
-                    length: 20,
-                    type: "select"
-                }
             },
             {
                 name: 'fechaVisita',
@@ -90,7 +86,7 @@ export default function Cliente() {
     }, [])
 
     const getRegisters = async () => {
-        await Api.getQuery(endpoints.fetch)
+        await Api.getQuery('/visitas')
             .then((res) => {
                 setRows(res)
             }).catch((error) => {

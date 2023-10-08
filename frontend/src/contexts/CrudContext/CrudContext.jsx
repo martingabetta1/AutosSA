@@ -36,7 +36,9 @@ export default function CrudContextProvider({ children }) {
         let initialValues = {}
 
         for (let index in dialogInputs) {
-            initialValues[dialogInputs[index].name] = ""
+            if(dialogInputs[index].type !== 'file'){
+                initialValues[dialogInputs[index].name] = ""
+            }
         }
         setInputValues(initialValues)
     };

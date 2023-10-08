@@ -5,9 +5,7 @@ const domain = 'http://localhost:8080'
 async function getQuery(endpoint, params = null) {
     try {
         const res = await axios.get(`${domain}${endpoint}`, {
-            params: {
-                params
-            }
+            params
         })
 
         return res.data
@@ -18,7 +16,7 @@ async function getQuery(endpoint, params = null) {
     }
 }
 
-async function postQuery(endpoint, body, params = null,args = {}) {
+async function postQuery(endpoint, body, params = null, args = {}) {
     let res
     try {
         if (!args.multipart) {
@@ -47,14 +45,26 @@ async function postQuery(endpoint, body, params = null,args = {}) {
 
 }
 
-async function putQuery(endpoint, body, params = null) {
+async function putQuery(endpoint, body, params = null,args = {}) {
+    let res
     try {
-        const res = await axios.put(`${domain}${endpoint}/actualizar/${body.id}`, { ...body }, {
-            params: {
+        if (!args.multipart) {
+            res = await axios.put(`${domain}${endpoint}/actualizar/${body.id}`, { ...body }, {
                 params
+            })
+        } else {
+            const formData = new FormData();
+            for (const key in body) {
+                formData.append(key, body[key]);
             }
-        })
 
+            res = await axios.put(`${domain}${endpoint}/actualizar/${body.id}`, formData, {
+                params,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+        }
         return res
     } catch (error) {
         throw new Error(error.message)
@@ -79,11 +89,28 @@ async function deleteQuery(endpoint, id, params = null) {
     }
 }
 
+async function downloadQuery(endpoint, id, params = null) {
+    try {
+        const res = await axios.get(`${domain}${endpoint}/descargar/${id}`, {
+            params: {
+                params
+            }
+        })
+
+        return res
+    } catch (error) {
+        throw new Error(error.message)
+    } finally {
+        console.log("Petición realizada")
+    }
+}
+
 const Api = {
     getQuery,
     postQuery,
     putQuery,
-    deleteQuery
+    deleteQuery,
+    downloadQuery,
 }
 
 export default Api

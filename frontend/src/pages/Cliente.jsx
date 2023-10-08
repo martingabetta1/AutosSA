@@ -43,7 +43,8 @@ export default function Cliente() {
             fetch: '/clientes',
             create: '/clientes',
             edit: '/clientes',
-            delete: '/clientes'
+            delete: '/clientes',
+            dowload:'/clientes'
         })
         setArgs({
             multipart:true
@@ -75,7 +76,7 @@ export default function Cliente() {
                 label: 'Telefono',
                 type: 'text',
                 validations: {
-                    length: 10,
+                    length: 15,
                     type: "number"
                 }
             },
@@ -110,15 +111,11 @@ export default function Cliente() {
                 name: 'frenteLicencia',
                 label: 'Frente de licencia',
                 type: 'file',
-                validations: {
-                }
             },
             {
                 name: 'dorsoLicencia',
                 label: 'Dorso de licencia',
                 type: 'file',
-                validations: {
-                }
             },
         ])
         getRegisters()

@@ -4,6 +4,7 @@ import { useCrudData } from '../contexts/CrudContext/CrudContext';
 import Button from '@mui/material/Button';
 import EditDialog from './dialogs/EditDialog';
 import DeleteDialog from './dialogs/DeleteDialog'
+import Api from '../services/Api';
 
 export default function CrudTemplate(props) {
     // Columnas
@@ -11,7 +12,8 @@ export default function CrudTemplate(props) {
     const { CrudContext } = useCrudData(),
         handleOpenDialog = CrudContext.dialogs.handleOpenDialog,
         [openEditDialog] = CrudContext.dialogs.edit,
-        [openDeleteDialog] = CrudContext.dialogs.delete
+        [openDeleteDialog] = CrudContext.dialogs.delete,
+        [endpoints] = CrudContext.query.endpoints
 
     const actionsColumn = {
         field: 'acc',
@@ -33,6 +35,13 @@ export default function CrudTemplate(props) {
                         <img className='crud_button_image' button-type="delete" alt="Delete icon" src="/images/crud/icon-delete.png" />
                     </Button>
                 </div>
+                {endpoints.download && (
+                    <div>
+                        <Button variant="contained" className='crud_button_download' onClick={() => { Api.downloadQuery(endpoints.dowload, params.row.id) }}>
+                            <img className='crud_button_image' button-type="download" alt="Download icon" src="/images/crud/icon-download.png" />
+                        </Button>
+                    </div>
+                )}
             </div>
         )
     };
@@ -41,7 +50,7 @@ export default function CrudTemplate(props) {
     useEffect(() => {
         setTableColumns([...props.columns, actionsColumn])
     }, [props.columns])
-    
+
 
     return (
         <div className='crud-template-container'>

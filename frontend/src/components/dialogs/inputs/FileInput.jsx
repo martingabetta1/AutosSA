@@ -1,42 +1,40 @@
-import { FormControl } from "@mui/base"
-import { useState } from "react";
-import { styled } from '@mui/material/styles';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Input from '@mui/material/Input'; // Importa el componente Input
 
-const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-  });
+export default function FileInput(props) {
+  const [value, setValue] = useState();
+    
+  const handleChangeValue = (event) => {
+    const newValue = event.target.files[0]; // Obtén el archivo seleccionado
+    setValue(newValue);
+    props.handleInputValueChange(props.input.name, newValue);
+  };
 
-export default function FileInput(props){
-    const [value, setValue] = useState();
-
-    const handleChangeValue = (newValue)=>{
-        setValue(newValue)
-        props.handleInputValueChange(props.input.name,newValue)
-    }
-
-    return(
-        <FormControl>
-            <Button component="label"
-            variant="contained"
-            startIcon={<CloudUploadIcon />}
-            onClick={(event)=> handleChangeValue(event.target.value)}
-            >
-                {props.input.label}
-            <VisuallyHiddenInput
-            type="file"
-            value={value}
-            />
-            </Button>
-        </FormControl>
-    );
+  return (
+    <FormControl>
+      <input
+        type="file"
+        accept={'image/*, application/pdf'} 
+        onChange={handleChangeValue}
+        style={{ display: 'none' }}
+        id={props.input.name}
+      />
+      <label htmlFor={props.input.name}>
+        <Button
+          component="span"
+          variant="contained"
+          startIcon={<CloudUploadIcon />}
+        >
+          {props.input.label}
+        </Button>
+      </label>
+      <Input 
+        value={value ? value.name : ''}
+        readOnly
+      />
+    </FormControl>
+  );
 }

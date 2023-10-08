@@ -25,7 +25,7 @@ export default function Marca() {
             vehiculo: {id:1,descripcion:"Onix"},
             tecnico: {id:1,descripcion:"Pedro"},
             estado: {id:1,descripcion:"En espera"},
-            comentario: 'El vehículo necesita un cambio de aceite urgente.',
+            comentario: 'El vehículo necesita un cambio de aceite urgente. El vehículo necesita un cambio de aceite urgente.El vehículo necesita un cambio de aceite urgente.El vehículo necesita un cambio de aceite urgente.',
             cliente: {id:1,descripcion:"Menganito"}
         },
         {
@@ -74,9 +74,10 @@ export default function Marca() {
     ];
     useEffect(() => {
         setEndpoints({
-            create: '/orden',
-            edit: '/orden',
-            delete: '/orden'
+            create: '/ordenes',
+            edit: '/ordenes',
+            delete: '/ordenes',
+            download:'/ordenes',
         })
         setDialogData({
             title: 'orden'
@@ -95,28 +96,40 @@ export default function Marca() {
             {
                 name: 'vehiculo',
                 label: 'Vehiculo',
-                type: 'select'
+                type: 'select',
+                endpoint:'/vehiculos',
             },
             {
                 name: 'tecnico',
                 label: 'Tecnico',
-                type: 'select'
+                type: 'select',
+                endpoint:'/tecnicos',
             },
             {
                 name: 'estado',
                 label: 'Estado',
-                type: 'select'
+                type: 'select',
+                endpoint:'/estados',
             },
             {
                 name: 'comentario',
                 label: 'Comentario',
-                type: 'text',
-                multiline: true
+                type: 'multiline',
+                validations:{
+                    length:100,
+                    type:'text'
+                }
             },
             {
                 name: 'cliente',
                 label: 'Cliente',
-                type: 'select'
+                type: 'select',
+                endpoint:'/clientes',
+            },
+            {
+                name: 'adjunto',
+                label: 'Archivo adjunto',
+                type: 'file',
             },
         ])
         setRows(rowsTemplate)
@@ -127,7 +140,7 @@ export default function Marca() {
    
 
     const getRegisters = async () => {
-        await Api.getQuery(endpoints.create)
+        await Api.getQuery('/ordenes')
             .then((res) => {
                 setRows(res)
             }).catch((error) => {

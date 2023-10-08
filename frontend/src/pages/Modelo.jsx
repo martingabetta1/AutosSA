@@ -40,10 +40,10 @@ export default function Modelo() {
 
   useEffect(() => {
     setEndpoints({
-      fetch: '/modelo',
-      create: '/modelo',
-      edit: '/modelo',
-      delete: '/modelo'
+      fetch: '/modelos',
+      create: '/modelos',
+      edit: '/modelos',
+      delete: '/modelos'
     })
     setDialogData({
       title: 'modelo'
@@ -52,7 +52,11 @@ export default function Modelo() {
       {
         name: 'nombre',
         label: 'Nombre',
-        type: 'text'
+        type: 'text',
+        validations:{
+          length:20,
+          type:'text'
+        }
       },
       {
         name: 'marca',
@@ -64,7 +68,6 @@ export default function Modelo() {
         name: 'date',
         label: 'Date',
         type: 'date',
-        endpoint: '/marca'
       },
     ])
     setRows(rowsTemplate)
@@ -74,7 +77,7 @@ export default function Modelo() {
 
 
   const getRegisters = async () => {
-    await Api.getQuery(endpoints.fetch)
+    await Api.getQuery('/modelos')
       .then((res) => {
         setRows(res)
       }).catch((error) => {

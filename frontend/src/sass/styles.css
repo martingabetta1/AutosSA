@@ -54,6 +54,12 @@
   width: 45px;
 }
 
+.crud_button_download {
+  background-color: green !important;
+  min-width: unset !important;
+  width: 45px;
+}
+
 .crud_button_image {
   filter: invert(1);
   width: 25px;

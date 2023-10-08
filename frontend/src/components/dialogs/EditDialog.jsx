@@ -16,6 +16,7 @@ export default function EditDialog() {
         [openEditDialog] = CrudContext.dialogs.edit,
         [dialogData] = CrudContext.dialogs.data,
         [bodyData] = CrudContext.query.bodyData.data,
+        [args] = CrudContext.query.args,
         [endpoints] = CrudContext.query.endpoints,
         [buttonState] = CrudContext.validations.buttonState
 
@@ -24,7 +25,7 @@ export default function EditDialog() {
     };
 
     const handleEdit = async () => {
-        await Api.putQuery(endpoints.edit, bodyData)
+        await Api.putQuery(endpoints.edit, bodyData,null,args)
             .then((res) => {
                 window.location.reload()
             }).catch((error) => {

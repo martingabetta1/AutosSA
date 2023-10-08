@@ -50,27 +50,47 @@ export default function Tecnico() {
       {
         name: 'nombre',
         label: 'Nombre',
-        type: 'text'
+        type: 'text',
+        validations:{
+          length:20,
+          type:'text'
+        }
       },
       {
         name: 'apellido',
         label: 'Apellido',
-        type: 'text'
+        type: 'text',
+        validations:{
+          length:20,
+          type:'text'
+        }
       },
       {
         name: 'documento',
         label: 'Documento',
-        type: 'text'
+        type: 'text',
+        validations:{
+          length:20,
+          type:'number'
+        }
       },
       {
         name: 'telefono',
         label: 'Telefono',
-        type: 'text'
+        type: 'text',
+        validations:{
+          length:20,
+          type:'number'
+        }
       },
       {
         name: 'direccion',
         label: 'Direccion',
-        type: 'text'
+        type: 'text',
+        validations:{
+          length:20,
+          type:'text'
+        }
       },
     ])
     setRows(rowsTemplate)
@@ -79,7 +99,7 @@ export default function Tecnico() {
   }, [])
 
   const getRegisters = async () => {
-    await Api.getQuery(endpoints.fetch)
+    await Api.getQuery('/tecnico')
       .then((res) => {
         setRows(res)
       }).catch((error) => {

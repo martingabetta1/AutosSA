@@ -80,23 +80,23 @@ export default function Vehiculo() {
         label: 'Patente',
         type: 'text',
         validations: {
-          length: 7
+          length: 7,
+          type:'text'
         }
       },
       {
         name: 'modelo',
         label: 'Modelo',
         type: 'select',
-        validations: {
-          length: 10
-        }
+        endpoint:'/modelos',
       },
       {
         name: 'anio',
         label: 'Año',
         type: 'number',
         validations: {
-          length: 4
+          length: 4,
+          type:'number'
         },
       },
       {
@@ -104,21 +104,23 @@ export default function Vehiculo() {
         label: 'Kilómetros',
         type: 'number',
         validations: {
-          length: 9
+          length: 9,
+          type:'number'
         },
       },
       {
         name: 'cliente',
         label: 'Cliente',
         type: 'select',
-        validations: {
-        },
+        endpoint:'/clientes',
       },
       {
         name: 'observaciones',
         label: 'Observaciones',
         type: 'multiline',
         validations: {
+          length:100,
+          type:'text'
         },
       },
     ])
@@ -128,7 +130,7 @@ export default function Vehiculo() {
   }, [])
 
   const getRegisters = async () => {
-    await Api.getQuery(endpoints.fetch)
+    await Api.getQuery('/vehiculo')
       .then((res) => {
         setRows(res)
       }).catch((error) => {

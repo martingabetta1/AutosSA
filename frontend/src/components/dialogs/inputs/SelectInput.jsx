@@ -13,7 +13,7 @@ export default function SelectInput(props) {
     [options, setOptions] = useState([])
 
   const getOptions = () => {
-    Api.getQuery(props.input.endpoint)
+    Api.getQuery(props.input.endpoint,{select:true})
       .then((res) => {
         setOptions(res)
       }).catch((error) => {
