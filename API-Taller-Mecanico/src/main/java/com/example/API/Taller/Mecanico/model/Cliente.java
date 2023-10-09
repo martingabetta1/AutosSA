@@ -41,6 +41,7 @@ public class Cliente {
     @Column(name = "eliminado", nullable = false)
     private boolean eliminado;
 
+    @Transient
     private String descripcion;
 
     public String getDescripcion() {
