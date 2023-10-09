@@ -3,7 +3,6 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Cliente;
 import com.example.API.Taller.Mecanico.service.IClienteService;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/clientes")

@@ -47,26 +47,17 @@ public class ModeloController {
     @PostMapping()
     public ResponseEntity<?> registrar(@RequestBody Modelo modelo) {
 
-        if(serviceMarca.listarMarcaPorId(modelo.getIdMarca()) != null) {
-            Modelo resModelo = serviceModelo.registrar(modelo);
-            return new ResponseEntity<>(resModelo, HttpStatus.CREATED);
-        } else {
-            return ResponseEntity.badRequest().body("No se encontró una marca con ese ID");
-        }
+      Modelo resModelo = serviceModelo.registrar(modelo);
+      return new ResponseEntity<>(resModelo, HttpStatus.CREATED);
 
     }
 
 
-    @PutMapping("/actualizar/{id}")
+    @PutMapping("/actualizar")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Modelo modelo) {
 
-        if(serviceMarca.listarMarcaPorId(modelo.getIdMarca()) != null) {
-            serviceModelo.actualizar(id, modelo.getNombre(), modelo.getIdMarca());
-            return ResponseEntity.ok("El vehiculo se actualizo correctamente");
-        } else {
-            return ResponseEntity.badRequest().body("No se encontró una marca con ese ID");
-        }
-
+       serviceModelo.actualizar(modelo.getId(), modelo.getNombre(), modelo.getIdMarca());
+       return ResponseEntity.ok("El vehiculo se actualizo correctamente");
     }
 
 
