@@ -85,10 +85,6 @@ public class ModeloController {
     @Autowired
     IModeloService serviceModelo;
 
-    @Autowired
-    IMarcaService serviceMarca;
-
-
     @GetMapping
     public ResponseEntity<List<Modelo>> listarModelos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Modelo> modelos = serviceModelo.listarModelos();

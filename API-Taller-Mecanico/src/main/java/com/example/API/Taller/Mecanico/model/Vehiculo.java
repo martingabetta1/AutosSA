@@ -124,6 +124,20 @@ public class Vehiculo {
     @Column(name = "eliminado", nullable = false)
     private boolean eliminado;
 
+    @Transient
+    private String descripcion;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
