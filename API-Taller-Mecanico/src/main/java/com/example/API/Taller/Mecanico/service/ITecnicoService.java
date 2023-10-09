@@ -12,7 +12,7 @@ public interface ITecnicoService {
 
     Tecnico registrar(Tecnico tecnico);
 
-    void actualizar(Integer tecnicoId, String nombre, String apellido, String direccion, String telefono, String mail, String localidad);
+    void actualizar(Integer tecnicoId, String nombre, String apellido, String documento, String telefono, String direccion);
 
     void eliminar(Integer id);
 

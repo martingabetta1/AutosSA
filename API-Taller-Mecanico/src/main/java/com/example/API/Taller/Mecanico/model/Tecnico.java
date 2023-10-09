@@ -29,28 +29,17 @@ public class Tecnico {
     private String apellido;
 
     @Size(max = 100)
-    @Column(name = "direccion", length = 100, nullable = false)
-    private String direccion;
+    @Column(name = "documento", length = 100, nullable = false)
+    private String documento;
 
     @Size(max = 100)
     @Column(name = "telefono", length = 100, nullable = false)
     private String telefono;
 
     @Size(max = 100)
-    @Column(name = "mail", length = 100, nullable = false)
-    private String mail;
+    @Column(name = "direccion", length = 100, nullable = false)
+    private String direccion;
 
-    @Size(max = 100)
-    @Column(name = "localidad", length = 100, nullable = false)
-    private String localidad;
-
-    public String getLocalidad() {
-        return localidad;
-    }
-
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
 
     @Size(max = 100)
     @Column(name = "eliminado", nullable = false)
@@ -72,6 +61,14 @@ public class Tecnico {
         this.apellido = apellido;
     }
 
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
     public String getDireccion() {
         return direccion;
     }
@@ -88,12 +85,5 @@ public class Tecnico {
         this.telefono = telefono;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 }
 

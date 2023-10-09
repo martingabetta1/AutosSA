@@ -16,10 +16,14 @@ public class VehiculoServiceImpl implements IVehiculoService {
     @Autowired
     IVehiculoRepository repoVehiculo;
 
-
     @Override
     public List<Vehiculo> listarVehiculos() {
         return repoVehiculo.findByEliminadoFalse();
+    }
+
+    @Override
+    public Vehiculo listarVehiculoPorId(Integer vehiculoId) {
+        return repoVehiculo.findByIdAndEliminadoFalse(vehiculoId);
     }
 
     @Override

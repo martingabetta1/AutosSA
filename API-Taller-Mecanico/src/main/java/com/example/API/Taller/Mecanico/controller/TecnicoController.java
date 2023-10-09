@@ -36,7 +36,12 @@ public class TecnicoController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Tecnico tecnico) {
 
-        serviceTecnico.actualizar(id, tecnico.getNombre(), tecnico.getApellido(), tecnico.getDireccion(), tecnico.getTelefono(), tecnico.getMail(), tecnico.getLocalidad());
+        if (serviceTecnico.listarTecnicoPorId(id) != null) {
+            serviceTecnico.actualizar(id, tecnico.getNombre(), tecnico.getApellido(), tecnico.getDocumento(), tecnico.getTelefono(), tecnico.getDireccion());
+        } else {
+            return ResponseEntity.badRequest().body("No se encontró un tecnico con ese ID");
+        }
+
 
         return ResponseEntity.ok("El tecnico se actualizo correctamente");
     }
