@@ -20,7 +20,7 @@ public class MarcaController {
     IMarcaService serviceMarca;
 
     @GetMapping
-    public ResponseEntity<List<Marca>> listarMarcas(@RequestParam(name = "select", defaultValue = "true") boolean select) {
+    public ResponseEntity<List<Marca>> listarMarcas(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Marca> marcas = serviceMarca.listarMarcas();
 
         if (select) {
