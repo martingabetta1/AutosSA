@@ -64,10 +64,10 @@ public class ClienteController {
         return new ResponseEntity<Cliente>(resCliente, HttpStatus.CREATED);
     }
 
-    @PutMapping("/actualizar")
-    public ResponseEntity<String> actualizar(@RequestBody Cliente cliente) {
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Cliente cliente) {
 
-        serviceCliente.actualizar(cliente.getId(), cliente.getNombre(), cliente.getApellido(), cliente.getDireccion(), cliente.getTelefono(), cliente.getMail(), cliente.getLocalidad());
+        serviceCliente.actualizar(id, cliente.getNombre(), cliente.getApellido(), cliente.getDireccion(), cliente.getTelefono(), cliente.getMail(), cliente.getLocalidad());
         return ResponseEntity.ok("El cliente se actualizo correctamente");
     }
 
