@@ -17,6 +17,12 @@ export default function Servicio(){
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
         { field: 'nombre', headerName: 'Nombre', flex: 1 },
+        {
+            field: 'orden.descripcion',
+            headerName: 'Orden',
+            flex: 1,
+            valueGetter: (params) => params.row.orden?.descripcion
+        },
     ];
 
 
@@ -38,6 +44,12 @@ export default function Servicio(){
                     length:30,
                     type:'text'
                 }
+            },
+            {
+                name: 'orden',
+                label: 'Orden',
+                type: 'select',
+                endpoint: '/ordenes',
             },
         ])
         setColumns(columnsTemplate)

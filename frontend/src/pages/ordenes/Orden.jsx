@@ -47,12 +47,6 @@ export default function Marca() {
             flex: 1,
             valueGetter: (params) => params.row.cliente?.descripcion
         },
-        {
-            field: 'servicio.descripcion',
-            headerName: 'Servicio',
-            flex: 1,
-            valueGetter: (params) => params.row.servicio?.descripcion
-        },
     ];
     useEffect(() => {
         setEndpoints({
@@ -107,12 +101,6 @@ export default function Marca() {
                 label: 'Cliente',
                 type: 'select',
                 endpoint: '/clientes',
-            },
-            {
-                name: 'servicio',
-                label: 'Servicio',
-                type: 'select',
-                endpoint: '/servicios',
             },
             {
                 name: 'adjunto',
