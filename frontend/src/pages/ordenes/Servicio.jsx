@@ -19,13 +19,6 @@ export default function Servicio(){
         { field: 'nombre', headerName: 'Nombre', flex: 1 },
     ];
 
-    const rowsTemplate = [
-        {id:1, nombre:"shddkdle"},
-        {id:2, nombre:"euivefui"},
-        {id:3, nombre:"nfi i fviev ji"},
-        {id:4, nombre:" oice orer 9 9"},
-        {id:5, nombre:"jovjeoifjeovoij"},
-    ]
 
     useEffect(() => {
         setEndpoints({
@@ -47,9 +40,8 @@ export default function Servicio(){
                 }
             },
         ])
-        setRows(rowsTemplate)
         setColumns(columnsTemplate)
-        //getRegisters()
+        getRegisters()
     }, [])
 
 
