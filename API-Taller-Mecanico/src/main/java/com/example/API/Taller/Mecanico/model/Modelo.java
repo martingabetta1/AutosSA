@@ -18,10 +18,9 @@ public class Modelo {
     @Column(name = "nombre", length = 100, nullable = false)
     private String nombre;
 
-
-    @Size(max = 100)
-    @Column(name = "idMarca", length = 100, nullable = false)
-    private Integer idMarca;
+    @ManyToOne
+    @JoinColumn(name = "idMarca", referencedColumnName = "id", nullable = false)
+    private Marca marca;
 
     @Size(max = 100)
     @Column(name = "eliminado", nullable = false)
@@ -30,17 +29,12 @@ public class Modelo {
     @Transient
     private String descripcion;
 
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
     public String getDescripcion() {
         return descripcion;
-    }
-
-    public Integer getIdMarca() {
-        return idMarca;
     }
 
     public String getNombre() {
@@ -51,10 +45,6 @@ public class Modelo {
         this.nombre = nombre;
     }
 
-    public void setIdMarca(Integer idMarca) {
-        this.idMarca = idMarca;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -62,5 +52,13 @@ public class Modelo {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
 }

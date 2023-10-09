@@ -13,9 +13,9 @@ public class Visita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(max = 100)
-    @Column(name = "idCliente", length = 100, nullable = false)
-    private Integer idCliente;
+    @ManyToOne
+    @JoinColumn(name = "idCliente", referencedColumnName = "id", nullable = false)
+    private Cliente cliente;
 
     @Size(max = 100)
     @Column(name = "fechaVisita", length = 100, nullable = false)
@@ -29,13 +29,6 @@ public class Visita {
         return id;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
 
     public Date getFechaVisita() {
         return fechaVisita;
@@ -43,5 +36,13 @@ public class Visita {
 
     public void setFechaVisita(Date fechaVisita) {
         this.fechaVisita = fechaVisita;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

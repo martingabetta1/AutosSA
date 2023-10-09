@@ -27,22 +27,18 @@ public class Vehiculo {
     @Column(name = "kilometros", length = 100, nullable = false)
     private float kilometros;
 
+    @ManyToOne
+    @JoinColumn(name = "idCliente", referencedColumnName = "id", nullable = false)
+    private Cliente cliente;
 
-    @Size(max = 100)
-    @Column(name = "idCliente", length = 100, nullable = false)
-    private Integer idCliente;
+    @ManyToOne
+    @JoinColumn(name = "idModelo", referencedColumnName = "id", nullable = false)
+    private Modelo modelo;
 
     @Size(max = 100)
     @Column(name = "eliminado", nullable = false)
     private boolean eliminado;
 
-    public Integer getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
 
     public Integer getId() {
         return id;
@@ -80,4 +76,19 @@ public class Vehiculo {
         this.kilometros = kilometros;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Modelo getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
+    }
 }

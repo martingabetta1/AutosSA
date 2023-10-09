@@ -12,7 +12,7 @@ public interface IVisitaService {
 
     Visita registrar(Visita visita);
 
-    void actualizar(Integer visitaId, Integer idCliente, Date fechaVisita);
+    void actualizar(Integer visitaId, Date fechaVisita);
 
     void eliminar(Integer id);
 }

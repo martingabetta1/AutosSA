@@ -31,8 +31,8 @@ public class VisitaServiceImpl implements IVisitaService {
     }
 
 
-    public void actualizar(Integer visitaId, Integer idCliente, Date fechaVisita) {
-        repoVisita.actualizar(visitaId, idCliente, fechaVisita);
+    public void actualizar(Integer visitaId, Date fechaVisita) {
+        repoVisita.actualizar(visitaId, fechaVisita);
     }
 
     @Override
