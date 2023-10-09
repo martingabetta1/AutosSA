@@ -1,10 +1,12 @@
 package com.example.API.Taller.Mecanico.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Marca")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Marca {
 
     @Id
@@ -31,4 +33,18 @@ public class Marca {
         this.nombre = nombre;
     }
 
+    @Transient
+    private String descripcion;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

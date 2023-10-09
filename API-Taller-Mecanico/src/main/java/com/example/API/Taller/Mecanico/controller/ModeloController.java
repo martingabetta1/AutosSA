@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,10 +23,25 @@ public class ModeloController {
 
 
     @GetMapping
-    public ResponseEntity<List<Modelo>> listarModelos() {
+    public ResponseEntity<List<Modelo>> listarModelos(@RequestParam(name = "select", defaultValue = "true") boolean select) {
         List<Modelo> modelos = serviceModelo.listarModelos();
 
-        return new ResponseEntity<List<Modelo>>(modelos, HttpStatus.OK);
+        if (select) {
+            // Si select es true, formatear la respuesta con el formato deseado
+
+            List<Modelo> modelosConCamposSelect = new ArrayList<>();
+            for (Modelo modelo : modelos) {
+                Modelo modeloConCamposSelect = new Modelo();
+                modeloConCamposSelect.setId(modelo.getId());
+                modeloConCamposSelect.setDescripcion(modelo.getNombre());
+                modelosConCamposSelect.add(modeloConCamposSelect);
+            }
+
+            return new ResponseEntity<List<Modelo>>(modelosConCamposSelect, HttpStatus.OK);
+        } else {
+            // Si select es false, devolver la lista de técnicos sin formato
+            return new ResponseEntity<List<Modelo>>(modelos, HttpStatus.OK);
+        }
     }
 
     @PostMapping()
