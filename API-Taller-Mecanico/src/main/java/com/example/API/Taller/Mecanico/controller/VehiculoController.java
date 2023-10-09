@@ -46,18 +46,6 @@ public class VehiculoController {
 
         Vehiculo resVehiculo = serviceVehiculo.registrar(vehiculo);
 
-        Cliente cliente = new Cliente();
-        cliente.setId(resVehiculo.getCliente().getId());
-        cliente.setDescripcion(resVehiculo.getCliente().getNombre());
-
-        resVehiculo.setCliente(cliente);
-
-        Modelo modelo = new Modelo();
-        modelo.setId(resVehiculo.getModelo().getId());
-        modelo.setDescripcion(resVehiculo.getModelo().getNombre());
-
-        resVehiculo.setModelo(modelo);
-
         return new ResponseEntity<>(resVehiculo, HttpStatus.CREATED);
 
     }
