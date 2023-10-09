@@ -10,26 +10,31 @@ import Visita from './pages/Visita';
 import Orden from './pages/ordenes/Orden';
 import Home from './pages/Home';
 import Drawer from './components/Drawer';
+import Footer from './components/Footer'
 import CrudContextProvider from './contexts/CrudContext/CrudContext'
+import ErrorProvider from './contexts/Error'
 
 function App() {
   return (
     <div className="App">
-      <CrudContextProvider>
-        <Router>
-          <Drawer />
-          <Routes>
-            <Route path={"/"} element={<Home />} />
-            <Route path={"/marca"} element={<Marca />} />
-            <Route path={"/modelo"} element={<Modelo />} />
-            <Route path={"/tecnico"} element={<Tecnico />} />
-            <Route path={"/vehiculo"} element={<Vehiculo />} />
-            <Route path={"/cliente"} element={<Cliente />} />
-            <Route path={"/visita"} element={<Visita />} />
-            <Route path={"/orden"} element={<Orden />} />
-          </Routes>
-        </Router>
-      </CrudContextProvider>
+      <ErrorProvider>
+        <CrudContextProvider>
+          <Router>
+            <Drawer />
+            <Routes>
+              <Route path={"/"} element={<Home />} />
+              <Route path={"/marca"} element={<Marca />} />
+              <Route path={"/modelo"} element={<Modelo />} />
+              <Route path={"/tecnico"} element={<Tecnico />} />
+              <Route path={"/vehiculo"} element={<Vehiculo />} />
+              <Route path={"/cliente"} element={<Cliente />} />
+              <Route path={"/visita"} element={<Visita />} />
+              <Route path={"/orden"} element={<Orden />} />
+            </Routes>
+          </Router>
+          <Footer />
+        </CrudContextProvider>
+      </ErrorProvider>
     </div>
   );
 }

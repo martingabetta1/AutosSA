@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <div>
-      
-    </div>
+    <footer>
+      <span>© 2023 Autos SA. Todos los derechos reservados.</span>
+    </footer>
   )
 }

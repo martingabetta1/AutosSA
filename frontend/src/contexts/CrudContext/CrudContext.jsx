@@ -30,6 +30,7 @@ export default function CrudContextProvider({ children }) {
 
     useEffect(() => {
         handleSetInputValues()
+        setArgs({})
     }, [dialogInputs])
 
     const handleSetInputValues = () => {

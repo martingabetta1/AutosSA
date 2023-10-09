@@ -16,18 +16,6 @@ export default function Cliente() {
         [rows, setRows] = CrudContext.crudStructure.rows,
         [columns, setColumns] = CrudContext.crudStructure.columns
 
-    let rowsTemplate = [
-        { id: 1, apellido: "Snow", nombre: "Jon", telefono: "555-1234", direccion: "Winterfell, North", email: "jon.snow@example.com", localidad: "Winterfell" },
-        { id: 2, apellido: "Lannister", nombre: "Cersei", telefono: "555-5678", direccion: "King's Landing, Westeros", email: "cersei.lannister@example.com", localidad: "King's Landing" },
-        { id: 3, apellido: "Lannister", nombre: "Jaime", telefono: "555-9876", direccion: "Casterly Rock, Westeros", email: "jaime.lannister@example.com", localidad: "Casterly Rock" },
-        { id: 4, apellido: "Stark", nombre: "Arya", telefono: "555-4321", direccion: "Winterfell, North", email: "arya.stark@example.com", localidad: "Winterfell" },
-        { id: 5, apellido: "Targaryen", nombre: "Daenerys", telefono: "555-8765", direccion: "Dragonstone, Westeros", email: "daenerys.targaryen@example.com", localidad: "Dragonstone" },
-        { id: 6, apellido: "Melisandre", nombre: null, telefono: "555-2468", direccion: "Shadowlands", email: "melisandre@example.com", localidad: "Shadowlands" },
-        { id: 7, apellido: "Clifford", nombre: "Ferrara", telefono: "555-1357", direccion: "Riverrun, Westeros", email: "ferrara.clifford@example.com", localidad: "Riverrun" },
-        { id: 8, apellido: "Frances", nombre: "Rossini", telefono: "555-8642", direccion: "Milan, Italy", email: "rossini@example.com", localidad: "Milan" },
-        { id: 9, apellido: "Roxie", nombre: "Harvey", telefono: "555-3690", direccion: "Chicago, USA", email: "harvey.roxie@example.com", localidad: "Chicago" }
-    ];
-
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
         { field: 'nombre', headerName: 'Nombre', flex: 1 },
@@ -35,7 +23,7 @@ export default function Cliente() {
         { field: 'telefono', headerName: 'Telefono', flex: 1 },
         { field: 'localidad', headerName: 'Localidad', flex: 1 },
         { field: 'direccion', headerName: 'Direccion', flex: 1 },
-        { field: 'email', headerName: 'Email', flex: 1 },
+        { field: 'mail', headerName: 'Mail', flex: 1 },
     ];
 
     useEffect(() => {
@@ -44,7 +32,7 @@ export default function Cliente() {
             create: '/clientes',
             edit: '/clientes',
             delete: '/clientes',
-            dowload:'/clientes'
+            download:'/clientes'
         })
         setArgs({
             multipart:true
@@ -99,8 +87,8 @@ export default function Cliente() {
                 }
             },
             {
-                name: 'email',
-                label: 'Email',
+                name: 'mail',
+                label: 'Mail',
                 type: 'text',
                 validations: {
                     length: 30,

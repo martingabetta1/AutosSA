@@ -12,7 +12,6 @@ export default function Validator() {
     [dialogInputs] = CrudContext.inputs,
     inputFocusObject = dialogInputs.find(input => input.name === inputFocus)
 
-
   useEffect(() => {
     if (inputValues[inputFocus]) {
       checkValidations()
@@ -30,7 +29,7 @@ export default function Validator() {
   }, [inputValues])
 
   const typeValidation = () => {
-    let inputTypeAllowed = inputFocusObject.validations.type
+    let inputTypeAllowed = inputFocusObject.validations?.type
     switch (inputTypeAllowed) {
       case "number":
         return !/^[0-9]+$/.test(inputValues[inputFocus])
@@ -50,7 +49,7 @@ export default function Validator() {
   }
 
   const lengthValidator = () => {
-    let inputLenghtAllowed = inputFocusObject.validations?.length
+    let inputLenghtAllowed = inputFocusObject?.validations?.length
     return inputLenghtAllowed < inputValues[inputFocus].length
       ? { state: true, message: `El campo supera el limite de los ${inputLenghtAllowed} caracteres` }
       : { state: false, message: `` }

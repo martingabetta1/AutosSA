@@ -2,45 +2,21 @@ import { useEffect, useState } from 'react'
 import CrudTemplate from '../../components/CrudTemplate'
 import CreateDialog from '../../components/dialogs/CreateDialog'
 import { useCrudData } from '../../contexts/CrudContext/CrudContext';
+import { useError } from '../../contexts/Error';
 import Api from '../../services/Api'
 import dayjs from 'dayjs';
 
 export default function Marca() {
 
     const title = "Orden de trabajo",
-        { CrudContext } = useCrudData()
+        { CrudContext } = useCrudData(),
+        { ErrorContext } = useError()
 
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
-        [endpoints, setEndpoints] = CrudContext.query.endpoints,
+        [, setEndpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
         [columns, setColumns] = CrudContext.crudStructure.columns
-
-    let rowsTemplate = [
-        {
-            id: 1,
-            nroOrden: 1,
-            fechaInicio: dayjs('2023-01-10'),
-            fechaFin: dayjs('2023-01-15'),
-            vehiculo: {id:1,descripcion:"Onix"},
-            tecnico: {id:1,descripcion:"Pedro"},
-            estado: {id:1,descripcion:"En espera"},
-            comentario: 'El vehículo necesita un cambio de aceite urgente. El vehículo necesita un cambio de aceite urgente.El vehículo necesita un cambio de aceite urgente.El vehículo necesita un cambio de aceite urgente.',
-            cliente: {id:1,descripcion:"Menganito"}
-        },
-        {
-            id: 2,
-            nroOrden: 2,
-            fechaInicio: dayjs('2023-02-05'),
-            fechaFin: dayjs('2023-02-10'),
-            vehiculo: {id:2,descripcion:"Ford"},
-            tecnico: {id:2,descripcion:"Juan"},
-            estado: {id:2,descripcion:"En curso"},
-            comentario: 'El vehículo está en buenas condiciones.',
-            cliente: {id:2,descripcion:"Fulanito"}
-        },
-
-    ];
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -77,7 +53,7 @@ export default function Marca() {
             create: '/ordenes',
             edit: '/ordenes',
             delete: '/ordenes',
-            download:'/ordenes',
+            download: '/ordenes',
         })
         setDialogData({
             title: 'orden'
@@ -97,34 +73,34 @@ export default function Marca() {
                 name: 'vehiculo',
                 label: 'Vehiculo',
                 type: 'select',
-                endpoint:'/vehiculos',
+                endpoint: '/vehiculos',
             },
             {
                 name: 'tecnico',
                 label: 'Tecnico',
                 type: 'select',
-                endpoint:'/tecnicos',
+                endpoint: '/tecnicos',
             },
             {
                 name: 'estado',
                 label: 'Estado',
                 type: 'select',
-                endpoint:'/estados',
+                endpoint: '/estados',
             },
             {
                 name: 'comentario',
                 label: 'Comentario',
                 type: 'multiline',
-                validations:{
-                    length:100,
-                    type:'text'
+                validations: {
+                    length: 100,
+                    type: 'text'
                 }
             },
             {
                 name: 'cliente',
                 label: 'Cliente',
                 type: 'select',
-                endpoint:'/clientes',
+                endpoint: '/clientes',
             },
             {
                 name: 'adjunto',
@@ -132,19 +108,24 @@ export default function Marca() {
                 type: 'file',
             },
         ])
-        setRows(rowsTemplate)
+        // setRows(rowsTemplate)
         setColumns(columnsTemplate)
-        // getRegisters()
+        getRegisters()
     }, [])
 
-   
+
 
     const getRegisters = async () => {
         await Api.getQuery('/ordenes')
             .then((res) => {
                 setRows(res)
             }).catch((error) => {
-                throw new Error(error.message)
+                ErrorContext.setError(
+                    {
+                        state: true, message: `Error al tratar de traer los registros de ${title}\n
+                ${error.message}`
+                    }
+                )
             })
     }
 

@@ -66,10 +66,10 @@ export default function Vehiculo() {
 
   useEffect(() => {
     setEndpoints({
-      fetch: '/vehiculo',
-      create: '/vehiculo',
-      edit: '/vehiculo',
-      delete: '/vehiculo'
+      fetch: '/vehiculos',
+      create: '/vehiculos',
+      edit: '/vehiculos',
+      delete: '/vehiculos'
     })
     setDialogData({
       title: 'vehiculo'
@@ -93,7 +93,7 @@ export default function Vehiculo() {
       {
         name: 'anio',
         label: 'Año',
-        type: 'number',
+        type: 'text',
         validations: {
           length: 4,
           type:'number'
@@ -124,13 +124,13 @@ export default function Vehiculo() {
         },
       },
     ])
-    setRows(rowsTemplate)
+    // setRows(rowsTemplate)
     setColumns(columnsTemplate)
-    // getRegisters()
+    getRegisters()
   }, [])
 
   const getRegisters = async () => {
-    await Api.getQuery('/vehiculo')
+    await Api.getQuery('/vehiculos')
       .then((res) => {
         setRows(res)
       }).catch((error) => {

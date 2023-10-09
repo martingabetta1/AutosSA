@@ -22,17 +22,17 @@ export default function SelectInput(props) {
   }
 
   useEffect(() => {
-    // getOptions()
+    getOptions()
   }, [])
 
   useEffect(() => {
     setValue(props.value || 0)
-  }, [])
+  }, [props.value])
 
   const handleValueChange = (newValue) => {
     const selectedOption = options.find((option) => option.id === newValue);
     setValue(newValue)
-    props.handleInputValueChange(props.input.name, selectedOption)
+    props.handleInputValueChange(props.input.name, newValue)
   }
 
   return (

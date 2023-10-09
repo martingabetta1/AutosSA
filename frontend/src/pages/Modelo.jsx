@@ -15,18 +15,6 @@ export default function Modelo() {
     [rows, setRows] = CrudContext.crudStructure.rows,
     [columns, setColumns] = CrudContext.crudStructure.columns
 
-  let rowsTemplate = [
-    { id: 1, marca: { id: 101, descripcion: 'Marca1' }, nombre: '206' },
-    { id: 2, marca: { id: 102, descripcion: 'Marca2' }, nombre: 'prisma' },
-    { id: 3, marca: { id: 103, descripcion: 'Marca3' }, nombre: 'onix' },
-    { id: 4, marca: { id: 104, descripcion: 'Marca4' }, nombre: 'golf' },
-    { id: 5, marca: { id: 105, descripcion: 'Marca5' }, nombre: 'gol' },
-    { id: 6, marca: { id: 106, descripcion: 'Marca6' }, nombre: 'sedan' },
-    { id: 7, marca: { id: 107, descripcion: 'Marca7' }, nombre: 'tt' },
-    { id: 8, marca: { id: 108, descripcion: 'Marca8' }, nombre: 'veneno' },
-    { id: 9, marca: { id: 109, descripcion: 'Marca9' }, nombre: 'f100' }
-  ];
-
   const columnsTemplate = [
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'nombre', headerName: 'Nombre', flex: 1 },
@@ -62,7 +50,7 @@ export default function Modelo() {
         name: 'marca',
         label: 'Marca',
         type: 'select',
-        endpoint: '/marca'
+        endpoint: '/marcas'
       },
       {
         name: 'date',
@@ -70,9 +58,9 @@ export default function Modelo() {
         type: 'date',
       },
     ])
-    setRows(rowsTemplate)
+    // setRows(rowsTemplate)
     setColumns(columnsTemplate)
-    // getRegisters()
+    getRegisters()
   }, [])
 
 

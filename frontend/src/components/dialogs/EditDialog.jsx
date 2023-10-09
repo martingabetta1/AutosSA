@@ -7,11 +7,13 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DialogsUtils from '../utils/DialogsUtils';
 import { useCrudData } from '../../contexts/CrudContext/CrudContext';
+import { useError } from '../../contexts/Error';
 import DialogConstructor from './DialogConstructor';
 import Api from '../../services/Api'
 
 export default function EditDialog() {
     const { CrudContext } = useCrudData(),
+        { ErrorContext } = useError(),
         handleOpenDialog = CrudContext.dialogs.handleOpenDialog,
         [openEditDialog] = CrudContext.dialogs.edit,
         [dialogData] = CrudContext.dialogs.data,
@@ -25,11 +27,16 @@ export default function EditDialog() {
     };
 
     const handleEdit = async () => {
-        await Api.putQuery(endpoints.edit, bodyData,null,args)
+        await Api.putQuery(endpoints.edit, bodyData, null, args)
             .then((res) => {
                 window.location.reload()
             }).catch((error) => {
-                throw new Error(error.message)
+                ErrorContext.setError(
+                    {
+                        state: true, message: `Error al tratar de editar el registro\n
+                ${error.message}`
+                    }
+                )
             })
     }
 

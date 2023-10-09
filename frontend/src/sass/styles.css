@@ -63,4 +63,10 @@
 .crud_button_image {
   filter: invert(1);
   width: 25px;
+}
+
+footer {
+  padding: 20px;
+  background-color: rgb(15, 15, 15);
+  color: rgba(255, 255, 255, 0.521);
 }/*# sourceMappingURL=styles.css.map */

@@ -8,9 +8,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import DialogsUtils from '../utils/DialogsUtils';
 import { useCrudData } from '../../contexts/CrudContext/CrudContext';
 import Api from '../../services/Api'
+import { useError } from '../../contexts/Error';
 
 export default function DeleteDialog() {
     const { CrudContext } = useCrudData(),
+        { ErrorContext } = useError(),
         handleOpenDialog = CrudContext.dialogs.handleOpenDialog,
         [openDeleteDialog] = CrudContext.dialogs.delete,
         [dialogData] = CrudContext.dialogs.data,
@@ -27,7 +29,12 @@ export default function DeleteDialog() {
             .then((res) => {
                 window.location.reload()
             }).catch((error) => {
-                throw new Error(error.message)
+                ErrorContext.setError(
+                    {
+                        state: true, message: `Error al tratar de eliminar el registro\n
+                ${error.message}`
+                    }
+                )
             })
     }
 
@@ -64,10 +71,10 @@ export default function DeleteDialog() {
 
                     {dialogInputs.map((input, key) => {
                         return typeof bodyData[input.name] === "object"
-                        ? <li key={key + 1}><b>{input.label}:</b> {bodyData[input.name].descripcion}</li>
-                        : <li key={key + 1}><b>{input.label}:</b> {bodyData[input.name]}</li>
+                            ? <li key={key + 1}><b>{input.label}:</b> {bodyData[input.name].descripcion}</li>
+                            : <li key={key + 1}><b>{input.label}:</b> {bodyData[input.name]}</li>
                     })}
-                    
+
                 </DialogContent>
                 <DialogActions>
                     <Button variant='contained' onClick={handleDelete}>

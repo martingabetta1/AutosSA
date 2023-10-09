@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -8,17 +8,21 @@ export default function DateInput(props) {
 
     const [value,setValue] = useState(dayjs(props.value) || dayjs())
 
-    const handleChangeValue = (newValue)=>{
-        setValue(newValue)
-        props.handleInputValueChange(props.input.name,newValue)
+    const handleChangeValue = (newDate)=>{
+        setValue(newDate)
+        props.handleInputValueChange(props.input.name,newDate)
     }
+
+    useEffect(()=>{
+        props.handleInputValueChange(props.input.name,value)
+    },[])
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
                 label={props.input.label}
                 value={value}
-                onChange={(event) => handleChangeValue(event.target.value)}
+                onChange={handleChangeValue}
             />
         </LocalizationProvider>
     );

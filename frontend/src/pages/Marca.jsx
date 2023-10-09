@@ -15,15 +15,6 @@ export default function Marca() {
         [rows, setRows] = CrudContext.crudStructure.rows,
         [columns, setColumns] = CrudContext.crudStructure.columns
 
-    let rowsTemplate = [
-        { id: 1, nombre: 'Ford' },
-        { id: 2, nombre: 'Fiat' },
-        { id: 3, nombre: 'Volkswagen' },
-        { id: 4, nombre: 'Yamaha' },
-        { id: 5, nombre: 'Zanella' },
-        
-    ];
-
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
         { field: 'nombre', headerName: 'Nombre', flex: 1 },

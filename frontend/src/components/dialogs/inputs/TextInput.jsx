@@ -12,8 +12,8 @@ export default function TextInput(props) {
     }, [props.value])
 
     const handleValueChange = (newValue)=>{
-        props.type === "number" ? newValue = parseInt(newValue) : void (0)
         setValue(newValue)
+        props.type === "number" ? newValue = parseInt(newValue) : void (0)
         props.handleInputValueChange(props.input.name, newValue)
     }
 

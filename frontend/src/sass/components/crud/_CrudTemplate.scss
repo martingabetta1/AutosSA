@@ -70,3 +70,9 @@ $crud_button_image-size: calc($crud_button-size - 20px);
     filter: invert(1);
     width: $crud_button_image-size;
 }
+
+footer{
+    padding: 20px;
+    background-color: rgb(15, 15, 15);
+    color: rgba(255, 255, 255, 0.521);
+}

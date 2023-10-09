@@ -12,37 +12,9 @@ export default function Cliente() {
 
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
-        [endpoints, setEndpoints] = CrudContext.query.endpoints,
+        [, setEndpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
         [columns, setColumns] = CrudContext.crudStructure.columns
-
-    let rowsTemplate = [
-        {
-            id: 1,
-            cliente: { id: 101, descripcion: 'Cliente 1' },
-            fechaVisita: dayjs('2023-01-10')
-        },
-        {
-            id: 2,
-            cliente: { id: 102, descripcion: 'Cliente 2' },
-            fechaVisita: dayjs('2023-01-6')
-        },
-        {
-            id: 3,
-            cliente: { id: 103, descripcion: 'Cliente 3' },
-            fechaVisita: dayjs('2023-01-10')
-        },
-        {
-            id: 4,
-            cliente: { id: 104, descripcion: 'Cliente 4' },
-            fechaVisita: dayjs('2023-02-20')
-        },
-        {
-            id: 5,
-            cliente: { id: 105, descripcion: 'Cliente 5' },
-            fechaVisita: dayjs('2023-03-15')
-        }
-    ];
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -70,6 +42,7 @@ export default function Cliente() {
                 name: 'cliente',
                 label: 'Cliente',
                 type: 'select',
+                endpoint:'/clientes'
             },
             {
                 name: 'fechaVisita',
@@ -81,8 +54,9 @@ export default function Cliente() {
                 }
             },
         ])
-        setRows(rowsTemplate)
+        // setRows(rowsTemplate)
         setColumns(columnsTemplate)
+        getRegisters()
     }, [])
 
     const getRegisters = async () => {
