@@ -34,12 +34,6 @@ export default function Marca() {
             flex: 1,
             valueGetter: (params) => params.row.tecnico?.descripcion
         },
-        {
-            field: 'estado.descripcion',
-            headerName: 'Estado',
-            flex: 1,
-            valueGetter: (params) => params.row.estado?.descripcion
-        },
         { field: 'comentario', headerName: 'Comentario', flex: 1 },
         {
             field: 'cliente.descripcion',
@@ -80,12 +74,6 @@ export default function Marca() {
                 label: 'Tecnico',
                 type: 'select',
                 endpoint: '/tecnicos',
-            },
-            {
-                name: 'estado',
-                label: 'Estado',
-                type: 'select',
-                endpoint: '/estados',
             },
             {
                 name: 'comentario',

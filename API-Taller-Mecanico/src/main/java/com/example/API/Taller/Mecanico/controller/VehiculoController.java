@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,23 +24,27 @@ public class VehiculoController {
     IClienteService serviceCliente;
 
     @GetMapping
-    public ResponseEntity<List<Vehiculo>> listarVehiculos() {
+    public ResponseEntity<List<Vehiculo>> listarVehiculos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Vehiculo> vehiculos = serviceVehiculo.listarVehiculos();
 
-        for (Vehiculo vehiculo : vehiculos) {
-            Cliente cliente = new Cliente();
-            cliente.setId(vehiculo.getCliente().getId());
-            cliente.setDescripcion(vehiculo.getCliente().getNombre());
-            vehiculo.setCliente(cliente);
 
-            Modelo modelo = new Modelo();
-            modelo.setId(vehiculo.getModelo().getId());
-            modelo.setDescripcion(vehiculo.getModelo().getNombre());
-            vehiculo.setModelo(modelo);
+        if (select) {
+            // Si select es true, formatear la respuesta con el formato deseado
+
+            List<Vehiculo> vehiculosConCamposSelect = new ArrayList<>();
+            for (Vehiculo vehiculo : vehiculos) {
+                Vehiculo vehiculoConCamposSelect = new Vehiculo();
+                vehiculoConCamposSelect.setId(vehiculo.getId());
+                vehiculoConCamposSelect.setDescripcion(vehiculo.getPatente());
+                vehiculosConCamposSelect.add(vehiculoConCamposSelect);
+            }
+            return new ResponseEntity<List<Vehiculo>>(vehiculosConCamposSelect, HttpStatus.OK);
+        } else {
+            // Si select es false, devolver la lista de técnicos sin formato
+            return new ResponseEntity<List<Vehiculo>>(vehiculos, HttpStatus.OK);
         }
-
-        return new ResponseEntity<List<Vehiculo>>(vehiculos, HttpStatus.OK);
     }
+
 
     @PostMapping()
     public ResponseEntity<?> registrar(@RequestBody Vehiculo vehiculo) {

@@ -57,10 +57,21 @@ export default function Vehiculo() {
   const columnsTemplate = [
     { field: 'id', headerName: 'ID', flex: 1 },
     { field: 'patente', headerName: 'Patente', flex: 1 },
-    { field: 'modelo', headerName: 'Modelo', flex: 1 },
+    {
+      field: 'modelo.descripcion',
+      headerName: 'Modelo',
+      flex: 1,
+      valueGetter: (params) => params.row.modelo?.descripcion
+    },
+
     { field: 'anio', headerName: 'Año', flex: 1 },
     { field: 'kilometros', headerName: 'Kilómetros', flex: 1 },
-    { field: 'cliente', headerName: 'Cliente', flex: 1 },
+    {
+      field: 'cliente.descripcion',
+      headerName: 'Cliente',
+      flex: 1,
+      valueGetter: (params) => params.row.cliente?.descripcion
+    },
     { field: 'observaciones', headerName: 'Observaciones', flex: 1 },
   ];
 

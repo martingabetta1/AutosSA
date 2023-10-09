@@ -32,7 +32,7 @@ export default function SelectInput(props) {
   const handleValueChange = (newValue) => {
     const selectedOption = options.find((option) => option.id === newValue);
     setValue(newValue)
-    props.handleInputValueChange(props.input.name, newValue)
+    props.handleInputValueChange(props.input.name, selectedOption)
   }
 
   return (
