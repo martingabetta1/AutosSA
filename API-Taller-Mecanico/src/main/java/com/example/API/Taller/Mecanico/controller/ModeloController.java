@@ -23,7 +23,7 @@ public class ModeloController {
 
 
     @GetMapping
-    public ResponseEntity<List<Modelo>> listarModelos(@RequestParam(name = "select", defaultValue = "true") boolean select) {
+    public ResponseEntity<List<Modelo>> listarModelos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Modelo> modelos = serviceModelo.listarModelos();
 
         if (select) {

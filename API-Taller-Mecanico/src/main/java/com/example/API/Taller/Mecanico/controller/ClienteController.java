@@ -26,7 +26,7 @@ public class ClienteController {
 
     @GetMapping
 
-    public ResponseEntity<List<Cliente>> listarClientes(@RequestParam(name = "select", defaultValue = "true") boolean select) {
+    public ResponseEntity<List<Cliente>> listarClientes(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Cliente> clientes = serviceCliente.listarClientes();
 
         if (select) {
@@ -67,11 +67,10 @@ public class ClienteController {
         return new ResponseEntity<Cliente>(resCliente, HttpStatus.CREATED);
     }
 
-    @PutMapping("/actualizar/{id}")
-    public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Cliente cliente) {
+    @PutMapping("/actualizar")
+    public ResponseEntity<String> actualizar(@RequestBody Cliente cliente) {
 
-        serviceCliente.actualizar(id, cliente.getNombre(), cliente.getApellido(), cliente.getDireccion(), cliente.getTelefono(), cliente.getMail(), cliente.getLocalidad());
-
+        serviceCliente.actualizar(cliente.getId(), cliente.getNombre(), cliente.getApellido(), cliente.getDireccion(), cliente.getTelefono(), cliente.getMail(), cliente.getLocalidad());
         return ResponseEntity.ok("El cliente se actualizo correctamente");
     }
 
