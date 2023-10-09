@@ -7,14 +7,6 @@ import jakarta.validation.constraints.Size;
 @Table(name = "Cliente")
 public class Cliente {
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -43,6 +35,18 @@ public class Cliente {
     @Column(name = "localidad", length = 100, nullable = false)
     private String localidad;
 
+    @Size(max = 100)
+    @Column(name = "eliminado", nullable = false)
+    private boolean eliminado;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getLocalidad() {
         return localidad;
     }
@@ -50,11 +54,6 @@ public class Cliente {
     public void setLocalidad(String localidad) {
         this.localidad = localidad;
     }
-
-    @Size(max = 100)
-    @Column(name = "eliminado", nullable = false)
-    private boolean eliminado;
-
 
 
     @Lob

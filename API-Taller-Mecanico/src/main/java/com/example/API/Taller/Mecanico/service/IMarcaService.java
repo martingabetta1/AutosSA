@@ -7,6 +7,8 @@ import java.util.List;
 public interface IMarcaService {
 
     List<Marca> listarMarcas();
+
+    Marca listarMarcaPorId(Integer marcaId);
     Marca registrar(Marca marca);
 
    void actualizar(Integer marcaId, String nombre);

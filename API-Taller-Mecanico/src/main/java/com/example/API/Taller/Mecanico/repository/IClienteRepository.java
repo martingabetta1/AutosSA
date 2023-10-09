@@ -14,6 +14,8 @@ public interface IClienteRepository extends JpaRepository<Cliente, Integer> {
 
     List<Cliente> findByEliminadoFalse();
 
+    Cliente findByIdAndEliminadoFalse(Integer clienteId);
+
     @Modifying
     @Query("UPDATE Cliente c SET c.nombre = :nombre, c.apellido = :apellido, c.direccion = :direccion, c.telefono = :telefono, c.mail = :mail, c.localidad = :localidad WHERE c.id = :clienteId")
     void actualizar(@Param("clienteId") Integer clienteId, @Param("nombre") String nombre, @Param("apellido") String apellido, @Param("direccion") String direccion, @Param("telefono") String telefono, @Param("mail") String mail, @Param("localidad") String localidad);
@@ -21,6 +23,5 @@ public interface IClienteRepository extends JpaRepository<Cliente, Integer> {
     @Modifying
     @Query("UPDATE Cliente c SET c.eliminado = true WHERE c.id = :clienteId")
     void eliminar(@Param("clienteId") Integer clienteId);
-
 
 }
