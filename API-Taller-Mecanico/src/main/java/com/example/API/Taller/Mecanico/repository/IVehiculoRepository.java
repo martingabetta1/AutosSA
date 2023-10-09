@@ -13,8 +13,7 @@ public interface IVehiculoRepository extends JpaRepository<Vehiculo, Integer> {
 
     List<Vehiculo> findByEliminadoFalse();
 
-
-
+    Vehiculo findByIdAndEliminadoFalse(Integer vehiculoId);
     @Modifying
     @Query("UPDATE Vehiculo v SET v.patente = :patente, v.observaciones = :observaciones, v.anio = :anio, v.kilometros = :kilometros, v.idCliente = :idCliente WHERE v.id = :vehiculoId")
     void actualizar(@Param("vehiculoId") Integer vehiculoId, @Param("patente") String patente, @Param("observaciones") String observaciones, @Param("anio") Integer anio, @Param("kilometros") float kilometros, @Param("idCliente") Integer idCliente);

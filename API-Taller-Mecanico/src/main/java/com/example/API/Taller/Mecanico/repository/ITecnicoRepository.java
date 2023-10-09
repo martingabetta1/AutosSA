@@ -13,9 +13,11 @@ public interface ITecnicoRepository extends JpaRepository<Tecnico, Integer> {
 
     List<Tecnico> findByEliminadoFalse();
 
+    Tecnico findByIdAndEliminadoFalse(Integer tecnicoId);
+
     @Modifying
-    @Query("UPDATE Tecnico t SET t.nombre = :nombre, t.apellido = :apellido, t.direccion = :direccion, t.telefono = :telefono, t.mail = :mail, t.localidad = :localidad WHERE t.id = :tecnicoId")
-    void actualizar(@Param("tecnicoId") Integer tecnicoId, @Param("nombre") String nombre, @Param("apellido") String apellido, @Param("direccion") String direccion, @Param("telefono") String telefono, @Param("mail") String mail, @Param("localidad") String localidad);
+    @Query("UPDATE Tecnico t SET t.nombre = :nombre, t.apellido = :apellido, t.documento = :documento, t.telefono = :telefono, t.direccion = :direccion WHERE t.id = :tecnicoId")
+    void actualizar(@Param("tecnicoId") Integer tecnicoId, @Param("nombre") String nombre, @Param("apellido") String apellido, @Param("documento") String documento, @Param("telefono") String telefono, @Param("direccion") String direccion);
 
     @Modifying
     @Query("UPDATE Tecnico t SET t.eliminado = true WHERE t.id = :tecnicoId")

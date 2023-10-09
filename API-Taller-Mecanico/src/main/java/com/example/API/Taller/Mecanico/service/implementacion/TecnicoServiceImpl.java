@@ -23,7 +23,7 @@ public class TecnicoServiceImpl implements ITecnicoService {
 
     @Override
     public Tecnico listarTecnicoPorId(Integer idTecnico) {
-        return repoTecnico.findById(idTecnico).orElse(null);
+        return repoTecnico.findByIdAndEliminadoFalse(idTecnico);
     }
 
 
@@ -33,8 +33,8 @@ public class TecnicoServiceImpl implements ITecnicoService {
         return repoTecnico.save(tecnico);
     }
 
-    public void actualizar(Integer tecnicoId, String nombre, String apellido, String direccion, String telefono, String mail, String localidad) {
-        repoTecnico.actualizar(tecnicoId, nombre, apellido, direccion, telefono, mail, localidad);
+    public void actualizar(Integer tecnicoId, String nombre, String apellido, String documento, String telefono, String direccion) {
+        repoTecnico.actualizar(tecnicoId, nombre, apellido, documento, telefono, direccion);
     }
 
     public void eliminar(Integer tecnicoId) {

@@ -11,6 +11,8 @@ public interface IVehiculoService {
 
     List<Vehiculo> listarVehiculos();
 
+    Vehiculo listarVehiculoPorId(Integer vehiculoId);
+
     Vehiculo registrar(Vehiculo vehiculo);
 
     void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, float kilometros, Integer idCliente);
