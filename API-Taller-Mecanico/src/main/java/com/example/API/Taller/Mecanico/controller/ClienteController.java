@@ -3,6 +3,7 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Cliente;
 import com.example.API.Taller.Mecanico.service.IClienteService;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/clientes")
@@ -21,10 +25,26 @@ public class ClienteController {
     IClienteService serviceCliente;
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> listarClientes() {
+
+    public ResponseEntity<List<Cliente>> listarClientes(@RequestParam(name = "select", defaultValue = "true") boolean select) {
         List<Cliente> clientes = serviceCliente.listarClientes();
 
-        return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
+        if (select) {
+            // Si select es true, formatear la respuesta con el formato deseado
+
+            List<Cliente> clientesConCamposSelect = new ArrayList<>();
+            for (Cliente cliente : clientes) {
+                Cliente clienteConCamposSelect = new Cliente();
+                clienteConCamposSelect.setId(cliente.getId());
+                clienteConCamposSelect.setDescripcion(cliente.getNombre());
+                clientesConCamposSelect.add(clienteConCamposSelect);
+            }
+
+            return new ResponseEntity<List<Cliente>>(clientesConCamposSelect, HttpStatus.OK);
+        } else {
+            // Si select es false, devolver la lista de técnicos sin formato
+            return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
+        }
     }
 
     @PostMapping()
