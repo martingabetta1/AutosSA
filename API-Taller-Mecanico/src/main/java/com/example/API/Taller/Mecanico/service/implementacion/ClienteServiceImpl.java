@@ -25,7 +25,7 @@ public class ClienteServiceImpl implements IClienteService {
 
     @Override
     public Cliente listarClientePorId(Integer idCliente) {
-        return repoCliente.findById(idCliente).orElse(null);
+        return repoCliente.findByIdAndEliminadoFalse(idCliente);
     }
 
 

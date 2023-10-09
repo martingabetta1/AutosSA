@@ -14,6 +14,8 @@ public interface IMarcaRepository extends JpaRepository<Marca, Integer> {
 
     List<Marca> findByEliminadoFalse();
 
+    Marca findByIdAndEliminadoFalse(Integer marcaId);
+
     @Modifying
     @Query("UPDATE Marca m SET m.nombre = :nombre WHERE m.id = :marcaId")
     void actualizar(@Param("marcaId") Integer marcaId, @Param("nombre") String nombre);

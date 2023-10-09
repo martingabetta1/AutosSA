@@ -4,12 +4,21 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "Cliente")
-public class Cliente {
+@Table(name = "Tecnico")
+public class Tecnico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 
     @Size(max = 100)
     @Column(name = "nombre", length = 100, nullable = false)
@@ -35,18 +44,6 @@ public class Cliente {
     @Column(name = "localidad", length = 100, nullable = false)
     private String localidad;
 
-    @Size(max = 100)
-    @Column(name = "eliminado", nullable = false)
-    private boolean eliminado;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getLocalidad() {
         return localidad;
     }
@@ -55,29 +52,9 @@ public class Cliente {
         this.localidad = localidad;
     }
 
-
-    @Lob
-    private byte[] licenciaFrente;
-
-    @Lob
-    private byte[] licenciaDorso;
-
-    public byte[] getLicenciaDorso() {
-        return licenciaDorso;
-    }
-
-    public void setLicenciaDorso(byte[] licenciaDorso) {
-        this.licenciaDorso = licenciaDorso;
-    }
-
-    public byte[] getLicenciaFrente() {
-        return licenciaFrente;
-    }
-
-    public void setLicenciaFrente(byte[] licenciaFrente) {
-        this.licenciaFrente = licenciaFrente;
-    }
-
+    @Size(max = 100)
+    @Column(name = "eliminado", nullable = false)
+    private boolean eliminado;
 
     public String getNombre() {
         return nombre;
@@ -119,3 +96,4 @@ public class Cliente {
         this.mail = mail;
     }
 }
+

@@ -22,6 +22,11 @@ public class MarcaServiceImpl implements IMarcaService {
     }
 
     @Override
+    public Marca listarMarcaPorId(Integer marcaId) {
+        return repoMarca.findByIdAndEliminadoFalse(marcaId);
+    }
+
+    @Override
     public Marca registrar(Marca marca) {
         return repoMarca.save(marca);
     }
