@@ -33,10 +33,10 @@ public class TecnicoController {
     }
 
 
-    @PutMapping("/actualizar")
-    public ResponseEntity<String> actualizar(@RequestBody Tecnico tecnico) {
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Tecnico tecnico) {
 
-        serviceTecnico.actualizar(tecnico.getId(), tecnico.getNombre(), tecnico.getApellido(), tecnico.getDocumento(), tecnico.getTelefono(), tecnico.getDireccion());
+        serviceTecnico.actualizar(id, tecnico.getNombre(), tecnico.getApellido(), tecnico.getDocumento(), tecnico.getTelefono(), tecnico.getDireccion());
         return ResponseEntity.ok("El tecnico se actualizo correctamente");
     }
 

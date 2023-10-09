@@ -19,10 +19,6 @@ public class ModeloController {
     @Autowired
     IModeloService serviceModelo;
 
-    @Autowired
-    IMarcaService serviceMarca;
-
-
     @GetMapping
     public ResponseEntity<List<Modelo>> listarModelos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Modelo> modelos = serviceModelo.listarModelos();
@@ -68,10 +64,10 @@ public class ModeloController {
 
 
     @PutMapping("/actualizar")
-    public ResponseEntity<String> actualizar(@RequestBody Modelo modelo) {
+    public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Modelo modelo) {
 
-       serviceModelo.actualizar(modelo.getId(), modelo.getNombre());
-       return ResponseEntity.ok("El vehiculo se actualizo correctamente");
+       serviceModelo.actualizar(id, modelo.getNombre());
+       return ResponseEntity.ok("El modelo se actualizo correctamente");
     }
 
 

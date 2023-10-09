@@ -45,6 +45,17 @@ public class Tecnico {
     @Column(name = "eliminado", nullable = false)
     private boolean eliminado;
 
+    @Transient
+    private String descripcion;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public String getNombre() {
         return nombre;
     }
