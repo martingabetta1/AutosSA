@@ -13,6 +13,7 @@ import Drawer from './components/Drawer';
 import Footer from './components/Footer'
 import CrudContextProvider from './contexts/CrudContext/CrudContext'
 import ErrorProvider from './contexts/Error'
+import Servicio from './pages/ordenes/Servicio';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path={"/cliente"} element={<Cliente />} />
               <Route path={"/visita"} element={<Visita />} />
               <Route path={"/orden"} element={<Orden />} />
+              <Route path={"/servicio"} element={<Servicio />} />
             </Routes>
           </Router>
           <Footer />

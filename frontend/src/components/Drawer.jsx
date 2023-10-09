@@ -21,6 +21,7 @@ import PersonIcon from '@mui/icons-material/Person';//Cliente
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';//Visita
 import BadgeIcon from '@mui/icons-material/Badge';//Tecnico
 import ReceiptIcon from '@mui/icons-material/Receipt';//Orden
+import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -127,6 +128,11 @@ export default function PersistentDrawerRight() {
     nombre:"Ordenes",
     icono:<ReceiptIcon/>,
     ruta:"/orden"
+  },
+  {
+    nombre:"Servicios",
+    icono:<MiscellaneousServicesIcon/>,
+    ruta:"/servicio"
   }]
   return (
     <Box sx={{ display: 'flex' }}>
