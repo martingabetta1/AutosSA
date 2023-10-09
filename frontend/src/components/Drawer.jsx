@@ -26,6 +26,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
+import { ClickAwayListener } from '@mui/material';
 
 
 const drawerWidth = 240;
@@ -149,6 +150,11 @@ export default function PersistentDrawerRight() {
       <Main style={{padding:'0px'}} open={open}>
       <DrawerHeader />
       </Main>
+      <ClickAwayListener
+        mouseEvent="onMouseDown"
+        touchEvent="onTouchStart"
+        onClickAway={() => open && handleDrawerClose()}
+      >
       <Drawer
         sx={{
           width: drawerWidth,
@@ -160,6 +166,7 @@ export default function PersistentDrawerRight() {
         variant="persistent"
         anchor="right"
         open={open}
+        
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -182,6 +189,7 @@ export default function PersistentDrawerRight() {
             })}      
       </List>
       </Drawer>
+      </ClickAwayListener>
     </Box>
   );
 }
