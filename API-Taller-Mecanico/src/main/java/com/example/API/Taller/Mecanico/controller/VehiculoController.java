@@ -1,7 +1,6 @@
 package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Cliente;
-import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
 import com.example.API.Taller.Mecanico.model.Vehiculo;
 import com.example.API.Taller.Mecanico.service.IClienteService;
@@ -63,10 +62,10 @@ public class VehiculoController {
 
     }
 
-    @PutMapping("/actualizar")
-    public ResponseEntity<String> actualizar(@RequestBody Vehiculo vehiculo) {
+    @PutMapping("/actualiza/{id}")
+    public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Vehiculo vehiculo) {
 
-        serviceVehiculo.actualizar(vehiculo.getId(), vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros());
+        serviceVehiculo.actualizar(id, vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros());
         return ResponseEntity.ok("El vehiculo se actualizo correctamente");
 
     }
