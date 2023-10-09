@@ -39,20 +39,11 @@ public class VehiculoController {
 
     }
 
-    @PutMapping("/actualizar/{id}")
-    public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Vehiculo vehiculo) {
+    @PutMapping("/actualizar")
+    public ResponseEntity<String> actualizar(@RequestBody Vehiculo vehiculo) {
 
-        if(serviceVehiculo.listarVehiculoPorId(id) != null ) {
-            if(serviceCliente.listarClientePorId(vehiculo.getIdCliente()) != null) {
-                serviceVehiculo.actualizar(id, vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros(), vehiculo.getIdCliente());
-                return ResponseEntity.ok("El vehiculo se actualizo correctamente");
-            } else {
-                return ResponseEntity.badRequest().body("No se encontró un cliente con ese ID");
-            }
-        } else {
-            return ResponseEntity.badRequest().body("No se encontró un vehiculo con ese ID");
-        }
-
+        serviceVehiculo.actualizar(vehiculo.getId(), vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros(), vehiculo.getIdCliente());
+        return ResponseEntity.ok("El vehiculo se actualizo correctamente");
 
     }
 
