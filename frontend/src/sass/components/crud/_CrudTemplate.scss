@@ -1,0 +1,78 @@
+$crud_button-size: 45px;
+$crud_button_image-size: calc($crud_button-size - 20px);
+
+@mixin crud_button($color: blue) {
+    background-color: $color !important;
+    min-width: unset!important;
+    width: $crud_button-size;
+}
+
+%box-shadow {
+    box-shadow: 10px 10px 5px 0px rgba(219, 206, 206, 0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(219, 206, 206, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(219, 206, 206, 0.75);
+}
+
+%text-shadow{
+    text-shadow: 4px 4px 2px rgba(227,227,227,0.6);;
+}
+
+.crud-template-container {
+    padding: 10px;
+}
+
+.crud-title {
+    display: flex;
+    margin-left: 10px;
+    @extend %text-shadow;
+}
+
+.MuiDataGrid-root {
+    @extend %box-shadow;
+    height: 80vh!important;
+}
+
+
+[data-rowindex]:nth-child(odd){
+    background-color: rgb(230, 230, 230);
+    &:hover{
+        background-color: rgb(220, 220, 220)!important;
+    }
+}
+
+[data-rowindex]:nth-child(even){
+    background-color: rgb(250, 250, 250);
+    &:hover{
+        background-color: rgb(240, 240, 240)!important;
+    }
+}
+
+.crud_accions_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.crud_button_edit {
+    @include crud_button($color: rgb(44, 44, 192));
+}
+
+.crud_button_delete {
+    @include crud_button($color: red);
+}
+
+.crud_button_download {
+    @include crud_button($color: green);
+}
+
+.crud_button_image {
+    filter: invert(1);
+    width: $crud_button_image-size;
+}
+
+footer{
+    padding: 20px;
+    background-color: rgb(15, 15, 15);
+    color: rgba(255, 255, 255, 0.521);
+}
