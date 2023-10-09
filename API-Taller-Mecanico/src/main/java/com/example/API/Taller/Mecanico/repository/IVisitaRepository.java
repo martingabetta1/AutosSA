@@ -15,8 +15,8 @@ public interface IVisitaRepository extends JpaRepository<Visita, Integer> {
     List<Visita> findByEliminadoFalse();
 
     @Modifying
-    @Query("UPDATE Visita v SET v.idCliente = :idCliente, v.fechaVisita = :fechaVisita WHERE v.id = :visitaId")
-    void actualizar(@Param("visitaId") Integer visitaId, @Param("idCliente") Integer idCliente, @Param("fechaVisita") Date fechaVisita);
+    @Query("UPDATE Visita v SET v.fechaVisita = :fechaVisita WHERE v.id = :visitaId")
+    void actualizar(@Param("visitaId") Integer visitaId, @Param("fechaVisita") Date fechaVisita);
 
     @Modifying
     @Query("UPDATE Visita v SET v.eliminado = true WHERE v.id = :visitaId")

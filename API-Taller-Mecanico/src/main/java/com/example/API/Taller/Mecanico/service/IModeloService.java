@@ -11,7 +11,7 @@ public interface IModeloService {
 
     Modelo registrar(Modelo modelo);
 
-    void actualizar(Integer modeloId, String nombre, Integer idMarca);
+    void actualizar(Integer modeloId, String nombre);
 
     void eliminar(Integer id);
 }

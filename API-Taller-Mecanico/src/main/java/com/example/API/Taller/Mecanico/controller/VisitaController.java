@@ -1,8 +1,7 @@
 package com.example.API.Taller.Mecanico.controller;
 
 
-import com.example.API.Taller.Mecanico.model.Vehiculo;
-import com.example.API.Taller.Mecanico.model.Visita;
+import com.example.API.Taller.Mecanico.model.*;
 import com.example.API.Taller.Mecanico.service.IClienteService;
 import com.example.API.Taller.Mecanico.service.IVehiculoService;
 import com.example.API.Taller.Mecanico.service.IVisitaService;
@@ -27,30 +26,29 @@ public class VisitaController {
     public ResponseEntity<List<Visita>> listarVisitas() {
         List<Visita> visitas = serviceVisita.listarVisitas();
 
+            for (Visita visita : visitas) {
+                    Cliente cliente = new Cliente();
+                    cliente.setId(visita.getCliente().getId());
+                    cliente.setDescripcion(visita.getCliente().getNombre());
+                    visita.setCliente(cliente);
+            }
+
         return new ResponseEntity<List<Visita>>(visitas, HttpStatus.OK);
     }
 
     @PostMapping()
     public ResponseEntity<?> registrar(@RequestBody Visita visita) {
 
-        if(serviceCliente.listarClientePorId(visita.getIdCliente()) != null) {
-            Visita resVisita = serviceVisita.registrar(visita);
-            return new ResponseEntity<>(resVisita, HttpStatus.CREATED);
-        } else {
-            return ResponseEntity.badRequest().body("No se encontró un cliente con ese ID");
-        }
+      Visita resVisita = serviceVisita.registrar(visita);
+      return new ResponseEntity<>(resVisita, HttpStatus.CREATED);
 
     }
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Visita visita) {
 
-        if(serviceCliente.listarClientePorId(visita.getIdCliente()) != null) {
-            serviceVisita.actualizar(id, visita.getIdCliente(), visita.getFechaVisita());
-            return ResponseEntity.ok("La visita se actualizo correctamente");
-        } else {
-            return ResponseEntity.badRequest().body("No se encontró un cliente con ese ID");
-        }
+        serviceVisita.actualizar(id, visita.getFechaVisita());
+        return ResponseEntity.ok("La visita se actualizo correctamente");
 
     }
 

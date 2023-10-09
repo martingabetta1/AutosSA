@@ -1,5 +1,8 @@
 package com.example.API.Taller.Mecanico.controller;
 
+import com.example.API.Taller.Mecanico.model.Cliente;
+import com.example.API.Taller.Mecanico.model.Marca;
+import com.example.API.Taller.Mecanico.model.Modelo;
 import com.example.API.Taller.Mecanico.model.Vehiculo;
 import com.example.API.Taller.Mecanico.service.IClienteService;
 import com.example.API.Taller.Mecanico.service.IVehiculoService;
@@ -24,25 +27,46 @@ public class VehiculoController {
     public ResponseEntity<List<Vehiculo>> listarVehiculos() {
         List<Vehiculo> vehiculos = serviceVehiculo.listarVehiculos();
 
+        for (Vehiculo vehiculo : vehiculos) {
+            Cliente cliente = new Cliente();
+            cliente.setId(vehiculo.getCliente().getId());
+            cliente.setDescripcion(vehiculo.getCliente().getNombre());
+            vehiculo.setCliente(cliente);
+
+            Modelo modelo = new Modelo();
+            modelo.setId(vehiculo.getModelo().getId());
+            modelo.setDescripcion(vehiculo.getModelo().getNombre());
+            vehiculo.setModelo(modelo);
+        }
+
         return new ResponseEntity<List<Vehiculo>>(vehiculos, HttpStatus.OK);
     }
 
     @PostMapping()
     public ResponseEntity<?> registrar(@RequestBody Vehiculo vehiculo) {
 
-        if(serviceCliente.listarClientePorId(vehiculo.getIdCliente()) != null) {
-            Vehiculo resVehiculo = serviceVehiculo.registrar(vehiculo);
-            return new ResponseEntity<>(resVehiculo, HttpStatus.CREATED);
-        } else {
-            return ResponseEntity.badRequest().body("No se encontró un cliente con ese ID");
-        }
+        Vehiculo resVehiculo = serviceVehiculo.registrar(vehiculo);
+
+        Cliente cliente = new Cliente();
+        cliente.setId(resVehiculo.getCliente().getId());
+        cliente.setDescripcion(resVehiculo.getCliente().getNombre());
+
+        resVehiculo.setCliente(cliente);
+
+        Modelo modelo = new Modelo();
+        modelo.setId(resVehiculo.getModelo().getId());
+        modelo.setDescripcion(resVehiculo.getModelo().getNombre());
+
+        resVehiculo.setModelo(modelo);
+
+        return new ResponseEntity<>(resVehiculo, HttpStatus.CREATED);
 
     }
 
     @PutMapping("/actualizar")
     public ResponseEntity<String> actualizar(@RequestBody Vehiculo vehiculo) {
 
-        serviceVehiculo.actualizar(vehiculo.getId(), vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros(), vehiculo.getIdCliente());
+        serviceVehiculo.actualizar(vehiculo.getId(), vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros());
         return ResponseEntity.ok("El vehiculo se actualizo correctamente");
 
     }

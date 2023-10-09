@@ -1,5 +1,6 @@
 package com.example.API.Taller.Mecanico.controller;
 
+import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
 import com.example.API.Taller.Mecanico.service.IMarcaService;
 import com.example.API.Taller.Mecanico.service.IModeloService;
@@ -26,6 +27,13 @@ public class ModeloController {
     public ResponseEntity<List<Modelo>> listarModelos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Modelo> modelos = serviceModelo.listarModelos();
 
+        for (Modelo modelo : modelos) {
+            Marca marca = new Marca();
+            marca.setId(modelo.getMarca().getId());
+            marca.setDescripcion(modelo.getMarca().getNombre());
+            modelo.setMarca(marca);
+        }
+
         if (select) {
             // Si select es true, formatear la respuesta con el formato deseado
 
@@ -48,15 +56,21 @@ public class ModeloController {
     public ResponseEntity<?> registrar(@RequestBody Modelo modelo) {
 
       Modelo resModelo = serviceModelo.registrar(modelo);
+
+      Marca marca = new Marca();
+      marca.setId(resModelo.getMarca().getId());
+      marca.setDescripcion(resModelo.getMarca().getNombre());
+
+      resModelo.setMarca(marca);
       return new ResponseEntity<>(resModelo, HttpStatus.CREATED);
 
     }
 
 
     @PutMapping("/actualizar")
-    public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Modelo modelo) {
+    public ResponseEntity<String> actualizar(@RequestBody Modelo modelo) {
 
-       serviceModelo.actualizar(modelo.getId(), modelo.getNombre(), modelo.getIdMarca());
+       serviceModelo.actualizar(modelo.getId(), modelo.getNombre());
        return ResponseEntity.ok("El vehiculo se actualizo correctamente");
     }
 

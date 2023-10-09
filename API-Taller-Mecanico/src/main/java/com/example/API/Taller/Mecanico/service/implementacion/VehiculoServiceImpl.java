@@ -32,8 +32,8 @@ public class VehiculoServiceImpl implements IVehiculoService {
     }
 
 
-    public void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, float kilometros, Integer idCliente) {
-        repoVehiculo.actualizar(vehiculoId, patente, observaciones, anio, kilometros, idCliente);
+    public void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, float kilometros) {
+        repoVehiculo.actualizar(vehiculoId, patente, observaciones, anio, kilometros);
     }
 
     @Override

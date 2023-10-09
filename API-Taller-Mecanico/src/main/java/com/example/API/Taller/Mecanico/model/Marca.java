@@ -33,7 +33,6 @@ public class Marca {
         this.nombre = nombre;
     }
 
-    @Transient
     private String descripcion;
 
     public String getDescripcion() {
