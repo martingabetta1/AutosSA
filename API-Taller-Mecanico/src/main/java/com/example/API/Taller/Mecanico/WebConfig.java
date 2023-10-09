@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.example.API.Taller.Mecanico;
 
 import org.springframework.context.annotation.Configuration;
@@ -16,3 +17,23 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 }
+=======
+package com.example.API.Taller.Mecanico;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowCredentials(false);
+    }
+
+}
+>>>>>>> origin/backend
