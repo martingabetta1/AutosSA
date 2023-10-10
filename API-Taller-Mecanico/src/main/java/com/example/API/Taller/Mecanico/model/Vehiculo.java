@@ -1,10 +1,12 @@
 package com.example.API.Taller.Mecanico.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Vehiculo")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Vehiculo {
 
     @Id

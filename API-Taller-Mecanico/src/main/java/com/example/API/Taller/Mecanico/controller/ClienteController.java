@@ -3,13 +3,17 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Cliente;
 import com.example.API.Taller.Mecanico.service.IClienteService;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +46,33 @@ public class ClienteController {
             // Si select es false, devolver la lista de técnicos sin formato
             return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/download/{id}")
+    public ResponseEntity<Resource> descargarImagen(@PathVariable Integer id, HttpServletResponse response) {
+        // Obtener el cliente desde la base de datos
+        Cliente cliente = serviceCliente.listarClientePorId(id);
+
+        // Verificar si el cliente existe
+        if (cliente == null || cliente.getLicenciaFrente() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Obtener el contenido de la imagen
+        byte[] licenciaFrente = cliente.getLicenciaFrente();
+
+        // Configurar el encabezado de la respuesta
+        response.setContentType("licenciaFrenteDescargada/png");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=imagen.png");
+
+        // Escribir el contenido de la imagen en la respuesta
+        try (OutputStream out = response.getOutputStream()) {
+            out.write(licenciaFrente);
+        } catch (IOException e) {
+            e.printStackTrace(); // Manejar la excepción adecuadamente
+        }
+
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping()
