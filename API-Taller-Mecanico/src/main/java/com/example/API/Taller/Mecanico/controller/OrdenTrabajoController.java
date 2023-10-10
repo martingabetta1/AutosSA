@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ordenes")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrdenTrabajoController {
 
     @Autowired
@@ -35,10 +34,6 @@ public class OrdenTrabajoController {
             tecnico.setDescripcion(orden.getTecnico().getNombre());
             orden.setTecnico(tecnico);
 
-            Estado estado = new Estado();
-            estado.setId(orden.getEstado().getId());
-            estado.setDescripcion(orden.getEstado().getNombre().toString());
-            orden.setEstado(estado);
         }
 
         if (select) {

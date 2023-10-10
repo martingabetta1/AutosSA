@@ -1,6 +1,7 @@
 package com.example.API.Taller.Mecanico.model;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
@@ -8,6 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "OrdenTrabajo")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrdenTrabajo {
 
     @Id
@@ -30,9 +32,9 @@ public class OrdenTrabajo {
     @JoinColumn(name = "idTecnico", referencedColumnName = "id", nullable = false)
     private Tecnico tecnico;
 
-    @OneToOne
-    @JoinColumn(name = "idEstado", referencedColumnName = "id", nullable = false)
-    private Estado estado;
+    @Size(max = 100)
+    @Column(name = "estado", length = 100, nullable = false)
+    private String estado;
 
     @Size(max = 100)
     @Column(name = "comentario", length = 100, nullable = false)
@@ -109,11 +111,11 @@ public class OrdenTrabajo {
         this.tecnico = tecnico;
     }
 
-    public Estado getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 }
