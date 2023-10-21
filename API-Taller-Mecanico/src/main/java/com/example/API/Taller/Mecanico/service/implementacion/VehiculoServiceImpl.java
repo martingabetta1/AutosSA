@@ -32,7 +32,7 @@ public class VehiculoServiceImpl implements IVehiculoService {
     }
 
 
-    public void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, float kilometros) {
+    public void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, Float kilometros) {
         repoVehiculo.actualizar(vehiculoId, patente, observaciones, anio, kilometros);
     }
 
