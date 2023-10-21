@@ -49,14 +49,14 @@ export default function DeleteDialog() {
                 >
                     <CloseIcon />
                 </IconButton>
-                <DialogContent dividers>
-                    {bodyData.map((value, key)=>{
-                        <div style={{display:"flexbox",alignItems:"center",justifyContent:"space-between"}}>
+                <DialogContent dividers style={{ width: '50vw' }}>
+                    {bodyData.map((value, key) => {
+                        return <div style={{ display: "flex", alignItems: "center", justifyContent:"space-evenly", margin: '0 0 20px 0' }}>
                             <div>
-                                Tipo de servicio: {value.tipoServicio}
+                                <b>Tipo de servicio:</b> {value.tipoServicio}
                             </div>
                             <div>
-                                Precio: {value.precio}
+                                <b>Precio:</b> {value.precio}
                             </div>
                         </div>
                     })}
