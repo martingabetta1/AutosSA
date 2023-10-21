@@ -26,13 +26,18 @@ public class OrdenTrabajoController {
         for (OrdenTrabajo orden : ordenes) {
             Vehiculo vehiculo = new Vehiculo();
             vehiculo.setId(orden.getVehiculo().getId());
-            vehiculo.setDescripcion(orden.getVehiculo().getModelo().getNombre());
+            vehiculo.setDescripcion(orden.getVehiculo().getPatente());
             orden.setVehiculo(vehiculo);
 
             Tecnico tecnico = new Tecnico();
             tecnico.setId(orden.getTecnico().getId());
             tecnico.setDescripcion(orden.getTecnico().getNombre());
             orden.setTecnico(tecnico);
+
+            Cliente cliente = new Cliente();
+            cliente.setId(orden.getCliente().getId());
+            cliente.setDescripcion(orden.getCliente().getNombre());
+            orden.setCliente(cliente);
 
         }
 

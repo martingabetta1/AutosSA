@@ -15,7 +15,7 @@ public interface IVehiculoService {
 
     Vehiculo registrar(Vehiculo vehiculo);
 
-    void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, float kilometros);
+    void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, Float kilometros);
 
     void eliminar(Integer id);
 }
