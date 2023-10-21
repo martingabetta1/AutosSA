@@ -41,7 +41,6 @@ public class VisitaController {
 
       Visita resVisita = serviceVisita.registrar(visita);
       return new ResponseEntity<>(resVisita, HttpStatus.CREATED);
-
     }
 
     @PutMapping("/actualizar/{id}")

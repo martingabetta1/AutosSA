@@ -43,7 +43,7 @@ public class MarcaController {
 
     @PostMapping
     public ResponseEntity<Marca> registrar(@RequestBody Marca reqMarca) {
-
+        System.out.println(reqMarca);
         Marca resMarca = serviceMarca.registrar(reqMarca);
 
         return new ResponseEntity<Marca>(resMarca, HttpStatus.CREATED);

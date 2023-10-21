@@ -50,12 +50,10 @@ public class ModeloController {
 
     @PostMapping()
     public ResponseEntity<?> registrar(@RequestBody Modelo modelo) {
+    Modelo resModelo = serviceModelo.registrar(modelo);
+    return new ResponseEntity<>(resModelo, HttpStatus.CREATED);
+}
 
-      Modelo resModelo = serviceModelo.registrar(modelo);
-
-      return new ResponseEntity<>(resModelo, HttpStatus.CREATED);
-
-    }
 
 
     @PutMapping("/actualizar/{id}")

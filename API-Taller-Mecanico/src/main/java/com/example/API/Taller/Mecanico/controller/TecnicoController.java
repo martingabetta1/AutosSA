@@ -1,6 +1,7 @@
 package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Tecnico;
+import com.example.API.Taller.Mecanico.model.Vehiculo;
 import com.example.API.Taller.Mecanico.service.ITecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,6 @@ public class TecnicoController {
     public ResponseEntity<List<Tecnico>> listarTecnicos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Tecnico> tecnicos = serviceTecnico.listarTecnicos();
 
-
         if (select) {
             // Si select es true, formatear la respuesta con el formato deseado
 
@@ -33,7 +33,6 @@ public class TecnicoController {
                 tecnicoConCamposSelect.setDescripcion(tecnico.getNombre());
                 tecnicosConCamposSelect.add(tecnicoConCamposSelect);
             }
-
             return new ResponseEntity<List<Tecnico>>(tecnicosConCamposSelect, HttpStatus.OK);
         } else {
             // Si select es false, devolver la lista de técnicos sin formato
