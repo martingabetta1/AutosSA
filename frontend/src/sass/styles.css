@@ -38,7 +38,7 @@
 .crud_accions_box {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   width: 100%;
 }
 
@@ -56,6 +56,12 @@
 
 .crud_button_download {
   background-color: green !important;
+  min-width: unset !important;
+  width: 45px;
+}
+
+.crud_button_listServices {
+  background-color: rgb(0, 114, 95) !important;
   min-width: unset !important;
   width: 45px;
 }
