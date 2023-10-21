@@ -70,7 +70,7 @@ public class OrdenTrabajoController {
     }
 
 
-    @PutMapping("/actualizar")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody OrdenTrabajo ordenTrabajo) {
 
         serviceOrden.actualizar(id, ordenTrabajo.getFechaInicio(), ordenTrabajo.getFechaFin(), ordenTrabajo.getVehiculo(), ordenTrabajo.getTecnico(), ordenTrabajo.getEstado(), ordenTrabajo.getComentario(), ordenTrabajo.getCliente());

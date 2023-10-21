@@ -58,7 +58,7 @@ public class ModeloController {
     }
 
 
-    @PutMapping("/actualizar")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Modelo modelo) {
 
        serviceModelo.actualizar(id, modelo.getNombre());

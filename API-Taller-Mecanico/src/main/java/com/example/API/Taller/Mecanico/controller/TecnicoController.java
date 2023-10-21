@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,10 +19,26 @@ public class TecnicoController {
     ITecnicoService serviceTecnico;
 
     @GetMapping
-    public ResponseEntity<List<Tecnico>> listarTecnicos() {
+    public ResponseEntity<List<Tecnico>> listarTecnicos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Tecnico> tecnicos = serviceTecnico.listarTecnicos();
 
-        return new ResponseEntity<List<Tecnico>>(tecnicos, HttpStatus.OK);
+
+        if (select) {
+            // Si select es true, formatear la respuesta con el formato deseado
+
+            List<Tecnico> tecnicosConCamposSelect = new ArrayList<>();
+            for (Tecnico tecnico : tecnicos) {
+                Tecnico tecnicoConCamposSelect = new Tecnico();
+                tecnicoConCamposSelect.setId(tecnico.getId());
+                tecnicoConCamposSelect.setDescripcion(tecnico.getNombre());
+                tecnicosConCamposSelect.add(tecnicoConCamposSelect);
+            }
+
+            return new ResponseEntity<List<Tecnico>>(tecnicosConCamposSelect, HttpStatus.OK);
+        } else {
+            // Si select es false, devolver la lista de técnicos sin formato
+            return new ResponseEntity<List<Tecnico>>(tecnicos, HttpStatus.OK);
+        }
     }
 
     @PostMapping()
