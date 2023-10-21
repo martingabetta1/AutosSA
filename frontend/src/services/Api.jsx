@@ -89,6 +89,22 @@ async function deleteQuery(endpoint, id, params = null) {
     }
 }
 
+async function listServicesQuery(endpoint, params = null) {
+    try {
+        const res = await axios.get(`${domain}${endpoint}`, {
+            params: {
+                idOrden: params.idOrden
+            }
+        })
+
+        return res
+    } catch (error) {
+        throw new Error(error.message)
+    } finally {
+        console.log("Petición realizada")
+    }
+}
+
 async function downloadQuery(endpoint, id, params = null) {
     try {
         const res = await axios.get(`${domain}${endpoint}/descargar/${id}`, {
@@ -111,6 +127,7 @@ const Api = {
     putQuery,
     deleteQuery,
     downloadQuery,
+    listServicesQuery
 }
 
 export default Api

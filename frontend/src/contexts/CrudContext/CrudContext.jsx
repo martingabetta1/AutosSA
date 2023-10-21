@@ -12,6 +12,7 @@ export default function CrudContextProvider({ children }) {
         [openCreateDialog, setOpenCreateDialog] = useState(false),
         [openEditDialog, setOpenEditDialog] = useState(false),
         [openDeleteDialog, setOpenDeleteDialog] = useState(false),
+        [openListDialog, setOpenListDialog] = useState(false),
         [dialogData, setDialogData] = useState({}),
         [dialogInputs, setDialogInputs] = useState([]),
         [endpoints, setEndpoints] = useState({}),
@@ -37,7 +38,7 @@ export default function CrudContextProvider({ children }) {
         let initialValues = {}
 
         for (let index in dialogInputs) {
-            if(dialogInputs[index].type !== 'file'){
+            if (dialogInputs[index].type !== 'file') {
                 initialValues[dialogInputs[index].name] = ""
             }
         }
@@ -90,6 +91,10 @@ export default function CrudContextProvider({ children }) {
                 state ? setBodyData(params) : setBodyData({})
                 setOpenDeleteDialog(state)
                 break
+            case "list":
+                state ? setBodyData(params) : setBodyData({})
+                setOpenListDialog(state)
+                break
             default:
                 break
         }
@@ -108,6 +113,7 @@ export default function CrudContextProvider({ children }) {
             create: [openCreateDialog, setOpenCreateDialog],
             edit: [openEditDialog, setOpenEditDialog],
             delete: [openDeleteDialog, setOpenDeleteDialog],
+            list: [openListDialog, setOpenListDialog],
             handleOpenDialog
         },
         // Inputs de los dialogs
