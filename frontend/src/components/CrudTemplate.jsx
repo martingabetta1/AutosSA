@@ -48,7 +48,7 @@ export default function CrudTemplate(props) {
                 )}
                 {endpoints.listServices && (
                     <div>
-                        <Button variant="contained" className='crud_button_listServices' onClick={() => { handleListServices(params.row.id) }}>
+                        <Button variant="contained" className='crud_button_listServices' onClick={() => { handleListServices(params.row.ordenTrabajo_id) }}>
                             <img className='crud_button_image' button-type="listServices" alt="List Services icon" src="/images/crud/icon-services.png" />
                         </Button>
                     </div>
@@ -65,7 +65,7 @@ export default function CrudTemplate(props) {
     const handleListServices = (idOrden) => {
         Api.listServicesQuery(endpoints.listServices, { idOrden })
             .then((response) => {
-                handleOpenDialog("list", true, response.response)
+                handleOpenDialog("list", true, response.data)
             })
             .catch((error) => {
                 ErrorContext.setError(
