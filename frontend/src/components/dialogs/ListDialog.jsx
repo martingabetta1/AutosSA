@@ -49,7 +49,7 @@ export default function DeleteDialog() {
                 >
                     <CloseIcon />
                 </IconButton>
-                <DialogContent dividers style={{ width: '50vw' }}>
+                <DialogContent dividers>
                     {bodyData.map((value, key) => {
                         return <div style={{ display: "flex", alignItems: "center", justifyContent:"space-evenly", margin: '0 0 20px 0' }}>
                             <div>

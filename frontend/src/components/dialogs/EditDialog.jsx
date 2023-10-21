@@ -29,7 +29,7 @@ export default function EditDialog() {
     const handleEdit = async () => {
         await Api.putQuery(endpoints.edit, bodyData, null, args)
             .then((res) => {
-                window.location.reload()
+                // window.location.reload()
             }).catch((error) => {
                 ErrorContext.setError(
                     {
