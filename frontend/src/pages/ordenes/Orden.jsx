@@ -46,6 +46,7 @@ export default function Marca() {
             flex: 1,
             valueGetter: (params) => params.row.cliente?.descripcion
         },
+        { field: 'costo', headerName: 'Costo', flex: 1 },
     ];
     useEffect(() => {
         setEndpoints({
@@ -53,6 +54,7 @@ export default function Marca() {
             edit: '/ordenes',
             delete: '/ordenes',
             download: '/ordenes',
+            listServices:'/servicios'
         })
         setDialogData({
             title: 'orden'

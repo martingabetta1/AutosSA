@@ -4,7 +4,7 @@ import CreateDialog from '../../components/dialogs/CreateDialog'
 import { useCrudData } from '../../contexts/CrudContext/CrudContext';
 import Api from '../../services/Api'
 
-export default function Servicio(){
+export default function Servicio() {
     const title = "Servicio",
         { CrudContext } = useCrudData()
 
@@ -16,7 +16,8 @@ export default function Servicio(){
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
-        { field: 'nombre', headerName: 'Nombre', flex: 1 },
+        { field: 'tipoServicio', headerName: 'Tipo de servicio', flex: 1 },
+        { field: 'precio', headerName: 'Precio', flex: 1 },
         {
             field: 'orden.descripcion',
             headerName: 'Orden',
@@ -37,19 +38,28 @@ export default function Servicio(){
         })
         setDialogInputs([
             {
-                name: 'nombre',
-                label: 'Nombre',
+                name: 'tipoServicio',
+                label: 'Tipo de servicio',
                 type: 'text',
-                validations:{
-                    length:30,
-                    type:'text'
+                validations: {
+                    length: 30,
+                    type: 'text'
+                }
+            },
+            {
+                name: 'precio',
+                label: 'Precio',
+                type: 'number',
+                validations: {
+                    length: 30,
+                    type: 'text'
                 }
             },
             {
                 name: 'orden',
                 label: 'Orden',
                 type: 'select',
-                endpoint: '/ordenes',
+                endpoint: '/orden',
             },
         ])
         setColumns(columnsTemplate)

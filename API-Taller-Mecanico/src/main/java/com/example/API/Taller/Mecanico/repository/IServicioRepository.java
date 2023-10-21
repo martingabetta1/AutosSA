@@ -11,10 +11,11 @@ import java.util.List;
 public interface IServicioRepository extends JpaRepository<Servicio, Integer> {
 
     List<Servicio> findByEliminadoFalse();
+    List<Servicio> findByOrdenTrabajoIdAndEliminadoFalse(Integer idOrden);
 
     @Modifying
-    @Query("UPDATE Servicio s SET s.nombre = :nombre WHERE s.id = :servicioId")
-    void actualizar(@Param("servicioId") Integer servicioId, @Param("nombre") String nombre);
+    @Query("UPDATE Servicio s SET s.tipoServicio = :tipoServicio, s.precio = :precio WHERE s.id = :servicioId")
+    void actualizar(@Param("servicioId") Integer servicioId, @Param("tipoServicio") String tipoServicio, @Param("precio") Float precio);
 
     @Modifying
     @Query("UPDATE Servicio s SET s.eliminado = true WHERE s.id = :servicioId")

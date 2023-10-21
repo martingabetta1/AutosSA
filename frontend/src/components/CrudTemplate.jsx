@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { useCrudData } from '../contexts/CrudContext/CrudContext';
+import { useError } from '../contexts/Error';
 import Button from '@mui/material/Button';
 import EditDialog from './dialogs/EditDialog';
 import DeleteDialog from './dialogs/DeleteDialog'
+import ListDialog from './dialogs/ListDialog'
 import Api from '../services/Api';
 
 export default function CrudTemplate(props) {
     // Columnas
 
     const { CrudContext } = useCrudData(),
+        { ErrorContext } = useError(),
         handleOpenDialog = CrudContext.dialogs.handleOpenDialog,
         [openEditDialog] = CrudContext.dialogs.edit,
         [openDeleteDialog] = CrudContext.dialogs.delete,
+        [openListDialog] = CrudContext.dialogs.list,
         [endpoints] = CrudContext.query.endpoints
 
     const actionsColumn = {
@@ -42,6 +46,13 @@ export default function CrudTemplate(props) {
                         </Button>
                     </div>
                 )}
+                {endpoints.listServices && (
+                    <div>
+                        <Button variant="contained" className='crud_button_listServices' onClick={() => { handleListServices(params.row.id) }}>
+                            <img className='crud_button_image' button-type="listServices" alt="List Services icon" src="/images/crud/icon-services.png" />
+                        </Button>
+                    </div>
+                )}
             </div>
         )
     };
@@ -51,6 +62,20 @@ export default function CrudTemplate(props) {
         setTableColumns([...props.columns, actionsColumn])
     }, [props.columns])
 
+    const handleListServices = (idOrden) => {
+        Api.listServicesQuery(endpoints.listServices, { idOrden })
+            .then((response) => {
+                handleOpenDialog("list", true, response.response)
+            })
+            .catch((error) => {
+                ErrorContext.setError(
+                    {
+                        state: true, message: `Error al intentar listar los registros\n
+                ${error.message}`
+                    }
+                )
+            })
+    }
 
     return (
         <div className='crud-template-container'>
@@ -73,6 +98,9 @@ export default function CrudTemplate(props) {
                     )}
                     {openDeleteDialog && (
                         <DeleteDialog />
+                    )}
+                    {openListDialog && (
+                        <ListDialog />
                     )}
                 </div>
             </div>

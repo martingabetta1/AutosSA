@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,17 +22,32 @@ public class ServicioController {
     IServicioService serviceServicio;
 
     @GetMapping
-    public ResponseEntity<List<Servicio>> listarServicio() {
-        List<Servicio> servicios = serviceServicio.listarServicios();
+    public ResponseEntity<List<Servicio>> listarServicios(@RequestParam(required = false) Integer idOrden) {
+        List<Servicio> servicios;
 
-        for (Servicio servicio : servicios) {
-            OrdenTrabajo ordenTrabajo = new OrdenTrabajo();
-            ordenTrabajo.setId(servicio.getOrdenTrabajo().getId());
-            ordenTrabajo.setDescripcion(servicio.getOrdenTrabajo().getComentario());
-            servicio.setOrdenTrabajo(ordenTrabajo);
+        if (idOrden != null) {
+             List<Servicio> serviciosConOrden = serviceServicio.listarServiciosPorOrden(idOrden);
+             List<Servicio> serviciosFormateados = new ArrayList<>();
+
+            for (Servicio servicio : serviciosConOrden) {
+                Servicio servicioFormateado = new Servicio();
+                servicioFormateado.setTipoServicio(servicio.getTipoServicio());
+                servicioFormateado.setPrecio(servicio.getPrecio());
+                serviciosFormateados.add(servicioFormateado);
+            }
+            return new ResponseEntity<List<Servicio>>(serviciosFormateados, HttpStatus.OK);
+        } else {
+             servicios = serviceServicio.listarServicios();
+
+            for (Servicio servicio : servicios) {
+                OrdenTrabajo ordenTrabajo = new OrdenTrabajo();
+                ordenTrabajo.setId(servicio.getOrdenTrabajo().getId());
+                ordenTrabajo.setDescripcion(servicio.getOrdenTrabajo().getComentario());
+                servicio.setOrdenTrabajo(ordenTrabajo);
+            }
+
+            return new ResponseEntity<List<Servicio>>(servicios, HttpStatus.OK);
         }
-
-        return new ResponseEntity<List<Servicio>>(servicios, HttpStatus.OK);
     }
 
     @PostMapping()
@@ -45,7 +61,7 @@ public class ServicioController {
     @PutMapping("/actualizar")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Servicio servicio) {
 
-        serviceServicio.actualizar(id, servicio.getNombre());
+        serviceServicio.actualizar(id, servicio.getTipoServicio(), servicio.getPrecio());
         return ResponseEntity.ok("El servicio se actualizo correctamente");
     }
 

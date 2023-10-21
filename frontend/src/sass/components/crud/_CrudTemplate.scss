@@ -66,6 +66,10 @@ $crud_button_image-size: calc($crud_button-size - 20px);
     @include crud_button($color: green);
 }
 
+.crud_button_listServices {
+    @include crud_button($color: rgb(0, 114, 95));
+}
+
 .crud_button_image {
     filter: invert(1);
     width: $crud_button_image-size;

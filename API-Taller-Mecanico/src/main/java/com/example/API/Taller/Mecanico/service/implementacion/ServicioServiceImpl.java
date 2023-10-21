@@ -18,6 +18,11 @@ public class ServicioServiceImpl implements IServicioService {
     IServicioRepository repoServicio;
 
     @Override
+    public List<Servicio> listarServiciosPorOrden(Integer idOrden) {
+        return repoServicio.findByOrdenTrabajoIdAndEliminadoFalse(idOrden);
+    }
+
+    @Override
     public List<Servicio> listarServicios() {
         return repoServicio.findByEliminadoFalse();
     }
@@ -27,8 +32,8 @@ public class ServicioServiceImpl implements IServicioService {
         return repoServicio.save(servicio);
     }
 
-    public void actualizar(Integer servicioId, String nombre) {
-        repoServicio.actualizar(servicioId, nombre);
+    public void actualizar(Integer servicioId, String tipoServicio, Float precio) {
+        repoServicio.actualizar(servicioId, tipoServicio, precio);
     }
 
     @Override

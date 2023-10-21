@@ -29,7 +29,7 @@ export default function Validator() {
   }, [inputValues])
 
   const typeValidation = () => {
-    let inputTypeAllowed = inputFocusObject.validations?.type
+    let inputTypeAllowed = inputFocusObject?.validations?.type
     switch (inputTypeAllowed) {
       case "number":
         return !/^[0-9]+$/.test(inputValues[inputFocus])

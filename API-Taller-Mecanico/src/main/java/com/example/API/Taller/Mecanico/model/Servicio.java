@@ -1,10 +1,12 @@
 package com.example.API.Taller.Mecanico.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Servicio")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Servicio {
 
     @Id
@@ -12,8 +14,12 @@ public class Servicio {
     private Integer id;
 
     @Size(max = 100)
-    @Column(name = "nombre", length = 100, nullable = false)
-    private String nombre;
+    @Column(name = "tipoServicio", length = 100, nullable = false)
+    private String tipoServicio;
+
+    @Size(max = 100)
+    @Column(name = "precio", length = 100, nullable = false)
+    private Float precio;
 
     @Size(max = 100)
     @Column(name = "eliminado", nullable = false)
@@ -39,11 +45,19 @@ public class Servicio {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTipoServicio() {
+        return tipoServicio;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTipoServicio(String tipoServicio) {
+        this.tipoServicio = tipoServicio;
+    }
+
+    public Float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Float precio) {
+        this.precio = precio;
     }
 }
