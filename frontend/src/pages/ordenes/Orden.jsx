@@ -34,12 +34,7 @@ export default function Marca() {
             flex: 1,
             valueGetter: (params) => params.row.tecnico?.descripcion
         },
-        {
-            field:'estado',
-            headerName:'Estado',
-            flex:1
-        },
-        { field: 'comentario', headerName: 'Comentario', flex: 1 },
+        { field: 'estado', headerName: 'Estado', flex: 1 },
         {
             field: 'cliente.descripcion',
             headerName: 'Cliente',
@@ -53,7 +48,6 @@ export default function Marca() {
             create: '/ordenes',
             edit: '/ordenes',
             delete: '/ordenes',
-            download: '/ordenes',
             listServices:'/servicios'
         })
         setDialogData({
@@ -86,6 +80,10 @@ export default function Marca() {
                 name: 'estado',
                 label: 'Estado',
                 type: 'text',
+                validations: {
+                    length: 20,
+                    type: 'text'
+                }
             },
             {
                 name: 'comentario',

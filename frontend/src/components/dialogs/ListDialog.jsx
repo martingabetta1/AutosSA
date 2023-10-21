@@ -22,6 +22,8 @@ export default function DeleteDialog() {
         handleOpenDialog("list", false);
     };
 
+    console.log(bodyData);
+
     return (
         <div>
             <DialogsUtils.Styles.BootstrapDialog

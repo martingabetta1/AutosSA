@@ -19,10 +19,16 @@ export default function Servicio() {
         { field: 'tipoServicio', headerName: 'Tipo de servicio', flex: 1 },
         { field: 'precio', headerName: 'Precio', flex: 1 },
         {
-            field: 'orden.descripcion',
+            field: 'ordenTrabajo_descripcion',
             headerName: 'Orden',
             flex: 1,
-            valueGetter: (params) => params.row.orden?.descripcion
+            valueGetter: (params) => params.row.ordenTrabajo?.descripcion
+        },
+        {
+            field: 'ordenTrabajo_id',
+            headerName: 'Orden',
+            flex: 1,
+            valueGetter: (params) => params.row.ordenTrabajo?.id
         },
     ];
 
@@ -56,10 +62,10 @@ export default function Servicio() {
                 }
             },
             {
-                name: 'orden',
+                name: 'ordenTrabajo',
                 label: 'Orden',
                 type: 'select',
-                endpoint: '/orden',
+                endpoint: '/ordenes',
             },
         ])
         setColumns(columnsTemplate)
