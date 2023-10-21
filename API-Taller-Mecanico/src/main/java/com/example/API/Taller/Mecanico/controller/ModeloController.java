@@ -53,11 +53,6 @@ public class ModeloController {
 
       Modelo resModelo = serviceModelo.registrar(modelo);
 
-      Marca marca = new Marca();
-      marca.setId(resModelo.getMarca().getId());
-      marca.setDescripcion(resModelo.getMarca().getNombre());
-
-      resModelo.setMarca(marca);
       return new ResponseEntity<>(resModelo, HttpStatus.CREATED);
 
     }

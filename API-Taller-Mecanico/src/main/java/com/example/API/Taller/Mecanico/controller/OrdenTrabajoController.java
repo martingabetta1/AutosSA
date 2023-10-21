@@ -3,6 +3,7 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.*;
 import com.example.API.Taller.Mecanico.service.IOrdenTrabajoService;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +34,6 @@ public class OrdenTrabajoController {
             tecnico.setDescripcion(orden.getTecnico().getNombre());
             orden.setTecnico(tecnico);
 
-            Estado estado = new Estado();
-            estado.setId(orden.getEstado().getId());
-            estado.setDescripcion(orden.getEstado().getNombre().toString());
-            orden.setEstado(estado);
         }
 
         if (select) {
@@ -63,19 +60,6 @@ public class OrdenTrabajoController {
 
         OrdenTrabajo resOrden = serviceOrden.registrar(ordenTrabajo);
 
-        Vehiculo vehiculo = new Vehiculo();
-        vehiculo.setId(resOrden.getVehiculo().getId());
-        vehiculo.setDescripcion(resOrden.getVehiculo().getModelo().getNombre());
-
-        Tecnico tecnico = new Tecnico();
-        tecnico.setId(resOrden.getTecnico().getId());
-        tecnico.setDescripcion(resOrden.getTecnico().getNombre());
-
-        Cliente cliente = new Cliente();
-        cliente.setId(resOrden.getCliente().getId());
-        cliente.setDescripcion(resOrden.getCliente().getNombre());
-
-        resOrden.setCliente(cliente);
         return new ResponseEntity<>(resOrden, HttpStatus.CREATED);
 
     }
