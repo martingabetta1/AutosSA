@@ -16,13 +16,24 @@ export default function DeleteDialog() {
     [openListDialog] = CrudContext.dialogs.list,
     [dialogData] = CrudContext.dialogs.data,
     [bodyData] = CrudContext.query.bodyData.data,
-    [dialogInputs] = CrudContext.inputs;
+    [dialogInputs] = CrudContext.inputs,
+    [total, setTotal] = useState(0)
 
   const handleClose = () => {
     handleOpenDialog("list", false);
   };
 
-  console.log(bodyData);
+  const sumarTotal = () => {
+    let updatedTotal = total;
+    bodyData.forEach((item) => {
+      updatedTotal += parseInt(item.precio);
+    });
+    setTotal(updatedTotal);
+  }
+
+  useEffect(()=>{
+    sumarTotal()
+  },[])
 
   return (
     <div>
@@ -49,20 +60,20 @@ export default function DeleteDialog() {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent dividers style={{ width: "30vw", maxHeight:"60vh" }}>
-        <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-          <div>
-            <b>Tipo de servicio</b>
-          </div>
-          <div>
-            <b>Precio</b>
-          </div>
+        <DialogContent dividers style={{ width: "30vw", maxHeight: "60vh" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <b>Tipo de servicio</b>
+            </div>
+            <div>
+              <b>Precio</b>
+            </div>
           </div>
           {bodyData.map((value, key) => {
             return (
@@ -78,12 +89,13 @@ export default function DeleteDialog() {
                   {value.tipoServicio}
                 </div>
                 <div>
-                    {value.precio}
+                  {value.precio}
                 </div>
               </div>
             );
           })}
         </DialogContent>
+        <div><b>Total: </b>${total}</div>
         <DialogActions>
           <Button onClick={handleClose}>Cerrar</Button>
         </DialogActions>
