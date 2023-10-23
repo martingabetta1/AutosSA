@@ -1,6 +1,7 @@
 package com.example.API.Taller.Mecanico.service;
 
 import com.example.API.Taller.Mecanico.model.Cliente;
+import com.example.API.Taller.Mecanico.model.Modelo;
 import com.example.API.Taller.Mecanico.model.Vehiculo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,7 @@ public interface IVehiculoService {
 
     Vehiculo registrar(Vehiculo vehiculo);
 
-    void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, Float kilometros);
+    void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, Float kilometros, Cliente cliente, Modelo modelo);
 
     void eliminar(Integer id);
 }

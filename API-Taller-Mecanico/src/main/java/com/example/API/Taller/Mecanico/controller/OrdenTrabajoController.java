@@ -3,6 +3,7 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.*;
 import com.example.API.Taller.Mecanico.service.IOrdenTrabajoService;
+import com.example.API.Taller.Mecanico.service.IServicioService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ public class OrdenTrabajoController {
 
     @Autowired
     IOrdenTrabajoService serviceOrden;
+
+    @Autowired
+    IServicioService serviceServicio;
 
     @GetMapping
     public ResponseEntity<List<OrdenTrabajo>> listarOrdenes(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
@@ -38,6 +42,12 @@ public class OrdenTrabajoController {
             cliente.setId(orden.getCliente().getId());
             cliente.setDescripcion(orden.getCliente().getNombre());
             orden.setCliente(cliente);
+
+            List<Servicio> serviciosPorOrden = serviceServicio.listarServiciosPorOrden(orden.getId());
+
+            for (Servicio servicio : serviciosPorOrden) {
+               orden.setCosto(orden.calcularCosto(servicio.getPrecio()));
+            }
 
         }
 

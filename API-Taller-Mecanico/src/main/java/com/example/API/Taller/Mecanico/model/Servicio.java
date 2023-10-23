@@ -19,7 +19,7 @@ public class Servicio {
 
     @Size(max = 100)
     @Column(name = "precio", length = 100, nullable = false)
-    private Float precio;
+    private Double precio;
 
     @Size(max = 100)
     @Column(name = "eliminado", nullable = false)
@@ -53,11 +53,11 @@ public class Servicio {
         this.tipoServicio = tipoServicio;
     }
 
-    public Float getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Float precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 }
