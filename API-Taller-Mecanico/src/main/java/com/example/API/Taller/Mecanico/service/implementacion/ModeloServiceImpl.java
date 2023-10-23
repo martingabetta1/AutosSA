@@ -1,5 +1,6 @@
 package com.example.API.Taller.Mecanico.service.implementacion;
 
+import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
 import com.example.API.Taller.Mecanico.repository.IModeloRepository;
 import com.example.API.Taller.Mecanico.service.IModeloService;
@@ -27,8 +28,9 @@ public class ModeloServiceImpl implements IModeloService {
     }
 
 
-    public void actualizar(Integer modeloId, String nombre) {
-        repoModelo.actualizar(modeloId, nombre);
+    public void actualizar(Integer modeloId, String nombre, Marca marca) {
+        repoModelo.actualizarModelo(modeloId, nombre);
+        repoModelo.actualizarMarca(marca.getId(), marca.getDescripcion());
     }
 
     @Override

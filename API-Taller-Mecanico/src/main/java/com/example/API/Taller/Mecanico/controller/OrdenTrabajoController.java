@@ -3,6 +3,7 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.*;
 import com.example.API.Taller.Mecanico.service.IOrdenTrabajoService;
+import com.example.API.Taller.Mecanico.service.IServicioService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ public class OrdenTrabajoController {
     @Autowired
     IOrdenTrabajoService serviceOrden;
 
+    @Autowired
+    IServicioService serviceServicio;
+
     @GetMapping
     public ResponseEntity<List<OrdenTrabajo>> listarOrdenes(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<OrdenTrabajo> ordenes = serviceOrden.listarOrdenes();
@@ -26,13 +30,24 @@ public class OrdenTrabajoController {
         for (OrdenTrabajo orden : ordenes) {
             Vehiculo vehiculo = new Vehiculo();
             vehiculo.setId(orden.getVehiculo().getId());
-            vehiculo.setDescripcion(orden.getVehiculo().getModelo().getNombre());
+            vehiculo.setDescripcion(orden.getVehiculo().getPatente());
             orden.setVehiculo(vehiculo);
 
             Tecnico tecnico = new Tecnico();
             tecnico.setId(orden.getTecnico().getId());
             tecnico.setDescripcion(orden.getTecnico().getNombre());
             orden.setTecnico(tecnico);
+
+            Cliente cliente = new Cliente();
+            cliente.setId(orden.getCliente().getId());
+            cliente.setDescripcion(orden.getCliente().getNombre());
+            orden.setCliente(cliente);
+
+            List<Servicio> serviciosPorOrden = serviceServicio.listarServiciosPorOrden(orden.getId());
+
+            for (Servicio servicio : serviciosPorOrden) {
+               orden.setCosto(orden.calcularCosto(servicio.getPrecio()));
+            }
 
         }
 
@@ -65,7 +80,7 @@ public class OrdenTrabajoController {
     }
 
 
-    @PutMapping("/actualizar")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody OrdenTrabajo ordenTrabajo) {
 
         serviceOrden.actualizar(id, ordenTrabajo.getFechaInicio(), ordenTrabajo.getFechaFin(), ordenTrabajo.getVehiculo(), ordenTrabajo.getTecnico(), ordenTrabajo.getEstado(), ordenTrabajo.getComentario(), ordenTrabajo.getCliente());

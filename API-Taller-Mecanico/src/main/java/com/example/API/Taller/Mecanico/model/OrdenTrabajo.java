@@ -40,6 +40,26 @@ public class OrdenTrabajo {
     @Column(name = "comentario", length = 100, nullable = false)
     private String comentario;
 
+    private Double costo;
+    Double totalCosto = 0.0;
+
+    public Double getTotalCosto() {
+        return totalCosto;
+    }
+
+    public Double calcularCosto(Double costo) {
+        totalCosto = this.getTotalCosto() + costo;
+        return this.getTotalCosto();
+    }
+
+    public void setCosto(Double costo) {
+        this.costo = costo;
+    }
+
+    public Double getCosto() {
+        return costo;
+    }
+
     @ManyToOne
     @JoinColumn(name = "idCliente", referencedColumnName = "id", nullable = false)
     private Cliente cliente;

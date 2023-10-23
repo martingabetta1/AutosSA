@@ -27,7 +27,7 @@ public class Vehiculo {
 
     @Size(max = 100)
     @Column(name = "kilometros", length = 100, nullable = false)
-    private float kilometros;
+    private Float kilometros;
 
     @ManyToOne
     @JoinColumn(name = "idCliente", referencedColumnName = "id", nullable = false)
@@ -84,11 +84,11 @@ public class Vehiculo {
         this.anio = anio;
     }
 
-    public float getKilometros() {
+    public Float getKilometros() {
         return kilometros;
     }
 
-    public void setKilometros(float kilometros) {
+    public void setKilometros(Float kilometros) {
         this.kilometros = kilometros;
     }
 

@@ -1,8 +1,6 @@
 package com.example.API.Taller.Mecanico.controller;
 
-import com.example.API.Taller.Mecanico.model.Cliente;
-import com.example.API.Taller.Mecanico.model.Modelo;
-import com.example.API.Taller.Mecanico.model.Vehiculo;
+import com.example.API.Taller.Mecanico.model.*;
 import com.example.API.Taller.Mecanico.service.IClienteService;
 import com.example.API.Taller.Mecanico.service.IVehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +41,24 @@ public class VehiculoController {
             // Si select es false, devolver la lista de técnicos sin formato
             return new ResponseEntity<List<Vehiculo>>(vehiculos, HttpStatus.OK);
         }
+
+        if (select) {
+            // Si select es true, formatear la respuesta con el formato deseado
+
+            List<Vehiculo> vehiculosConCamposSelect = new ArrayList<>();
+            for (Vehiculo vehiculo : vehiculos) {
+                Vehiculo vehiculoConCamposSelect = new Vehiculo();
+                vehiculoConCamposSelect.setId(vehiculo.getId());
+                vehiculoConCamposSelect.setDescripcion(vehiculo.getPatente());
+                vehiculosConCamposSelect.add(vehiculoConCamposSelect);
+            }
+
+            return new ResponseEntity<List<Vehiculo>>(vehiculosConCamposSelect, HttpStatus.OK);
+        } else {
+            // Si select es false, devolver la lista de técnicos sin formato
+            return new ResponseEntity<List<Vehiculo>>(vehiculos, HttpStatus.OK);
+        }
+
     }
 
 
@@ -55,10 +71,10 @@ public class VehiculoController {
 
     }
 
-    @PutMapping("/actualiza/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Vehiculo vehiculo) {
 
-        serviceVehiculo.actualizar(id, vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros());
+        serviceVehiculo.actualizar(id, vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros(), vehiculo.getCliente(), vehiculo.getModelo());
         return ResponseEntity.ok("El vehiculo se actualizo correctamente");
 
     }

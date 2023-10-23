@@ -1,5 +1,6 @@
 package com.example.API.Taller.Mecanico.service;
 
+import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
 import com.example.API.Taller.Mecanico.model.Vehiculo;
 
@@ -11,7 +12,7 @@ public interface IModeloService {
 
     Modelo registrar(Modelo modelo);
 
-    void actualizar(Integer modeloId, String nombre);
+    void actualizar(Integer modeloId, String nombre, Marca marca);
 
     void eliminar(Integer id);
 }

@@ -58,10 +58,10 @@ public class ServicioController {
         return new ResponseEntity<>(resServicio, HttpStatus.CREATED);
     }
 
-    @PutMapping("/actualizar")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Servicio servicio) {
 
-        serviceServicio.actualizar(id, servicio.getTipoServicio(), servicio.getPrecio());
+        serviceServicio.actualizar(id, servicio.getTipoServicio(), servicio.getPrecio(), servicio.getOrdenTrabajo());
         return ResponseEntity.ok("El servicio se actualizo correctamente");
     }
 
