@@ -41,7 +41,6 @@ export default function Marca() {
             flex: 1,
             valueGetter: (params) => params.row.cliente?.descripcion
         },
-        { field: 'costo', headerName: 'Costo', flex: 1 },
     ];
     useEffect(() => {
         setEndpoints({

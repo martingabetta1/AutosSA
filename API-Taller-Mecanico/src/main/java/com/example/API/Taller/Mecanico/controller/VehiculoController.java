@@ -41,24 +41,6 @@ public class VehiculoController {
             // Si select es false, devolver la lista de técnicos sin formato
             return new ResponseEntity<List<Vehiculo>>(vehiculos, HttpStatus.OK);
         }
-
-        if (select) {
-            // Si select es true, formatear la respuesta con el formato deseado
-
-            List<Vehiculo> vehiculosConCamposSelect = new ArrayList<>();
-            for (Vehiculo vehiculo : vehiculos) {
-                Vehiculo vehiculoConCamposSelect = new Vehiculo();
-                vehiculoConCamposSelect.setId(vehiculo.getId());
-                vehiculoConCamposSelect.setDescripcion(vehiculo.getPatente());
-                vehiculosConCamposSelect.add(vehiculoConCamposSelect);
-            }
-
-            return new ResponseEntity<List<Vehiculo>>(vehiculosConCamposSelect, HttpStatus.OK);
-        } else {
-            // Si select es false, devolver la lista de técnicos sin formato
-            return new ResponseEntity<List<Vehiculo>>(vehiculos, HttpStatus.OK);
-        }
-
     }
 
 
