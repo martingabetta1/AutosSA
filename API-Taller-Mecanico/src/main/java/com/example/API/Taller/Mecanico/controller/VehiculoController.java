@@ -24,7 +24,17 @@ public class VehiculoController {
     @GetMapping
     public ResponseEntity<List<Vehiculo>> listarVehiculos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Vehiculo> vehiculos = serviceVehiculo.listarVehiculos();
+        for (Vehiculo vehiculo : vehiculos) {
+            Modelo modelo = new Modelo();
+            modelo.setId(vehiculo.getModelo().getId());
+            modelo.setDescripcion(vehiculo.getModelo().getNombre());
+            vehiculo.setModelo(modelo);
 
+            Cliente cliente = new Cliente();
+            cliente.setId(vehiculo.getCliente().getId());
+            cliente.setDescripcion(vehiculo.getCliente().getNombre() + ' ' + vehiculo.getCliente().getApellido());
+            vehiculo.setCliente(cliente);
+        }
 
         if (select) {
             // Si select es true, formatear la respuesta con el formato deseado

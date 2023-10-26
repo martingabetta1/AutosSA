@@ -35,10 +35,9 @@ public class VehiculoServiceImpl implements IVehiculoService {
 
 
     public void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, Float kilometros, Cliente cliente, Modelo modelo) {
-        repoVehiculo.actualizarVehiculo(vehiculoId, patente, observaciones, anio, kilometros);
-        repoVehiculo.actualizarCliente(cliente.getId(), cliente.getDescripcion());
-        repoVehiculo.actualizarModelo(modelo.getId(), modelo.getDescripcion());
+        repoVehiculo.actualizarVehiculo(vehiculoId, patente, observaciones, anio, kilometros, cliente, modelo);
     }
+    
 
     @Override
     public void eliminar(Integer id) {

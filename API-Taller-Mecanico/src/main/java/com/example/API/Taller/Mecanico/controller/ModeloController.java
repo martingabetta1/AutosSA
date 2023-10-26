@@ -2,7 +2,6 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
-import com.example.API.Taller.Mecanico.service.IMarcaService;
 import com.example.API.Taller.Mecanico.service.IModeloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

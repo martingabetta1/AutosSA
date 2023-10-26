@@ -1,9 +1,8 @@
 package com.example.API.Taller.Mecanico.service.implementacion;
 
 
-import com.example.API.Taller.Mecanico.model.Vehiculo;
+import com.example.API.Taller.Mecanico.model.Cliente;
 import com.example.API.Taller.Mecanico.model.Visita;
-import com.example.API.Taller.Mecanico.repository.IVehiculoRepository;
 import com.example.API.Taller.Mecanico.repository.IVisitaRepository;
 import com.example.API.Taller.Mecanico.service.IVisitaService;
 import jakarta.transaction.Transactional;
@@ -31,8 +30,8 @@ public class VisitaServiceImpl implements IVisitaService {
     }
 
 
-    public void actualizar(Integer visitaId, Date fechaVisita) {
-        repoVisita.actualizar(visitaId, fechaVisita);
+    public void actualizar(Integer visitaId, Date fechaVisita, Cliente cliente) {
+        repoVisita.actualizar(visitaId, fechaVisita, cliente);
     }
 
     @Override

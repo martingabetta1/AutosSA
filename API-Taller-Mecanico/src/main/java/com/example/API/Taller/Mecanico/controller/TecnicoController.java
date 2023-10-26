@@ -1,7 +1,6 @@
 package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Tecnico;
-import com.example.API.Taller.Mecanico.model.Vehiculo;
 import com.example.API.Taller.Mecanico.service.ITecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,7 @@ public class TecnicoController {
             for (Tecnico tecnico : tecnicos) {
                 Tecnico tecnicoConCamposSelect = new Tecnico();
                 tecnicoConCamposSelect.setId(tecnico.getId());
-                tecnicoConCamposSelect.setDescripcion(tecnico.getNombre());
+                tecnicoConCamposSelect.setDescripcion(tecnico.getNombre() + ' ' + tecnico.getApellido() );
                 tecnicosConCamposSelect.add(tecnicoConCamposSelect);
             }
             return new ResponseEntity<List<Tecnico>>(tecnicosConCamposSelect, HttpStatus.OK);
