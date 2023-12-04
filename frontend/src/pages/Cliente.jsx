@@ -14,7 +14,8 @@ export default function Cliente() {
         [,setEndpoints] = CrudContext.query.endpoints,
         [,setArgs] = CrudContext.query.args,
         [rows, setRows] = CrudContext.crudStructure.rows,
-        [columns, setColumns] = CrudContext.crudStructure.columns
+        [columns, setColumns] = CrudContext.crudStructure.columns,
+        [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -73,7 +74,7 @@ export default function Cliente() {
                 label: 'Localidad',
                 type: 'text',
                 validations: {
-                    length: 10,
+                    length: 50,
                     type: "text"
                 }
             },
@@ -111,13 +112,17 @@ export default function Cliente() {
     }, [])
 
     const getRegisters = async () => {
-        await Api.getQuery('/clientes')
+        await Api.getQuery('/clientes',null,filtersQuery)
             .then((res) => {
                 setRows(res)
             }).catch((error) => {
                 throw new Error(error.message)
             })
     }
+
+    useEffect(()=>{
+        getRegisters()
+    },[filtersQuery])
 
     return (
         <div>

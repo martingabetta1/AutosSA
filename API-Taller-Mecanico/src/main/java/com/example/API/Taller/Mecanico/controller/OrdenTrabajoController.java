@@ -36,7 +36,7 @@ public class OrdenTrabajoController {
 
             Cliente cliente = new Cliente();
             cliente.setId(orden.getCliente().getId());
-            cliente.setDescripcion(orden.getCliente().getNombre());
+            cliente.setDescripcion(orden.getCliente().getNombre() + ' ' + orden.getCliente().getApellido());
             orden.setCliente(cliente);
 
         }
@@ -48,7 +48,7 @@ public class OrdenTrabajoController {
             for (OrdenTrabajo orden : ordenes) {
                 OrdenTrabajo ordenConCamposSelect = new OrdenTrabajo();
                 ordenConCamposSelect.setId(orden.getId());
-                ordenConCamposSelect.setDescripcion(orden.getComentario());
+                ordenConCamposSelect.setDescripcion(orden.getId().toString());
                 ordenesConCamposSelect.add(ordenConCamposSelect);
             }
 

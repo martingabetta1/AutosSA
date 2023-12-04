@@ -13,7 +13,8 @@ export default function Vehiculo() {
     [, setDialogInputs] = CrudContext.inputs,
     [endpoints, setEndpoints] = CrudContext.query.endpoints,
     [rows, setRows] = CrudContext.crudStructure.rows,
-    [columns, setColumns] = CrudContext.crudStructure.columns
+    [columns, setColumns] = CrudContext.crudStructure.columns,
+    [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
 
   let rowsTemplate = [
     {
@@ -140,7 +141,7 @@ export default function Vehiculo() {
   }, [])
 
   const getRegisters = async () => {
-    await Api.getQuery('/vehiculos')
+    await Api.getQuery('/vehiculos',null,filtersQuery)
       .then((res) => {
         setRows(res)
       }).catch((error) => {

@@ -29,7 +29,7 @@ public class VisitaController {
             for (Visita visita : visitas) {
                     Cliente cliente = new Cliente();
                     cliente.setId(visita.getCliente().getId());
-                    cliente.setDescripcion(visita.getCliente().getNombre());
+                    cliente.setDescripcion(visita.getCliente().getNombre() + ' ' + visita.getCliente().getApellido());
                     visita.setCliente(cliente);
             }
 

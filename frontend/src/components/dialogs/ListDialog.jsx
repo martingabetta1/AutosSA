@@ -31,9 +31,9 @@ export default function DeleteDialog() {
     setTotal(updatedTotal);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     sumarTotal()
-  },[])
+  }, [])
 
   return (
     <div>
@@ -95,7 +95,7 @@ export default function DeleteDialog() {
             );
           })}
         </DialogContent>
-        <div><b>Total: </b>${total}</div>
+        <div style={{ padding: '10px' }}><b>Total: </b>${total}</div>
         <DialogActions>
           <Button onClick={handleClose}>Cerrar</Button>
         </DialogActions>

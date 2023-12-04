@@ -19,7 +19,9 @@ export default function CrudContextProvider({ children }) {
         [inputValues, setInputValues] = useState({}),
         [inputStates, setInputStates] = useState({}),
         [inputFocus, setInputFocus] = useState(),
-        [buttonState, setButtonState] = useState(false)
+        [buttonState, setButtonState] = useState(false),
+        [filtersValues,setFiltersValues] = useState({}),
+        [filtersQuery,setFiltersQuery] = useState("")
 
 
     useEffect(() => {
@@ -135,6 +137,10 @@ export default function CrudContextProvider({ children }) {
             endpoints: [endpoints, setEndpoints],
             args: [args, setArgs]
         },
+        filters:{
+            filtersValues: [filtersValues,setFiltersValues],
+            filtersQuery : [filtersQuery,setFiltersQuery]
+        }
     }
 
 
