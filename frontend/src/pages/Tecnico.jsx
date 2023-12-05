@@ -13,7 +13,9 @@ export default function Tecnico() {
     [, setDialogInputs] = CrudContext.inputs,
     [endpoints, setEndpoints] = CrudContext.query.endpoints,
     [rows, setRows] = CrudContext.crudStructure.rows,
-    [columns, setColumns] = CrudContext.crudStructure.columns
+    [columns, setColumns] = CrudContext.crudStructure.columns,
+    [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
+
 
   const columnsTemplate = [
     { field: 'id', headerName: 'ID', flex: 1 },
@@ -87,7 +89,7 @@ export default function Tecnico() {
   }, [])
 
   const getRegisters = async () => {
-    await Api.getQuery('/tecnicos')
+    await Api.getQuery('/tecnicos',null,filtersQuery)
       .then((res) => {
         setRows(res)
       }).catch((error) => {

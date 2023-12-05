@@ -22,14 +22,14 @@ public class VehiculoController {
     IClienteService serviceCliente;
 
     @GetMapping
-    public ResponseEntity<List<Vehiculo>> listarVehiculos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
+    public ResponseEntity<List<Vehiculo>> listarVehiculos(
+            @RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Vehiculo> vehiculos = serviceVehiculo.listarVehiculos();
         for (Vehiculo vehiculo : vehiculos) {
             Modelo modelo = new Modelo();
             modelo.setId(vehiculo.getModelo().getId());
             modelo.setDescripcion(vehiculo.getModelo().getNombre());
             vehiculo.setModelo(modelo);
-
             Cliente cliente = new Cliente();
             cliente.setId(vehiculo.getCliente().getId());
             cliente.setDescripcion(vehiculo.getCliente().getNombre() + ' ' + vehiculo.getCliente().getApellido());
@@ -53,7 +53,6 @@ public class VehiculoController {
         }
     }
 
-
     @PostMapping()
     public ResponseEntity<?> registrar(@RequestBody Vehiculo vehiculo) {
 
@@ -65,16 +64,14 @@ public class VehiculoController {
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Vehiculo vehiculo) {
-
         serviceVehiculo.actualizar(id, vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros(), vehiculo.getCliente(), vehiculo.getModelo());
         return ResponseEntity.ok("El vehiculo se actualizo correctamente");
 
     }
 
-
-    //Aca se debe actualizar el campo eliminado a true.
+    // Aca se debe actualizar el campo eliminado a true.
     @PostMapping("/eliminar/{id}")
-    public ResponseEntity<String> eliminar (@PathVariable Integer id) {
+    public ResponseEntity<String> eliminar(@PathVariable Integer id) {
         serviceVehiculo.eliminar(id);
 
         return ResponseEntity.ok("El vehiculo se elimino correctamente");

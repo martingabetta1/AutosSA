@@ -7,6 +7,7 @@ import EditDialog from './dialogs/EditDialog';
 import DeleteDialog from './dialogs/DeleteDialog'
 import ListDialog from './dialogs/ListDialog'
 import Api from '../services/Api';
+import Filters from './Filters'
 
 export default function CrudTemplate(props) {
     // Columnas
@@ -17,7 +18,9 @@ export default function CrudTemplate(props) {
         [openEditDialog] = CrudContext.dialogs.edit,
         [openDeleteDialog] = CrudContext.dialogs.delete,
         [openListDialog] = CrudContext.dialogs.list,
-        [endpoints] = CrudContext.query.endpoints
+        [endpoints] = CrudContext.query.endpoints,
+        [rows, setRows] = CrudContext.crudStructure.rows,
+        [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
 
     const actionsColumn = {
         field: 'acc',
@@ -81,16 +84,17 @@ export default function CrudTemplate(props) {
         <div className='crud-template-container'>
             <div>
                 <div>
+                    <Filters/>
                     <DataGrid
                         rows={props.rows}
                         columns={tableColumns}
                         disableRowSelectionOnClick={true}
                         initialState={{
                             pagination: {
-                                paginationModel: { page: 0, pageSize: 5 },
+                                paginationModel: { page: 0, pageSize: 100 },
                             },
                         }}
-                        pageSizeOptions={[5, 10]}
+                        pageSizeOptions={[100]}
                         checkboxSelection
                     />
                     {openEditDialog && (

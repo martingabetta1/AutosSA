@@ -13,7 +13,8 @@ export default function Modelo() {
     [, setDialogInputs] = CrudContext.inputs,
     [endpoints, setEndpoints] = CrudContext.query.endpoints,
     [rows, setRows] = CrudContext.crudStructure.rows,
-    [columns, setColumns] = CrudContext.crudStructure.columns
+    [columns, setColumns] = CrudContext.crudStructure.columns,
+    [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
 
   const columnsTemplate = [
     { field: 'id', headerName: 'ID', flex: 1 },
@@ -52,11 +53,6 @@ export default function Modelo() {
         type: 'select',
         endpoint: '/marcas'
       },
-      {
-        name: 'date',
-        label: 'Date',
-        type: 'date',
-      },
     ])
     // setRows(rowsTemplate)
     setColumns(columnsTemplate)
@@ -65,7 +61,7 @@ export default function Modelo() {
 
 
   const getRegisters = async () => {
-    await Api.getQuery('/modelos')
+    await Api.getQuery('/modelos',null,filtersQuery)
       .then((res) => {
         setRows(res)
       }).catch((error) => {

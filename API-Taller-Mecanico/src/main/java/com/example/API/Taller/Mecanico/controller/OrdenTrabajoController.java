@@ -40,6 +40,8 @@ public class OrdenTrabajoController {
             Cliente cliente = new Cliente();
             cliente.setId(orden.getCliente().getId());
             cliente.setDescripcion(orden.getCliente().getNombre() + ' ' + orden.getCliente().getApellido()  );
+            cliente.setDescripcion(orden.getCliente().getNombre() + ' ' + orden.getCliente().getApellido());
+
             orden.setCliente(cliente);
 
             List<Servicio> serviciosPorOrden = serviceServicio.listarServiciosPorOrden(orden.getId());

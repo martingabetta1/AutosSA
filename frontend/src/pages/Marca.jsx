@@ -6,6 +6,8 @@ import Api from '../services/Api'
 
 export default function Marca() {
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const title = "Marca",
         { CrudContext } = useCrudData()
 
@@ -13,7 +15,8 @@ export default function Marca() {
         [, setDialogInputs] = CrudContext.inputs,
         [endpoints, setEndpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
-        [columns, setColumns] = CrudContext.crudStructure.columns
+        [columns, setColumns] = CrudContext.crudStructure.columns,
+        [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -22,6 +25,7 @@ export default function Marca() {
 
     useEffect(() => {
         setEndpoints({
+            fetch:'/marcas',
             create: '/marcas',
             edit: '/marcas',
             delete: '/marcas'
@@ -34,21 +38,22 @@ export default function Marca() {
                 name: 'nombre',
                 label: 'Nombre',
                 type: 'text',
-                validations:{
-                    length:20,
-                    type:'text'
+                validations: {
+                    length: 20,
+                    type: 'text'
                 }
             },
         ])
         // setRows(rowsTemplate)
         setColumns(columnsTemplate)
         getRegisters()
+        setIsLoading(false)
     }, [])
 
 
 
     const getRegisters = async () => {
-        await Api.getQuery('/marcas')
+        await Api.getQuery('/marcas',null,filtersQuery)
             .then((res) => {
                 setRows(res)
             }).catch((error) => {
@@ -64,10 +69,13 @@ export default function Marca() {
                 </div>
                 <CreateDialog />
             </div>
-            <CrudTemplate
-                rows={rows}
-                columns={columns}
-            />
+            {!isLoading && (
+                <CrudTemplate
+                    rows={rows}
+                    columns={columns}
+                />
+            )}
+
         </div>
     )
 }
