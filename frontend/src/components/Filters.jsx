@@ -22,7 +22,7 @@ export default function Filters() {
         setFiltersValues(()=>{
             let initialObject = {}
             columns.map((field, key)=>{
-                initialObject[field.field] = ""
+                initialObject[field.field.replace(/\.\w+$/, '')] = ""
             })
             return initialObject
         })
@@ -30,7 +30,7 @@ export default function Filters() {
 
     const generateFilters = useMemo(() => {
         return columns.map((field, key) => {
-            return <div key={key}><TextField variant="standard" label={field.headerName} onChange={(event)=>handleFilterValueChange(field.field,event.target.value)}/></div>
+            return <div key={key}><TextField variant="standard" label={field.headerName} onChange={(event)=>handleFilterValueChange(field.field.replace(/\.\w+$/, ''),event.target.value)}/></div>
         })
     }, [columns,filtersValues])
 
