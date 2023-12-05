@@ -22,7 +22,6 @@ public class TecnicoController {
     public ResponseEntity<List<Tecnico>> listarTecnicos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Tecnico> tecnicos = serviceTecnico.listarTecnicos();
 
-
         if (select) {
             // Si select es true, formatear la respuesta con el formato deseado
 
@@ -30,10 +29,9 @@ public class TecnicoController {
             for (Tecnico tecnico : tecnicos) {
                 Tecnico tecnicoConCamposSelect = new Tecnico();
                 tecnicoConCamposSelect.setId(tecnico.getId());
-                tecnicoConCamposSelect.setDescripcion(tecnico.getNombre());
+                tecnicoConCamposSelect.setDescripcion(tecnico.getNombre() + ' ' + tecnico.getApellido() );
                 tecnicosConCamposSelect.add(tecnicoConCamposSelect);
             }
-
             return new ResponseEntity<List<Tecnico>>(tecnicosConCamposSelect, HttpStatus.OK);
         } else {
             // Si select es false, devolver la lista de técnicos sin formato

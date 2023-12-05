@@ -2,7 +2,6 @@ package com.example.API.Taller.Mecanico.service;
 
 import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
-import com.example.API.Taller.Mecanico.model.Vehiculo;
 
 import java.util.List;
 

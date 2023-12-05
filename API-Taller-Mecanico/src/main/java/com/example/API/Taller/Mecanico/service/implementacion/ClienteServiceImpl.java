@@ -28,6 +28,10 @@ public class ClienteServiceImpl implements IClienteService {
         return repoCliente.findByIdAndEliminadoFalse(idCliente);
     }
 
+    @Override
+    public List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad) {
+        return repoCliente.findByParams(nombre, apellido, telefono, localidad);
+    }
 
     @Override
     public Cliente registrar(Cliente cliente)  {

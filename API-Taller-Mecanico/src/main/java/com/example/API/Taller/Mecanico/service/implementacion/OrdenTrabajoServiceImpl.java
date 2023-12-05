@@ -28,11 +28,7 @@ public class OrdenTrabajoServiceImpl implements IOrdenTrabajoService {
     }
 
     public void actualizar(Integer ordenId, Date fechaInicio, Date fechaFin, Vehiculo vehiculo, Tecnico tecnico, String estado, String comentario, Cliente cliente) {
-         repoOrden.actualizarOrden(ordenId, fechaInicio, fechaFin, estado, comentario);
-         repoOrden.actualizarCliente(cliente.getId(), cliente.getDescripcion());
-         repoOrden.actualizarVehiculo(vehiculo.getId(), vehiculo.getDescripcion());
-         repoOrden.actualizarTecnico(tecnico.getId(), tecnico.getDescripcion());
-
+         repoOrden.actualizarOrden(ordenId, fechaInicio, fechaFin, estado, comentario, cliente, vehiculo, tecnico);
     }
 
     @Override

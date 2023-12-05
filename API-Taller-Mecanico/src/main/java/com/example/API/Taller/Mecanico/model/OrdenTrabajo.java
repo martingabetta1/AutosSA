@@ -40,24 +40,23 @@ public class OrdenTrabajo {
     @Column(name = "comentario", length = 100, nullable = false)
     private String comentario;
 
-    private Double costo;
-    Double totalCosto = 0.0;
+    @Column(name = "totalcosto")
+    private Double totalCosto;
 
     public Double getTotalCosto() {
         return totalCosto;
     }
 
-    public Double calcularCosto(Double costo) {
-        totalCosto = this.getTotalCosto() + costo;
-        return this.getTotalCosto();
+    public void calcularCosto(Double costo) {
+    if (this.totalCosto == null) {
+        this.totalCosto = costo;
+    } else {
+        this.totalCosto += costo;
+    }
     }
 
-    public void setCosto(Double costo) {
-        this.costo = costo;
-    }
-
-    public Double getCosto() {
-        return costo;
+    public void setTotalCosto(Double totalCosto) {
+        this.totalCosto = totalCosto;
     }
 
     @ManyToOne

@@ -1,6 +1,6 @@
 package com.example.API.Taller.Mecanico.repository;
 
-import com.example.API.Taller.Mecanico.model.Vehiculo;
+import com.example.API.Taller.Mecanico.model.Cliente;
 import com.example.API.Taller.Mecanico.model.Visita;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,8 +15,8 @@ public interface IVisitaRepository extends JpaRepository<Visita, Integer> {
     List<Visita> findByEliminadoFalse();
 
     @Modifying
-    @Query("UPDATE Visita v SET v.fechaVisita = :fechaVisita WHERE v.id = :visitaId")
-    void actualizar(@Param("visitaId") Integer visitaId, @Param("fechaVisita") Date fechaVisita);
+    @Query("UPDATE Visita v SET v.fechaVisita = :fechaVisita, v.cliente =:cliente WHERE v.id = :visitaId")
+    void actualizar(@Param("visitaId") Integer visitaId, @Param("fechaVisita") Date fechaVisita, @Param("cliente") Cliente cliente);
 
     @Modifying
     @Query("UPDATE Visita v SET v.eliminado = true WHERE v.id = :visitaId")

@@ -29,8 +29,7 @@ public class ModeloServiceImpl implements IModeloService {
 
 
     public void actualizar(Integer modeloId, String nombre, Marca marca) {
-        repoModelo.actualizarModelo(modeloId, nombre);
-        repoModelo.actualizarMarca(marca.getId(), marca.getDescripcion());
+        repoModelo.actualizarModelo(modeloId, nombre, marca);
     }
 
     @Override

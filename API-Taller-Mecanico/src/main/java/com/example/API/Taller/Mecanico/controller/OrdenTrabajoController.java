@@ -4,7 +4,6 @@ package com.example.API.Taller.Mecanico.controller;
 import com.example.API.Taller.Mecanico.model.*;
 import com.example.API.Taller.Mecanico.service.IOrdenTrabajoService;
 import com.example.API.Taller.Mecanico.service.IServicioService;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,20 +34,23 @@ public class OrdenTrabajoController {
 
             Tecnico tecnico = new Tecnico();
             tecnico.setId(orden.getTecnico().getId());
-            tecnico.setDescripcion(orden.getTecnico().getNombre());
+            tecnico.setDescripcion(orden.getTecnico().getNombre() + ' ' + orden.getTecnico().getApellido());
             orden.setTecnico(tecnico);
 
             Cliente cliente = new Cliente();
             cliente.setId(orden.getCliente().getId());
-            cliente.setDescripcion(orden.getCliente().getNombre());
+            cliente.setDescripcion(orden.getCliente().getNombre() + ' ' + orden.getCliente().getApellido()  );
+            cliente.setDescripcion(orden.getCliente().getNombre() + ' ' + orden.getCliente().getApellido());
+
             orden.setCliente(cliente);
 
             List<Servicio> serviciosPorOrden = serviceServicio.listarServiciosPorOrden(orden.getId());
-
+            Double total = 0.0;
             for (Servicio servicio : serviciosPorOrden) {
-               orden.setCosto(orden.calcularCosto(servicio.getPrecio()));
-            }
-
+                    total =0.0;
+                    total+=servicio.getPrecio();
+                }
+            orden.setTotalCosto(total);
         }
 
         if (select) {
@@ -58,7 +60,7 @@ public class OrdenTrabajoController {
             for (OrdenTrabajo orden : ordenes) {
                 OrdenTrabajo ordenConCamposSelect = new OrdenTrabajo();
                 ordenConCamposSelect.setId(orden.getId());
-                ordenConCamposSelect.setDescripcion(orden.getComentario());
+                ordenConCamposSelect.setDescripcion(orden.getId().toString());
                 ordenesConCamposSelect.add(ordenConCamposSelect);
             }
 
