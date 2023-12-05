@@ -14,7 +14,7 @@ export default function Tecnico() {
     [endpoints, setEndpoints] = CrudContext.query.endpoints,
     [rows, setRows] = CrudContext.crudStructure.rows,
     [columns, setColumns] = CrudContext.crudStructure.columns,
-    [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
+    [filtersQuery, setFiltersQuery] = CrudContext.filters.filtersQuery
 
 
   const columnsTemplate = [
@@ -41,45 +41,45 @@ export default function Tecnico() {
         name: 'nombre',
         label: 'Nombre',
         type: 'text',
-        validations:{
-          length:20,
-          type:'text'
+        validations: {
+          length: 20,
+          type: 'text'
         }
       },
       {
         name: 'apellido',
         label: 'Apellido',
         type: 'text',
-        validations:{
-          length:20,
-          type:'text'
+        validations: {
+          length: 20,
+          type: 'text'
         }
       },
       {
         name: 'documento',
         label: 'Documento',
         type: 'text',
-        validations:{
-          length:20,
-          type:'number'
+        validations: {
+          length: 20,
+          type: 'number'
         }
       },
       {
         name: 'telefono',
         label: 'Telefono',
         type: 'text',
-        validations:{
-          length:20,
-          type:'number'
+        validations: {
+          length: 20,
+          type: 'number'
         }
       },
       {
         name: 'direccion',
         label: 'Direccion',
         type: 'text',
-        validations:{
-          length:20,
-          type:'text'
+        validations: {
+          length: 20,
+          type: 'text'
         }
       },
     ])
@@ -89,13 +89,17 @@ export default function Tecnico() {
   }, [])
 
   const getRegisters = async () => {
-    await Api.getQuery('/tecnicos',null,filtersQuery)
+    await Api.getQuery('/tecnicos', null, filtersQuery)
       .then((res) => {
         setRows(res)
       }).catch((error) => {
         throw new Error(error.message)
       })
   }
+
+  useEffect(() => {
+    getRegisters()
+  }, [filtersQuery])
 
   return (
     <div>
