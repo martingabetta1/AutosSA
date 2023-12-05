@@ -14,7 +14,7 @@ export default function Modelo() {
     [endpoints, setEndpoints] = CrudContext.query.endpoints,
     [rows, setRows] = CrudContext.crudStructure.rows,
     [columns, setColumns] = CrudContext.crudStructure.columns,
-    [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
+    [filtersQuery, setFiltersQuery] = CrudContext.filters.filtersQuery
 
   const columnsTemplate = [
     { field: 'id', headerName: 'ID', flex: 1 },
@@ -42,9 +42,9 @@ export default function Modelo() {
         name: 'nombre',
         label: 'Nombre',
         type: 'text',
-        validations:{
-          length:20,
-          type:'text'
+        validations: {
+          length: 20,
+          type: 'text'
         }
       },
       {
@@ -61,13 +61,17 @@ export default function Modelo() {
 
 
   const getRegisters = async () => {
-    await Api.getQuery('/modelos',null,filtersQuery)
+    await Api.getQuery('/modelos', null, filtersQuery)
       .then((res) => {
         setRows(res)
       }).catch((error) => {
         throw new Error(error.message)
       })
   }
+
+  useEffect(() => {
+    getRegisters()
+  }, [filtersQuery])
 
   return (
     <div>
