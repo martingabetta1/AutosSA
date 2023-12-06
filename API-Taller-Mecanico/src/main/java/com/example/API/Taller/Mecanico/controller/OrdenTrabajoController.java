@@ -47,6 +47,11 @@ public class OrdenTrabajoController {
             estado.setDescripcion(orden.getEstado().getNombre());
             orden.setEstado(estado);
 
+            Impuesto impuesto = new Impuesto();
+            impuesto.setId(orden.getImpuesto().getId());
+            impuesto.setDescripcion(orden.getImpuesto().getNombre() + " (" + orden.getImpuesto().getPorcentaje()+"%)");
+            orden.setImpuesto(impuesto);
+
             List<Servicio> serviciosPorOrden = serviceServicio.listarServiciosPorOrden(orden.getId());
             Double total = 0.0;
             for (Servicio servicio : serviciosPorOrden) {
@@ -88,7 +93,7 @@ public class OrdenTrabajoController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody OrdenTrabajo ordenTrabajo) {
 
-        serviceOrden.actualizar(id, ordenTrabajo.getFechaInicio(), ordenTrabajo.getFechaFin(), ordenTrabajo.getVehiculo(), ordenTrabajo.getTecnico(), ordenTrabajo.getEstado(), ordenTrabajo.getComentario(), ordenTrabajo.getCliente());
+        serviceOrden.actualizar(id, ordenTrabajo.getFechaInicio(), ordenTrabajo.getFechaFin(), ordenTrabajo.getVehiculo(), ordenTrabajo.getTecnico(), ordenTrabajo.getEstado(), ordenTrabajo.getComentario(), ordenTrabajo.getCliente(), ordenTrabajo.getImpuesto());
         return ResponseEntity.ok("La orden de trabajo se actualizo correctamente");
     }
 
