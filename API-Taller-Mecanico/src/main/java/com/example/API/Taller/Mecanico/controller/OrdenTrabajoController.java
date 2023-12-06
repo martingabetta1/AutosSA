@@ -39,10 +39,13 @@ public class OrdenTrabajoController {
 
             Cliente cliente = new Cliente();
             cliente.setId(orden.getCliente().getId());
-            cliente.setDescripcion(orden.getCliente().getNombre() + ' ' + orden.getCliente().getApellido()  );
             cliente.setDescripcion(orden.getCliente().getNombre() + ' ' + orden.getCliente().getApellido());
-
             orden.setCliente(cliente);
+
+            Estado estado = new Estado();
+            estado.setId(orden.getEstado().getId());
+            estado.setDescripcion(orden.getEstado().getNombre());
+            orden.setEstado(estado);
 
             List<Servicio> serviciosPorOrden = serviceServicio.listarServiciosPorOrden(orden.getId());
             Double total = 0.0;

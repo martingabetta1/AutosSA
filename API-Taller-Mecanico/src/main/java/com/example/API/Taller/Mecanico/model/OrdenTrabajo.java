@@ -32,9 +32,9 @@ public class OrdenTrabajo {
     @JoinColumn(name = "idTecnico", referencedColumnName = "id", nullable = false)
     private Tecnico tecnico;
 
-    @Size(max = 100)
-    @Column(name = "estado", length = 100, nullable = false)
-    private String estado;
+    @ManyToOne
+    @JoinColumn(name = "estado", referencedColumnName = "id", nullable = false)
+    private Estado estado;
 
     @Size(max = 100)
     @Column(name = "comentario", length = 100, nullable = false)
@@ -134,11 +134,11 @@ public class OrdenTrabajo {
         this.tecnico = tecnico;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 }

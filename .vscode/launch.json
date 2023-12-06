@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiTallerMecanicoApplication<API-Taller-Mecanico>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.API.Taller.Mecanico.ApiTallerMecanicoApplication",
+            "projectName": "API-Taller-Mecanico",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

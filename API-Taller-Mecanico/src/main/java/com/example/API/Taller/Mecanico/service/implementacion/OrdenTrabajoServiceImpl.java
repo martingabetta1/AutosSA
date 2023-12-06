@@ -27,7 +27,7 @@ public class OrdenTrabajoServiceImpl implements IOrdenTrabajoService {
         return repoOrden.save(ordenTrabajo);
     }
 
-    public void actualizar(Integer ordenId, Date fechaInicio, Date fechaFin, Vehiculo vehiculo, Tecnico tecnico, String estado, String comentario, Cliente cliente) {
+    public void actualizar(Integer ordenId, Date fechaInicio, Date fechaFin, Vehiculo vehiculo, Tecnico tecnico, Estado estado, String comentario, Cliente cliente) {
          repoOrden.actualizarOrden(ordenId, fechaInicio, fechaFin, estado, comentario, cliente, vehiculo, tecnico);
     }
 
