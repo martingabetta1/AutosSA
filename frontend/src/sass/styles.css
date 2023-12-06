@@ -42,6 +42,11 @@
   width: 100%;
 }
 
+.crud_accions_box--popover {
+  margin: 5px;
+  border-radius: 5px;
+}
+
 .crud_button_edit {
   background-color: rgb(44, 44, 192) !important;
   min-width: unset !important;
@@ -62,6 +67,18 @@
 
 .crud_button_listServices {
   background-color: rgb(0, 114, 95) !important;
+  min-width: unset !important;
+  width: 45px;
+}
+
+.crud_button_factura {
+  background-color: rgb(31, 131, 0) !important;
+  min-width: unset !important;
+  width: 45px;
+}
+
+.crud_button_options {
+  background-color: rgb(20, 87, 78) !important;
   min-width: unset !important;
   width: 45px;
 }
