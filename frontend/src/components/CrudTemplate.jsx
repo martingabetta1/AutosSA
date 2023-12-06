@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { useCrudData } from '../contexts/CrudContext/CrudContext';
 import { useError } from '../contexts/Error';
+import OptionsPopover from './utils/OptionsPopover';
 import Button from '@mui/material/Button';
 import EditDialog from './dialogs/EditDialog';
 import DeleteDialog from './dialogs/DeleteDialog'
@@ -20,7 +21,8 @@ export default function CrudTemplate(props) {
         [openListDialog] = CrudContext.dialogs.list,
         [endpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
-        [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
+        [filtersQuery, setFiltersQuery] = CrudContext.filters.filtersQuery
+
 
     const actionsColumn = {
         field: 'acc',
@@ -31,32 +33,51 @@ export default function CrudTemplate(props) {
         align: 'center',
         headerAlign: 'center',
         renderCell: (params) => (
-            <div className='crud_accions_box'>
-                <div>
-                    <Button variant="contained" className='crud_button_edit' onClick={() => { handleOpenDialog("edit", true, params.row) }}>
-                        <img className='crud_button_image' button-type="edit" alt="Edit icon" src="/images/crud/icon-edit.png" />
-                    </Button>
-                </div>
-                <div>
-                    <Button variant="contained" className='crud_button_delete' onClick={() => { handleOpenDialog("delete", true, params.row) }}>
-                        <img className='crud_button_image' button-type="delete" alt="Delete icon" src="/images/crud/icon-delete.png" />
-                    </Button>
-                </div>
-                {endpoints.download && (
-                    <div>
-                        <Button variant="contained" className='crud_button_download' onClick={() => { Api.downloadQuery(endpoints.dowload, params.row.id) }}>
-                            <img className='crud_button_image' button-type="download" alt="Download icon" src="/images/crud/icon-download.png" />
-                        </Button>
+            <>
+                {props.optionsPopover && (
+                    <OptionsPopover
+                        params={params}
+                        handleListServices={handleListServices}
+                        endpoints = {endpoints}
+                        errorGenerator = {ErrorContext}
+                    />
+                )}
+                {!props.optionsPopover && (
+                    <div className='crud_accions_box'>
+                        <div>
+                            <Button variant="contained" className='crud_button_edit' onClick={() => { handleOpenDialog("edit", true, params.row) }}>
+                                <img className='crud_button_image' button-type="edit" alt="Edit icon" src="/images/crud/icon-edit.png" />
+                            </Button>
+                        </div>
+                        <div>
+                            <Button variant="contained" className='crud_button_delete' onClick={() => { handleOpenDialog("delete", true, params.row) }}>
+                                <img className='crud_button_image' button-type="delete" alt="Delete icon" src="/images/crud/icon-delete.png" />
+                            </Button>
+                        </div>
+                        {endpoints.download && (
+                            <div>
+                                <Button variant="contained" className='crud_button_download' onClick={() => { Api.downloadQuery(endpoints.dowload, params.row.id) }}>
+                                    <img className='crud_button_image' button-type="download" alt="Download icon" src="/images/crud/icon-download.png" />
+                                </Button>
+                            </div>
+                        )}
+                        {endpoints.listServices && (
+                            <div>
+                                <Button variant="contained" className='crud_button_listServices' onClick={() => { handleListServices(params.row.id) }}>
+                                    <img className='crud_button_image' button-type="listServices" alt="List Services icon" src="/images/crud/icon-services.png" />
+                                </Button>
+                            </div>
+                        )}
+                        {endpoints.factura && (
+                            <div>
+                                <Button variant="contained" className='crud_button_factura' onClick={() => { }}>
+                                    <img className='crud_button_image' button-type="factura" alt="Factura icon" src="/images/crud/icon-factura.png" />
+                                </Button>
+                            </div>
+                        )}
                     </div>
                 )}
-                {endpoints.listServices && (
-                    <div>
-                        <Button variant="contained" className='crud_button_listServices' onClick={() => { handleListServices(params.row.id) }}>
-                            <img className='crud_button_image' button-type="listServices" alt="List Services icon" src="/images/crud/icon-services.png" />
-                        </Button>
-                    </div>
-                )}
-            </div>
+            </>
         )
     };
     const [tableColumns, setTableColumns] = useState([...props.columns, actionsColumn])
@@ -84,7 +105,7 @@ export default function CrudTemplate(props) {
         <div className='crud-template-container'>
             <div>
                 <div>
-                    <Filters/>
+                    <Filters />
                     <DataGrid
                         rows={props.rows}
                         columns={tableColumns}

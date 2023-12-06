@@ -49,7 +49,8 @@ export default function Marca() {
             create: '/ordenes',
             edit: '/ordenes',
             delete: '/ordenes',
-            listServices:'/servicios'
+            listServices:'/servicios',
+            factura:'/servicios'
         })
         setDialogData({
             title: 'orden'
@@ -128,6 +129,8 @@ export default function Marca() {
             })
     }
 
+    const optionsPopover = true
+
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -139,6 +142,7 @@ export default function Marca() {
             <CrudTemplate
                 rows={rows}
                 columns={columns}
+                optionsPopover={optionsPopover}
             />
         </div>
     )
