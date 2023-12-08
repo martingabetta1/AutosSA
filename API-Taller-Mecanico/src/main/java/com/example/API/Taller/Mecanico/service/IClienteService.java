@@ -12,6 +12,8 @@ public interface IClienteService {
 
     Cliente listarClientePorId(Integer idCliente);
 
+    List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad);
+
     Cliente registrar(Cliente cliente);
 
     Cliente registrarLicencias(Integer idCliente, MultipartFile licenciaFrente, MultipartFile licenciaDorso) throws IOException;

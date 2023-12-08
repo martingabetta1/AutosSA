@@ -21,14 +21,34 @@ import java.util.List;
 @RequestMapping("/clientes")
 public class ClienteController {
 
-
     @Autowired
     IClienteService serviceCliente;
 
-    @GetMapping
+    @GetMapping()
+    public ResponseEntity<List<Cliente>> listarClientes(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select,
+                                                        @RequestParam(name = "nombre", required = false) String nombre,
+                                                        @RequestParam(name = "apellido", required = false) String apellido,
+                                                        @RequestParam(name = "telefono", required = false) String telefono,
+                                                        @RequestParam(name = "localidad", required = false) String localidad) {
 
-    public ResponseEntity<List<Cliente>> listarClientes(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Cliente> clientes = serviceCliente.listarClientes();
+
+        if(nombre != null || apellido != null || telefono != null || localidad != null) {
+            List<Cliente> buscarClientes = serviceCliente.listarClientesPorConsultaAnidada(nombre, apellido, telefono, localidad);
+            List<Cliente> clientesConFiltro = new ArrayList<>();
+            for(Cliente cliente : buscarClientes){
+                Cliente clienteFiltrado = new Cliente();
+                clienteFiltrado.setId(cliente.getId());
+                clienteFiltrado.setNombre(cliente.getNombre());
+                clienteFiltrado.setApellido(cliente.getApellido());
+                clienteFiltrado.setDireccion(cliente.getDireccion());
+                clienteFiltrado.setTelefono(cliente.getTelefono());
+                clienteFiltrado.setMail(cliente.getMail());
+                clienteFiltrado.setLocalidad(cliente.getLocalidad());
+                clientesConFiltro.add(clienteFiltrado);
+            }
+            return new ResponseEntity<List<Cliente>>(clientesConFiltro, HttpStatus.OK);
+        }
 
         if (select) {
             // Si select es true, formatear la respuesta con el formato deseado

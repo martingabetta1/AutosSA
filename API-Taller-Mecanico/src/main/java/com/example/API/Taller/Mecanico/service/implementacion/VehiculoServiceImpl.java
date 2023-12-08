@@ -39,6 +39,7 @@ public class VehiculoServiceImpl implements IVehiculoService {
     }
     
 
+
     @Override
     public void eliminar(Integer id) {
         repoVehiculo.eliminar(id);
