@@ -68,7 +68,7 @@ public class OrdenTrabajoController {
             for (OrdenTrabajo orden : ordenes) {
                 OrdenTrabajo ordenConCamposSelect = new OrdenTrabajo();
                 ordenConCamposSelect.setId(orden.getId());
-                ordenConCamposSelect.setDescripcion(orden.getId().toString());
+                ordenConCamposSelect.setDescripcion(orden.getId().toString() + " (" + orden.getComentario() + ")");
                 ordenesConCamposSelect.add(ordenConCamposSelect);
             }
 

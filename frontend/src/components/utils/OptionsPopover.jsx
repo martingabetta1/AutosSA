@@ -24,8 +24,6 @@ export default function OptionsPopover(props) {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    console.log(props.params.row.estado === "Finalizado");
-
 
     return (
         <div>

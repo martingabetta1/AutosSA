@@ -56,6 +56,7 @@ public class Estado {
     }
 
     public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getDescripcion(){

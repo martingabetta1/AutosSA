@@ -8,6 +8,8 @@ export default function Servicio() {
     const title = "Servicio",
         { CrudContext } = useCrudData()
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
         [endpoints, setEndpoints] = CrudContext.query.endpoints,
@@ -70,6 +72,7 @@ export default function Servicio() {
         ])
         setColumns(columnsTemplate)
         getRegisters()
+        setIsLoading(false)
     }, [])
 
 
@@ -91,10 +94,12 @@ export default function Servicio() {
                 </div>
                 <CreateDialog />
             </div>
-            <CrudTemplate
-                rows={rows}
-                columns={columns}
-            />
+            {!isLoading && (
+                <CrudTemplate
+                    rows={rows}
+                    columns={columns}
+                />
+            )}
         </div>
     )
 }

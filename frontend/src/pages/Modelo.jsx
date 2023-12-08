@@ -9,6 +9,8 @@ export default function Modelo() {
   const title = "Modelo",
     { CrudContext } = useCrudData()
 
+    const [isLoading, setIsLoading] = useState(true)
+
   const [, setDialogData] = CrudContext.dialogs.data,
     [, setDialogInputs] = CrudContext.inputs,
     [endpoints, setEndpoints] = CrudContext.query.endpoints,
@@ -57,6 +59,7 @@ export default function Modelo() {
     // setRows(rowsTemplate)
     setColumns(columnsTemplate)
     getRegisters()
+    setIsLoading(false)
   }, [])
 
 
@@ -81,10 +84,12 @@ export default function Modelo() {
         </div>
         <CreateDialog />
       </div>
-      <CrudTemplate
-        rows={rows}
-        columns={columns}
-      />
+      {!isLoading && (
+                <CrudTemplate
+                    rows={rows}
+                    columns={columns}
+                />
+            )}
     </div>
   )
 }

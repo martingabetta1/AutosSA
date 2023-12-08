@@ -12,6 +12,8 @@ export default function Marca() {
         { CrudContext } = useCrudData(),
         { ErrorContext } = useError()
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
         [, setEndpoints] = CrudContext.query.endpoints,
@@ -34,23 +36,34 @@ export default function Marca() {
             flex: 1,
             valueGetter: (params) => params.row.tecnico?.descripcion
         },
-        { field: 'estado', headerName: 'Estado', flex: 1 },
+        {
+            field: 'estado.descripcion',
+            headerName: 'Estado',
+            flex: 1,
+            valueGetter: (params) => params.row.estado?.descripcion
+        },
         {
             field: 'cliente.descripcion',
             headerName: 'Cliente',
             flex: 1,
             valueGetter: (params) => params.row.cliente?.descripcion
         },
+        {
+            field: 'impuesto.descripcion',
+            headerName: 'Impuesto',
+            flex: 1,
+            valueGetter: (params) => params.row.impuesto?.descripcion
+        },
         { field: 'comentario', headerName: 'Comentario', flex: 1 },
-        { field:'totalCosto', headerName:'Costo total',flex:1}
+        { field: 'totalCosto', headerName: 'Costo total', flex: 1 }
     ];
     useEffect(() => {
         setEndpoints({
             create: '/ordenes',
             edit: '/ordenes',
             delete: '/ordenes',
-            listServices:'/servicios',
-            factura:'/servicios'
+            listServices: '/servicios',
+            factura: '/servicios'
         })
         setDialogData({
             title: 'orden'
@@ -81,11 +94,8 @@ export default function Marca() {
             {
                 name: 'estado',
                 label: 'Estado',
-                type: 'text',
-                validations: {
-                    length: 20,
-                    type: 'text'
-                }
+                type: 'select',
+                endpoint: '/estados'
             },
             {
                 name: 'comentario',
@@ -103,6 +113,12 @@ export default function Marca() {
                 endpoint: '/clientes',
             },
             {
+                name: 'impuesto',
+                label: 'Impuesto',
+                type: 'select',
+                endpoint: '/impuestos'
+            },
+            {
                 name: 'adjunto',
                 label: 'Archivo adjunto',
                 type: 'file',
@@ -111,6 +127,7 @@ export default function Marca() {
         // setRows(rowsTemplate)
         setColumns(columnsTemplate)
         getRegisters()
+        setIsLoading(false)
     }, [])
 
 
@@ -139,11 +156,13 @@ export default function Marca() {
                 </div>
                 <CreateDialog />
             </div>
-            <CrudTemplate
-                rows={rows}
-                columns={columns}
-                optionsPopover={optionsPopover}
-            />
+            {!isLoading && (
+                <CrudTemplate
+                    rows={rows}
+                    columns={columns}
+                    optionsPopover={optionsPopover}
+                />
+            )}
         </div>
     )
 }

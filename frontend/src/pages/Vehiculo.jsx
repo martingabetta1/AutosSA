@@ -9,6 +9,8 @@ export default function Vehiculo() {
   const title = "Vehiculo",
     { CrudContext } = useCrudData()
 
+    const [isLoading, setIsLoading] = useState(true)
+
   const [, setDialogData] = CrudContext.dialogs.data,
     [, setDialogInputs] = CrudContext.inputs,
     [endpoints, setEndpoints] = CrudContext.query.endpoints,
@@ -138,6 +140,7 @@ export default function Vehiculo() {
     // setRows(rowsTemplate)
     setColumns(columnsTemplate)
     getRegisters()
+    setIsLoading(false)
   }, [])
 
   const getRegisters = async () => {
@@ -160,10 +163,12 @@ export default function Vehiculo() {
         </div>
         <CreateDialog />
       </div>
-      <CrudTemplate
-        rows={rows}
-        columns={columns}
-      />
+      {!isLoading && (
+                <CrudTemplate
+                    rows={rows}
+                    columns={columns}
+                />
+            )}
     </div>
   )
 }

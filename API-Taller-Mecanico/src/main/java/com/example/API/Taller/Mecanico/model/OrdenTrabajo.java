@@ -81,7 +81,7 @@ public class OrdenTrabajo {
     }
 
     public Cliente getCliente() {
-        return cliente;
+        return this.cliente;
     }
 
     public void setCliente(Cliente cliente) {
