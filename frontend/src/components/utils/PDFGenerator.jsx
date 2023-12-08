@@ -6,9 +6,6 @@ export default function PDFGenerator(ordenData, idOrden, endpoints, errorGenerat
 
     let services
 
-    console.log(ordenData);
-
-
     const constructPDF = () => {
         Api.listServicesQuery(endpoints.listServices, { idOrden: idOrden })
             .then((response) => {
