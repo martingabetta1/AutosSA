@@ -32,13 +32,37 @@ public class OrdenTrabajo {
     @JoinColumn(name = "idTecnico", referencedColumnName = "id", nullable = false)
     private Tecnico tecnico;
 
-    @Size(max = 100)
-    @Column(name = "estado", length = 100, nullable = false)
-    private String estado;
+    @ManyToOne
+    @JoinColumn(name = "estado", referencedColumnName = "id", nullable = false)
+    private Estado estado;
+    
+    @ManyToOne
+    @JoinColumn(name = "impuesto", referencedColumnName = "id", nullable = false)
+    private Impuesto impuesto;
 
     @Size(max = 100)
     @Column(name = "comentario", length = 100, nullable = false)
     private String comentario;
+    
+    @Column(name = "totalcosto")
+    private Double totalCosto;
+    
+    
+    public Double getTotalCosto() {
+        return totalCosto;
+    }
+
+    public void calcularCosto(Double costo) {
+    if (this.totalCosto == null) {
+        this.totalCosto = costo;
+    } else {
+        this.totalCosto += costo;
+    }
+    }
+
+    public void setTotalCosto(Double totalCosto) {
+        this.totalCosto = totalCosto;
+    }
 
     @ManyToOne
     @JoinColumn(name = "idCliente", referencedColumnName = "id", nullable = false)
@@ -115,11 +139,29 @@ public class OrdenTrabajo {
         this.tecnico = tecnico;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+    public Impuesto getImpuesto() {
+        return impuesto;
+    }
+
+    public void setImpuesto(Impuesto impuesto) {
+        this.impuesto = impuesto;
+    }
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
+
+    
 }

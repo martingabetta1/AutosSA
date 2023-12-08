@@ -1,10 +1,7 @@
 package com.example.API.Taller.Mecanico.controller;
 
-import com.example.API.Taller.Mecanico.model.Marca;
-import com.example.API.Taller.Mecanico.model.Modelo;
 import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
 import com.example.API.Taller.Mecanico.model.Servicio;
-import com.example.API.Taller.Mecanico.service.IModeloService;
 import com.example.API.Taller.Mecanico.service.IServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,7 +58,7 @@ public class ServicioController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Servicio servicio) {
 
-        serviceServicio.actualizar(id, servicio.getTipoServicio(), servicio.getPrecio());
+        serviceServicio.actualizar(id, servicio.getTipoServicio(), servicio.getPrecio(), servicio.getOrdenTrabajo());
         return ResponseEntity.ok("El servicio se actualizo correctamente");
     }
 

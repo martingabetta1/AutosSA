@@ -25,18 +25,15 @@ public class VehiculoController {
     public ResponseEntity<List<Vehiculo>> listarVehiculos(
             @RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
         List<Vehiculo> vehiculos = serviceVehiculo.listarVehiculos();
-
         for (Vehiculo vehiculo : vehiculos) {
             Modelo modelo = new Modelo();
             modelo.setId(vehiculo.getModelo().getId());
             modelo.setDescripcion(vehiculo.getModelo().getNombre());
             vehiculo.setModelo(modelo);
-
             Cliente cliente = new Cliente();
             cliente.setId(vehiculo.getCliente().getId());
             cliente.setDescripcion(vehiculo.getCliente().getNombre() + ' ' + vehiculo.getCliente().getApellido());
             vehiculo.setCliente(cliente);
-
         }
 
         if (select) {
@@ -67,9 +64,7 @@ public class VehiculoController {
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Vehiculo vehiculo) {
-
-        serviceVehiculo.actualizar(id, vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(),
-                vehiculo.getKilometros());
+        serviceVehiculo.actualizar(id, vehiculo.getPatente(), vehiculo.getObservaciones(), vehiculo.getAnio(), vehiculo.getKilometros(), vehiculo.getCliente(), vehiculo.getModelo());
         return ResponseEntity.ok("El vehiculo se actualizo correctamente");
 
     }

@@ -1,5 +1,7 @@
 package com.example.API.Taller.Mecanico.service.implementacion;
 
+import com.example.API.Taller.Mecanico.model.Cliente;
+import com.example.API.Taller.Mecanico.model.Modelo;
 import com.example.API.Taller.Mecanico.model.Vehiculo;
 import com.example.API.Taller.Mecanico.repository.IVehiculoRepository;
 import com.example.API.Taller.Mecanico.service.IVehiculoService;
@@ -32,9 +34,10 @@ public class VehiculoServiceImpl implements IVehiculoService {
     }
 
 
-    public void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, Float kilometros) {
-        repoVehiculo.actualizar(vehiculoId, patente, observaciones, anio, kilometros);
+    public void actualizar(Integer vehiculoId, String patente, String observaciones, Integer anio, Float kilometros, Cliente cliente, Modelo modelo) {
+        repoVehiculo.actualizarVehiculo(vehiculoId, patente, observaciones, anio, kilometros, cliente, modelo);
     }
+    
 
     @Override
     public void eliminar(Integer id) {

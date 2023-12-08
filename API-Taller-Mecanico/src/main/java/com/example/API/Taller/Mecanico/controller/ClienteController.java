@@ -37,7 +37,7 @@ public class ClienteController {
             for (Cliente cliente : clientes) {
                 Cliente clienteConCamposSelect = new Cliente();
                 clienteConCamposSelect.setId(cliente.getId());
-                clienteConCamposSelect.setDescripcion(cliente.getNombre());
+                clienteConCamposSelect.setDescripcion(cliente.getNombre() + ' ' + cliente.getApellido());
                 clientesConCamposSelect.add(clienteConCamposSelect);
             }
 

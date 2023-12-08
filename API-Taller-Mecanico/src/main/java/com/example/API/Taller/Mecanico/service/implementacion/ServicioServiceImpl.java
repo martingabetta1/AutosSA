@@ -1,6 +1,6 @@
 package com.example.API.Taller.Mecanico.service.implementacion;
 
-import com.example.API.Taller.Mecanico.model.Modelo;
+import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
 import com.example.API.Taller.Mecanico.model.Servicio;
 import com.example.API.Taller.Mecanico.repository.IServicioRepository;
 import com.example.API.Taller.Mecanico.service.IServicioService;
@@ -32,8 +32,8 @@ public class ServicioServiceImpl implements IServicioService {
         return repoServicio.save(servicio);
     }
 
-    public void actualizar(Integer servicioId, String tipoServicio, Float precio) {
-        repoServicio.actualizar(servicioId, tipoServicio, precio);
+    public void actualizar(Integer servicioId, String tipoServicio, Double precio, OrdenTrabajo ordenTrabajo) {
+        repoServicio.actualizarServicio(servicioId, tipoServicio, precio, ordenTrabajo);
     }
 
     @Override

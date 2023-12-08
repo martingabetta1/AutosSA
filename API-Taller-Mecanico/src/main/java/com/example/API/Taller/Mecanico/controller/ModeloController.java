@@ -2,7 +2,6 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
-import com.example.API.Taller.Mecanico.service.IMarcaService;
 import com.example.API.Taller.Mecanico.service.IModeloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,7 +58,7 @@ public class ModeloController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Modelo modelo) {
 
-       serviceModelo.actualizar(id, modelo.getNombre());
+       serviceModelo.actualizar(id, modelo.getNombre(), modelo.getMarca());
        return ResponseEntity.ok("El modelo se actualizo correctamente");
     }
 

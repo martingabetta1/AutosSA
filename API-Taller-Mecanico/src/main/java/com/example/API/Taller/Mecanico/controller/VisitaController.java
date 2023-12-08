@@ -3,7 +3,6 @@ package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.model.*;
 import com.example.API.Taller.Mecanico.service.IClienteService;
-import com.example.API.Taller.Mecanico.service.IVehiculoService;
 import com.example.API.Taller.Mecanico.service.IVisitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +45,7 @@ public class VisitaController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Visita visita) {
 
-        serviceVisita.actualizar(id, visita.getFechaVisita());
+        serviceVisita.actualizar(id, visita.getFechaVisita(), visita.getCliente());
         return ResponseEntity.ok("La visita se actualizo correctamente");
 
     }
