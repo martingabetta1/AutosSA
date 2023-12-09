@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name="estado")
@@ -24,6 +25,7 @@ public class Estado {
     @Column(nullable = false)
     private boolean eliminado;
 
+    @Transient
     private String descripcion;
 
 
@@ -56,6 +58,7 @@ public class Estado {
     }
 
     public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getDescripcion(){
