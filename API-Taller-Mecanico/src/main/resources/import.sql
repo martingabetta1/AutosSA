@@ -10,9 +10,9 @@ INSERT INTO estado (id, nombre, eliminado) VALUES (2, 'Pendiente de cobro', fals
 INSERT INTO estado (id, nombre, eliminado) VALUES (3, 'Finalizado', false);
 
 -- Inserción en la tabla 'marca'
-INSERT INTO marca (id, nombre, eliminado) VALUES (0, 'Renault', false);
-INSERT INTO marca (id, nombre, eliminado) VALUES (1, 'Fiat', false);
-INSERT INTO marca (id, nombre, eliminado) VALUES (2, 'Ford', false);
+INSERT INTO marca (id, nombre,impuesto, eliminado) VALUES (0, 'Renault',0, false);
+INSERT INTO marca (id, nombre,impuesto, eliminado) VALUES (1, 'Fiat',1, false);
+INSERT INTO marca (id, nombre,impuesto, eliminado) VALUES (2, 'Ford',2, false);
 
 -- Inserción en la tabla 'modelo'
 INSERT INTO modelo (id, id_marca, nombre, eliminado) VALUES (0, 0, 'Clio', false);

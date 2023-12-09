@@ -22,7 +22,7 @@ public class VehiculoServiceImpl implements IVehiculoService {
     // pantente string, observaciones string, anio integer, kilometros float, cliente cliente, modelo modelo
     
     @Override
-    public List<Vehiculo> listarVehiculosPorConsultaAnidada(String patente, String observaciones, Integer anio, Float kilometros, Cliente cliente, Modelo modelo){
+    public List<Vehiculo> listarVehiculosPorConsultaAnidada(String patente, String observaciones, Integer anio, Float kilometros, String cliente, String modelo){
         return repoVehiculo.findByParams(patente, observaciones, anio, kilometros, cliente, modelo);
     }
 

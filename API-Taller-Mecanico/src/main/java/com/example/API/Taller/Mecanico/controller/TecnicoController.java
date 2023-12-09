@@ -1,6 +1,7 @@
 // esta 
 package com.example.API.Taller.Mecanico.controller;
 
+import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
 import com.example.API.Taller.Mecanico.model.Tecnico;
 import com.example.API.Taller.Mecanico.service.ITecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +53,23 @@ public class TecnicoController {
                 tecnicosConFiltro.add(tecnicoFiltrado);
             }
             //esto lo comente para ver si asi andaba, pero paso de devolver todos los tecnicos a devolver un array vacio
-            //return new ResponseEntity<List<Tecnico>>(tecnicosConCamposSelect, HttpStatus.OK);
-            return new ResponseEntity<List<Tecnico>>(tecnicosConFiltro, HttpStatus.OK);
-        } else {
+            return new ResponseEntity<List<Tecnico>>(tecnicosConCamposSelect, HttpStatus.OK);
+            // return new ResponseEntity<List<Tecnico>>(tecnicosConFiltro, HttpStatus.OK);
+        } 
+        if (select) {
+            // Si select es true, formatear la respuesta con el formato deseado
+
+            List<Tecnico> tecnicosConCamposSelect = new ArrayList<>();
+            for (Tecnico tecnico : tecnicos) {
+                Tecnico tecnicoConCamposSelect = new Tecnico();
+                tecnicoConCamposSelect.setId(tecnico.getId());
+                tecnicoConCamposSelect.setDescripcion(tecnico.getNombre() + " " + tecnico.getApellido());
+                tecnicosConCamposSelect.add(tecnicoConCamposSelect);
+            }
+
+            return new ResponseEntity<List<Tecnico>>(tecnicosConCamposSelect, HttpStatus.OK);
+        }
+        else {
             // Si select es false, devolver la lista de técnicos sin formato
             return new ResponseEntity<List<Tecnico>>(tecnicos, HttpStatus.OK);
         }

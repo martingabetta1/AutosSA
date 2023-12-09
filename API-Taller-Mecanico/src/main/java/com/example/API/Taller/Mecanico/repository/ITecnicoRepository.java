@@ -25,11 +25,11 @@ public interface ITecnicoRepository extends JpaRepository<Tecnico, Integer> {
 
     @Query(
         "SELECT t FROM Tecnico t " +
-        "WHERE (:nombre IS NULL OR t.nombre = :nombre) " +
-        "AND (:apellido IS NULL OR t.apellido = :apellido) " +
-        "AND (:documento IS NULL OR t.documento = :documento) " +
-        "AND (:telefono IS NULL OR t.telefono = :telefono) " +
-        "AND (:direccion IS NULL OR t.direccion = :direccion) " +
+        "WHERE (:nombre IS NULL OR t.nombre LIKE %:nombre%) " +
+        "AND (:apellido IS NULL OR t.apellido LIKE %:apellido%) " +
+        "AND (:documento IS NULL OR t.documento LIKE %:documento%) " +
+        "AND (:telefono IS NULL OR t.telefono LIKE %:telefono%) " +
+        "AND (:direccion IS NULL OR t.direccion LIKE %:direccion%) " +
         "AND t.eliminado = false")
     List<Tecnico> findByParams(String nombre, String apellido, String documento, String telefono, String direccion);
 }

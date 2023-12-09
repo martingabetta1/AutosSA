@@ -28,36 +28,43 @@ public class VehiculoController {
             @RequestParam(name = "observaciones", required = false) String observaciones,
             @RequestParam(name = "anio", required = false) Integer anio,
             @RequestParam(name = "kilometros", required = false) Float kilometros,
-            @RequestParam(name = "cliente", required = false) Cliente cliente,
-            @RequestParam(name = "modelo", required = false) Modelo modelo) {
+            @RequestParam(name = "cliente", required = false) String cliente,
+            @RequestParam(name = "modelo", required = false) String modelo) {
         List<Vehiculo> vehiculos = serviceVehiculo.listarVehiculos();
         if(patente != null || observaciones != null || anio != null || kilometros != null || cliente != null || modelo != null){
             List<Vehiculo> buscarVehiculos = serviceVehiculo.listarVehiculosPorConsultaAnidada(patente, observaciones, anio, kilometros, cliente, modelo);
             List<Vehiculo> vehiculosConFiltro = new ArrayList<>();
             for(Vehiculo vehiculo : buscarVehiculos){
                 Vehiculo vehiculoFiltrado = new Vehiculo();
+                Modelo modeloObj = new Modelo();
+                Cliente clienteObj = new Cliente();
+                modeloObj.setId(vehiculo.getModelo().getId());
+                clienteObj.setId(vehiculo.getCliente().getId());
+                modeloObj.setDescripcion(vehiculo.getModelo().getNombre());
+                clienteObj.setDescripcion(vehiculo.getCliente().getNombre() + ' ' + vehiculo.getCliente().getApellido());
+                vehiculoFiltrado.setCliente(clienteObj);
+                vehiculoFiltrado.setModelo(modeloObj);
                 vehiculoFiltrado.setId(vehiculo.getId());
                 vehiculoFiltrado.setPatente(vehiculo.getPatente());
                 vehiculoFiltrado.setObservaciones(vehiculo.getObservaciones());
                 vehiculoFiltrado.setAnio(vehiculo.getAnio());
                 vehiculoFiltrado.setKilometros(vehiculo.getKilometros());
-                vehiculoFiltrado.setCliente(vehiculo.getCliente());
-                vehiculoFiltrado.setModelo(vehiculo.getModelo());
+
                 vehiculosConFiltro.add(vehiculoFiltrado); 
             }
             return new ResponseEntity<List<Vehiculo>>(vehiculosConFiltro, HttpStatus.OK);
         };
 
-//        for (Vehiculo vehiculo : vehiculos) {
-//            Modelo modelo = new Modelo();
-//            modelo.setId(vehiculo.getModelo().getId());
-//            modelo.setDescripcion(vehiculo.getModelo().getNombre());
-//            vehiculo.setModelo(modelo);
-//            Cliente cliente = new Cliente();
-//            cliente.setId(vehiculo.getCliente().getId());
-//            cliente.setDescripcion(vehiculo.getCliente().getNombre() + ' ' + vehiculo.getCliente().getApellido());
-//            vehiculo.setCliente(cliente);
-//        }
+       for (Vehiculo vehiculo : vehiculos) {
+           Modelo modeloObj = new Modelo();
+           modeloObj.setId(vehiculo.getModelo().getId());
+           modeloObj.setDescripcion(vehiculo.getModelo().getNombre());
+           vehiculo.setModelo(modeloObj);
+           Cliente clienteObj = new Cliente();
+           clienteObj.setId(vehiculo.getCliente().getId());
+           clienteObj.setDescripcion(vehiculo.getCliente().getNombre() + ' ' + vehiculo.getCliente().getApellido());
+           vehiculo.setCliente(clienteObj);
+       }
 
         if (select) {
             // Si select es true, formatear la respuesta con el formato deseado

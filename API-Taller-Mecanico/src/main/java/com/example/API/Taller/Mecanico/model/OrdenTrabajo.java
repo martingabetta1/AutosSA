@@ -35,10 +35,6 @@ public class OrdenTrabajo {
     @ManyToOne
     @JoinColumn(name = "estado", referencedColumnName = "id", nullable = false)
     private Estado estado;
-    
-    @ManyToOne
-    @JoinColumn(name = "impuesto", referencedColumnName = "id", nullable = false)
-    private Impuesto impuesto;
 
     @Size(max = 100)
     @Column(name = "comentario", length = 100, nullable = false)
@@ -147,13 +143,6 @@ public class OrdenTrabajo {
         this.estado = estado;
     }
 
-    public Impuesto getImpuesto() {
-        return impuesto;
-    }
-
-    public void setImpuesto(Impuesto impuesto) {
-        this.impuesto = impuesto;
-    }
 
     public boolean isEliminado() {
         return eliminado;

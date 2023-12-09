@@ -30,7 +30,7 @@ export default function PDFGenerator(ordenData, idOrden, endpoints, errorGenerat
             img.src = 'images/logo.png'
             let y = 5,
                 x = 15,
-                total = 0
+                totalLiquido = 0
             doc.addImage(img, 'png', x - 5, y, 30, 20)
             y += 35
             doc.setFontSize(20);
@@ -49,9 +49,9 @@ export default function PDFGenerator(ordenData, idOrden, endpoints, errorGenerat
             y += 10
             doc.text(ordenData.cliente.descripcion, x, y);
             y += 5
-            doc.text("Corrientes 2127", x, y);
+            doc.text(ordenData.cliente.direccion, x, y);
             y += 5
-            doc.text("Villa Maria, Cba.", x, y);
+            doc.text(ordenData.cliente.localidad, x, y);
             // ================================================
             // ================================================
             y -= 20
@@ -60,9 +60,13 @@ export default function PDFGenerator(ordenData, idOrden, endpoints, errorGenerat
             doc.setFontSize(9);
             y += 10
             doc.text(ordenData.vehiculo.descripcion, x + 75, y);
+            y += 5
+            doc.text(ordenData.vehiculo.modelo.marca.nombre, x + 75, y);
+            y += 5
+            doc.text(ordenData.vehiculo.modelo.nombre, x + 75, y);
             // ================================================
             // ================================================ 
-            y -= 10
+            y -= 20
             doc.setFontSize(12);
             doc.text("Prestador", x + 150, y);
             doc.setFontSize(9);
@@ -87,14 +91,25 @@ export default function PDFGenerator(ordenData, idOrden, endpoints, errorGenerat
                 doc.text(value.tipoServicio, x, y);
                 doc.text("$ " + value.precio.toString(), x + 135, y);
                 y += 10
-                total += value.precio
+                totalLiquido += value.precio
             })
+            let totalPorcentaje = totalLiquido * ordenData.vehiculo.modelo.marca.impuesto.porcentaje / 100,
+            totalFinal = totalLiquido + totalPorcentaje
+
             y += 5
             doc.line(x + 80, y, x + 180, y, "S")
             y += 15
+            doc.setFontSize(12);
+            doc.text("TOTAL LIQUIDO", x + 80, y);
+            doc.text("$ " + totalLiquido, x + 135, y);
+            doc.setFontSize(12);
+            y += 8
+            doc.text(`${ordenData.vehiculo.modelo.marca.impuesto.nombre} ( ${ordenData.vehiculo.modelo.marca.impuesto.porcentaje.toString()}% )`, x + 80, y);
+            doc.text("$ " + totalPorcentaje.toString(), x + 135, y);
             doc.setFontSize(14);
-            doc.text("TOTAL", x + 115, y);
-            doc.text("$ " + total, x + 135, y);
+            y += 8
+            doc.text("TOTAL", x + 80, y);
+            doc.text("$ " + totalFinal.toString(), x + 135, y);
             y += 30
             doc.line(x + 115, y, x + 180, y, "S")
             doc.setFontSize(12);

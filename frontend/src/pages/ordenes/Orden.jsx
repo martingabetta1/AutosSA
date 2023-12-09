@@ -48,12 +48,6 @@ export default function Marca() {
             flex: 1,
             valueGetter: (params) => params.row.cliente?.descripcion
         },
-        {
-            field: 'impuesto.descripcion',
-            headerName: 'Impuesto',
-            flex: 1,
-            valueGetter: (params) => params.row.impuesto?.descripcion
-        },
         { field: 'comentario', headerName: 'Comentario', flex: 1 },
         { field: 'totalCosto', headerName: 'Costo total', flex: 1 }
     ];
@@ -111,12 +105,6 @@ export default function Marca() {
                 label: 'Cliente',
                 type: 'select',
                 endpoint: '/clientes',
-            },
-            {
-                name: 'impuesto',
-                label: 'Impuesto',
-                type: 'select',
-                endpoint: '/impuestos'
             },
             {
                 name: 'adjunto',

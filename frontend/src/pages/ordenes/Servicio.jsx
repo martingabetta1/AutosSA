@@ -12,26 +12,26 @@ export default function Servicio() {
 
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
-        [endpoints, setEndpoints] = CrudContext.query.endpoints,
+        [, setEndpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
         [columns, setColumns] = CrudContext.crudStructure.columns,
-        [filtersQuery, setFiltersQuery] = CrudContext.filters.filtersQuery
+        [filtersQuery] = CrudContext.filters.filtersQuery
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
         { field: 'tipoServicio', headerName: 'Tipo de servicio', flex: 1 },
         { field: 'precio', headerName: 'Precio', flex: 1 },
         {
-            field: 'ordenTrabajo_descripcion',
-            headerName: 'Orden',
-            flex: 1,
-            valueGetter: (params) => params.row.ordenTrabajo?.descripcion
-        },
-        {
-            field: 'ordenTrabajo_id',
+            field: 'ordenId',
             headerName: 'Orden',
             flex: 1,
             valueGetter: (params) => params.row.ordenTrabajo?.id
+        },
+        {
+            field: 'ordenComentario',
+            headerName: 'Comentario Orden',
+            flex: 1,
+            valueGetter: (params) => params.row.ordenTrabajo?.descripcion
         },
     ];
 
@@ -78,7 +78,7 @@ export default function Servicio() {
 
 
     const getRegisters = async () => {
-        await Api.getQuery('/servicios')
+        await Api.getQuery('/servicios',null, filtersQuery)
             .then((res) => {
                 setRows(res)
             }).catch((error) => {

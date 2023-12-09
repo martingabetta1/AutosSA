@@ -1,7 +1,6 @@
 package com.example.API.Taller.Mecanico.controller;
 
-import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
-import com.example.API.Taller.Mecanico.model.Servicio;
+import com.example.API.Taller.Mecanico.model.*;
 import com.example.API.Taller.Mecanico.service.IServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +18,31 @@ public class ServicioController {
     IServicioService serviceServicio;
 
     @GetMapping
-    public ResponseEntity<List<Servicio>> listarServicios(@RequestParam(required = false) Integer idOrden) {
-        List<Servicio> servicios;
+    public ResponseEntity<List<Servicio>> listarServicios(
+            @RequestParam(required = false) Integer idOrden,
+            @RequestParam(name = "precio", required = false) Double precio,
+            @RequestParam(name = "tipoServicio", required = false) String tipoServicio,
+            @RequestParam(name = "ordenId", required = false) Integer ordenId,
+            @RequestParam(name = "ordenComentario", required = false) String ordenComentario) {
+        List<Servicio> servicios = serviceServicio.listarServicios();
+
+        if(precio != null || tipoServicio != null || ordenId != null || ordenComentario != null){
+            List<Servicio> buscarServicios = serviceServicio.listarServiciosPorConsultaAnidada(tipoServicio,precio, ordenId, ordenComentario);
+            List<Servicio> serviciosConFiltro = new ArrayList<>();
+            for(Servicio servicio : buscarServicios){
+                Servicio servicioFiltrado = new Servicio();
+                OrdenTrabajo ordenObj = new OrdenTrabajo();
+                ordenObj.setId(servicio.getOrdenTrabajo().getId());
+                ordenObj.setDescripcion(servicio.getOrdenTrabajo().getComentario());
+                servicioFiltrado.setOrdenTrabajo(ordenObj);
+                servicioFiltrado.setId(servicio.getId());
+                servicioFiltrado.setPrecio(servicio.getPrecio());
+                servicioFiltrado.setTipoServicio(servicio.getTipoServicio());
+
+                serviciosConFiltro.add(servicioFiltrado); 
+            }
+            return new ResponseEntity<List<Servicio>>(serviciosConFiltro, HttpStatus.OK);
+        };
 
         if (idOrden != null) {
              List<Servicio> serviciosConOrden = serviceServicio.listarServiciosPorOrden(idOrden);
