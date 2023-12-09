@@ -29,12 +29,14 @@ public class ClienteController {
                                                         @RequestParam(name = "nombre", required = false) String nombre,
                                                         @RequestParam(name = "apellido", required = false) String apellido,
                                                         @RequestParam(name = "telefono", required = false) String telefono,
-                                                        @RequestParam(name = "localidad", required = false) String localidad) {
+                                                        @RequestParam(name = "localidad", required = false) String localidad,
+                                                        @RequestParam(name = "direccion", required = false) String direccion,
+                                                        @RequestParam(name = "mail", required = false) String mail) {
 
         List<Cliente> clientes = serviceCliente.listarClientes();
 
-        if(nombre != null || apellido != null || telefono != null || localidad != null) {
-            List<Cliente> buscarClientes = serviceCliente.listarClientesPorConsultaAnidada(nombre, apellido, telefono, localidad);
+        if(nombre != null || apellido != null || telefono != null || localidad != null || direccion != null || mail != null) {
+            List<Cliente> buscarClientes = serviceCliente.listarClientesPorConsultaAnidada(nombre, apellido, telefono, localidad,direccion,mail);
             List<Cliente> clientesConFiltro = new ArrayList<>();
             for(Cliente cliente : buscarClientes){
                 Cliente clienteFiltrado = new Cliente();

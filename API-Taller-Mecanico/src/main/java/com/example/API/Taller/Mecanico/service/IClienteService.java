@@ -12,7 +12,7 @@ public interface IClienteService {
 
     Cliente listarClientePorId(Integer idCliente);
 
-    List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad);
+    List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad,String direccion,String mail);
 
     Cliente registrar(Cliente cliente);
 

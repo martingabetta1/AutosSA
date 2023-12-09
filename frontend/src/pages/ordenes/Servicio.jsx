@@ -14,7 +14,8 @@ export default function Servicio() {
         [, setDialogInputs] = CrudContext.inputs,
         [endpoints, setEndpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
-        [columns, setColumns] = CrudContext.crudStructure.columns
+        [columns, setColumns] = CrudContext.crudStructure.columns,
+        [filtersQuery, setFiltersQuery] = CrudContext.filters.filtersQuery
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -71,7 +72,6 @@ export default function Servicio() {
             },
         ])
         setColumns(columnsTemplate)
-        getRegisters()
         setIsLoading(false)
     }, [])
 
@@ -85,6 +85,10 @@ export default function Servicio() {
                 throw new Error(error.message)
             })
     }
+
+    useEffect(()=>{
+        getRegisters()
+    },[filtersQuery])
 
     return (
         <div>

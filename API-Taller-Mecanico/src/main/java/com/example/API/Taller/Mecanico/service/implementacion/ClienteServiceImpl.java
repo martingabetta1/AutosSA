@@ -29,8 +29,8 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad) {
-        return repoCliente.findByParams(nombre, apellido, telefono, localidad);
+    public List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad,String direccion,String mail) {
+        return repoCliente.findByParams(nombre, apellido, telefono, localidad,direccion,mail);
     }
 
     @Override
