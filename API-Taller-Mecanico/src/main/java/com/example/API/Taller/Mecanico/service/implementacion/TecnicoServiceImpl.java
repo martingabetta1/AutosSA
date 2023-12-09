@@ -1,3 +1,4 @@
+//esta 
 package com.example.API.Taller.Mecanico.service.implementacion;
 
 import com.example.API.Taller.Mecanico.model.Tecnico;
@@ -19,6 +20,11 @@ public class TecnicoServiceImpl implements ITecnicoService {
     @Override
     public List<Tecnico> listarTecnicos() {
         return repoTecnico.findByEliminadoFalse();
+    }
+
+    @Override
+    public List<Tecnico> listarTecnicosPorConsultaAnidada(String nombre, String apellido, String documento, String telefono, String direccion) {
+        return repoTecnico.findByParams(nombre,apellido,documento,telefono,direccion);
     }
 
     @Override

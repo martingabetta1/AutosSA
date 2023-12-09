@@ -1,3 +1,4 @@
+// esta 
 package com.example.API.Taller.Mecanico.repository;
 
 import com.example.API.Taller.Mecanico.model.Tecnico;
@@ -21,4 +22,14 @@ public interface ITecnicoRepository extends JpaRepository<Tecnico, Integer> {
     @Modifying
     @Query("UPDATE Tecnico t SET t.eliminado = true WHERE t.id = :tecnicoId")
     void eliminar(@Param("tecnicoId") Integer tecnicoId);
+
+    @Query(
+        "SELECT t FROM Tecnico t " +
+        "WHERE (:nombre IS NULL OR t.nombre = :nombre) " +
+        "AND (:apellido IS NULL OR t.apellido = :apellido) " +
+        "AND (:documento IS NULL OR t.documento = :documento) " +
+        "AND (:telefono IS NULL OR t.telefono = :telefono) " +
+        "AND (:direccion IS NULL OR t.direccion = :direccion) " +
+        "AND t.eliminado = false")
+    List<Tecnico> findByParams(String nombre, String apellido, String documento, String telefono, String direccion);
 }
