@@ -95,6 +95,7 @@ export default function Tecnico() {
     await Api.getQuery('/tecnicos', null, filtersQuery)
       .then((res) => {
         setRows(res)
+        // hola
       }).catch((error) => {
         throw new Error(error.message)
       })
