@@ -23,4 +23,13 @@ public interface IVehiculoRepository extends JpaRepository<Vehiculo, Integer> {
     @Modifying
     @Query("UPDATE Vehiculo v SET v.eliminado = true WHERE v.id = :vehiculoId")
     void eliminar(@Param("vehiculoId") Integer vehiculoId);
+
+    @Query("SELECT v FROM Vehiculo v " +
+    "WHERE (:patente IS NULL OR v.patente = :patente)" +
+    "AND (:observaciones IS NULL OR v.observaciones = :observaciones) " +
+    "AND (:anio IS NULL OR v.anio = :anio) " +
+    "AND (:kilometros IS NULL OR v.kilometros = :kilometros)" +
+    "AND (:cliente IS NULL OR v.cliente = :cliente)" +
+    "AND (:modeo IS NULL OR v.modelo = :modelo)")
+    List<Vehiculo> findByParams(String patente, String observaciones, Integer anio, Float kilometros, Cliente cliente, Modelo modelo);
 }
