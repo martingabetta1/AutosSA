@@ -1,7 +1,6 @@
 // esta 
 package com.example.API.Taller.Mecanico.controller;
 
-import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
 import com.example.API.Taller.Mecanico.model.Tecnico;
 import com.example.API.Taller.Mecanico.service.ITecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,6 @@ package com.example.API.Taller.Mecanico.service.implementacion;
 
 import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
-import com.example.API.Taller.Mecanico.model.Vehiculo;
 import com.example.API.Taller.Mecanico.repository.IModeloRepository;
 import com.example.API.Taller.Mecanico.service.IModeloService;
 import jakarta.transaction.Transactional;

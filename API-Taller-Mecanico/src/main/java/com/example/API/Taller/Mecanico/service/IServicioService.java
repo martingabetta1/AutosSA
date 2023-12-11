@@ -2,7 +2,6 @@ package com.example.API.Taller.Mecanico.service;
 
 import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
 import com.example.API.Taller.Mecanico.model.Servicio;
-import com.example.API.Taller.Mecanico.model.Vehiculo;
 
 import java.util.List;
 
