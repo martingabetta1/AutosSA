@@ -9,6 +9,8 @@ import java.util.List;
 public interface IVehiculoService {
 
     List<Vehiculo> listarVehiculos();
+    // pantente string, observaciones string, anio integer, kilometros float, cliente cliente, modelo modelo
+    List<Vehiculo> listarVehiculosPorConsultaAnidada(String patente, String observaciones, Integer anio, Float kilometros, String cliente, String modelo);
 
     Vehiculo listarVehiculoPorId(Integer vehiculoId);
 

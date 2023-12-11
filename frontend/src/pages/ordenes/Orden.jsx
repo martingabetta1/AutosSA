@@ -12,11 +12,14 @@ export default function Marca() {
         { CrudContext } = useCrudData(),
         { ErrorContext } = useError()
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
         [, setEndpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
-        [columns, setColumns] = CrudContext.crudStructure.columns
+        [columns, setColumns] = CrudContext.crudStructure.columns,
+        [filtersQuery] = CrudContext.filters.filtersQuery
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -34,7 +37,12 @@ export default function Marca() {
             flex: 1,
             valueGetter: (params) => params.row.tecnico?.descripcion
         },
-        { field: 'estado', headerName: 'Estado', flex: 1 },
+        {
+            field: 'estado.descripcion',
+            headerName: 'Estado',
+            flex: 1,
+            valueGetter: (params) => params.row.estado?.descripcion
+        },
         {
             field: 'cliente.descripcion',
             headerName: 'Cliente',
@@ -42,15 +50,15 @@ export default function Marca() {
             valueGetter: (params) => params.row.cliente?.descripcion
         },
         { field: 'comentario', headerName: 'Comentario', flex: 1 },
-        { field:'totalCosto', headerName:'Costo total',flex:1}
+        { field: 'totalCosto', headerName: 'Costo total', flex: 1 }
     ];
     useEffect(() => {
         setEndpoints({
             create: '/ordenes',
             edit: '/ordenes',
             delete: '/ordenes',
-            listServices:'/servicios',
-            factura:'/servicios'
+            listServices: '/servicios',
+            factura: '/servicios'
         })
         setDialogData({
             title: 'orden'
@@ -81,11 +89,8 @@ export default function Marca() {
             {
                 name: 'estado',
                 label: 'Estado',
-                type: 'text',
-                validations: {
-                    length: 20,
-                    type: 'text'
-                }
+                type: 'select',
+                endpoint: '/estados'
             },
             {
                 name: 'comentario',
@@ -111,12 +116,13 @@ export default function Marca() {
         // setRows(rowsTemplate)
         setColumns(columnsTemplate)
         getRegisters()
+        setIsLoading(false)
     }, [])
 
 
 
     const getRegisters = async () => {
-        await Api.getQuery('/ordenes')
+        await Api.getQuery('/ordenes',null,filtersQuery)
             .then((res) => {
                 setRows(res)
             }).catch((error) => {
@@ -129,6 +135,10 @@ export default function Marca() {
             })
     }
 
+    useEffect(()=>{
+        getRegisters()
+    },[filtersQuery])
+
     const optionsPopover = true
 
     return (
@@ -139,11 +149,13 @@ export default function Marca() {
                 </div>
                 <CreateDialog />
             </div>
-            <CrudTemplate
-                rows={rows}
-                columns={columns}
-                optionsPopover={optionsPopover}
-            />
+            {!isLoading && (
+                <CrudTemplate
+                    rows={rows}
+                    columns={columns}
+                    optionsPopover={optionsPopover}
+                />
+            )}
         </div>
     )
 }

@@ -2,6 +2,7 @@ package com.example.API.Taller.Mecanico.service.implementacion;
 
 import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
+import com.example.API.Taller.Mecanico.model.Vehiculo;
 import com.example.API.Taller.Mecanico.repository.IModeloRepository;
 import com.example.API.Taller.Mecanico.service.IModeloService;
 import jakarta.transaction.Transactional;
@@ -16,6 +17,16 @@ public class ModeloServiceImpl implements IModeloService {
 
     @Autowired
     IModeloRepository repoModelo;
+
+    @Override
+    public List<Modelo> listarModelosPorConsultaAnidada(String nombre, String marca){
+        return repoModelo.findByParams(nombre, marca);
+    }
+
+    @Override
+    public Modelo listarModeloPorId(Integer modeloId) {
+        return repoModelo.findByIdAndEliminadoFalse(modeloId);
+    }
 
     @Override
     public List<Modelo> listarModelos() {

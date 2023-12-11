@@ -24,6 +24,7 @@ export default function OptionsPopover(props) {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
+
     return (
         <div>
             <Button variant="contained" className='crud_button_options' onClick={handleClick}>
@@ -42,7 +43,7 @@ export default function OptionsPopover(props) {
             >
                 <div className='crud_accions_box crud_accions_box--popover'>
                     <div>
-                        <Button variant="contained" className='crud_button_edit' onClick={() => { handleOpenDialog("edit", true, props.params.row) }}>
+                        <Button disabled={props.params.row.estado === "Finalizado"} variant="contained" className={`crud_button_edit ${props.params.row.estado === "Finalizado" ? "disabled" : ""}`} onClick={() => { handleOpenDialog("edit", true, props.params.row) }}>
                             <img className='crud_button_image' button-type="edit" alt="Edit icon" src="/images/crud/icon-edit.png" />
                         </Button>
                     </div>

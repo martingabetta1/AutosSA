@@ -2,6 +2,7 @@ package com.example.API.Taller.Mecanico.service.implementacion;
 
 import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
 import com.example.API.Taller.Mecanico.model.Servicio;
+import com.example.API.Taller.Mecanico.model.Vehiculo;
 import com.example.API.Taller.Mecanico.repository.IServicioRepository;
 import com.example.API.Taller.Mecanico.service.IServicioService;
 import jakarta.transaction.Transactional;
@@ -16,6 +17,11 @@ public class ServicioServiceImpl implements IServicioService {
 
     @Autowired
     IServicioRepository repoServicio;
+    
+
+    public List<Servicio> listarServiciosPorConsultaAnidada(String tipoServicio, Double precio, Integer ordenId, String ordenComentario){
+        return repoServicio.findByParams(tipoServicio, precio, ordenId,ordenComentario);
+    }
 
     @Override
     public List<Servicio> listarServiciosPorOrden(Integer idOrden) {

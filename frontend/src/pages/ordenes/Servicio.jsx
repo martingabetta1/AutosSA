@@ -8,27 +8,30 @@ export default function Servicio() {
     const title = "Servicio",
         { CrudContext } = useCrudData()
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
-        [endpoints, setEndpoints] = CrudContext.query.endpoints,
+        [, setEndpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
-        [columns, setColumns] = CrudContext.crudStructure.columns
+        [columns, setColumns] = CrudContext.crudStructure.columns,
+        [filtersQuery] = CrudContext.filters.filtersQuery
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
         { field: 'tipoServicio', headerName: 'Tipo de servicio', flex: 1 },
         { field: 'precio', headerName: 'Precio', flex: 1 },
         {
-            field: 'ordenTrabajo_descripcion',
-            headerName: 'Orden',
-            flex: 1,
-            valueGetter: (params) => params.row.ordenTrabajo?.descripcion
-        },
-        {
-            field: 'ordenTrabajo_id',
+            field: 'ordenId',
             headerName: 'Orden',
             flex: 1,
             valueGetter: (params) => params.row.ordenTrabajo?.id
+        },
+        {
+            field: 'ordenComentario',
+            headerName: 'Comentario Orden',
+            flex: 1,
+            valueGetter: (params) => params.row.ordenTrabajo?.descripcion
         },
     ];
 
@@ -69,19 +72,23 @@ export default function Servicio() {
             },
         ])
         setColumns(columnsTemplate)
-        getRegisters()
+        setIsLoading(false)
     }, [])
 
 
 
     const getRegisters = async () => {
-        await Api.getQuery('/servicios')
+        await Api.getQuery('/servicios',null, filtersQuery)
             .then((res) => {
                 setRows(res)
             }).catch((error) => {
                 throw new Error(error.message)
             })
     }
+
+    useEffect(()=>{
+        getRegisters()
+    },[filtersQuery])
 
     return (
         <div>
@@ -91,10 +98,12 @@ export default function Servicio() {
                 </div>
                 <CreateDialog />
             </div>
-            <CrudTemplate
-                rows={rows}
-                columns={columns}
-            />
+            {!isLoading && (
+                <CrudTemplate
+                    rows={rows}
+                    columns={columns}
+                />
+            )}
         </div>
     )
 }

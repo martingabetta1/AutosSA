@@ -23,7 +23,7 @@ export default function SelectInput(props) {
 
   useEffect(() => {
     getOptions()
-  }, [])
+  }, [props.input])
 
   useEffect(() => {
     setValue(props.value || 0)

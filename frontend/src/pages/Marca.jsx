@@ -21,6 +21,12 @@ export default function Marca() {
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
         { field: 'nombre', headerName: 'Nombre', flex: 1 },
+        {
+            field: 'impuesto.descripcion',
+            headerName: 'Impuesto',
+            flex: 1,
+            valueGetter: (params) => params.row.impuesto?.descripcion
+        },
     ];
 
     useEffect(() => {
@@ -42,6 +48,12 @@ export default function Marca() {
                     length: 20,
                     type: 'text'
                 }
+            },
+            {
+                name: 'impuesto',
+                label: 'Impuesto',
+                type: 'select',
+                endpoint: '/impuestos',
             },
         ])
         // setRows(rowsTemplate)

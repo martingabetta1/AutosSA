@@ -17,6 +17,10 @@ public class Marca {
     @Column(name = "nombre", length = 100, nullable = false)
     private String nombre;
 
+    @ManyToOne
+    @JoinColumn(name = "impuesto", referencedColumnName = "id", nullable = false)
+    private Impuesto impuesto;
+
     @Size(max = 100)
     @Column(name = "eliminado", nullable = false)
     private boolean eliminado;
@@ -32,7 +36,7 @@ public class Marca {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    
     private String descripcion;
 
     public String getDescripcion() {
@@ -41,6 +45,14 @@ public class Marca {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Impuesto getImpuesto() {
+        return impuesto;
+    }
+
+    public void setImpuesto(Impuesto impuesto) {
+        this.impuesto = impuesto;
     }
 
     public void setId(Integer id) {

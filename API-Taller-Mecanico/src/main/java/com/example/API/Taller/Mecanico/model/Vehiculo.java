@@ -36,7 +36,7 @@ public class Vehiculo {
     @ManyToOne
     @JoinColumn(name = "idModelo", referencedColumnName = "id", nullable = false)
     private Modelo modelo;
-
+    
     @Size(max = 100)
     @Column(name = "eliminado", nullable = false)
     private boolean eliminado;

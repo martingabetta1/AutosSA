@@ -114,11 +114,11 @@ export default function PersistentDrawerRight() {
     icono:<PersonIcon/>,
     ruta:"/cliente"
   },
-  {
-    nombre:"Visitas",
-    icono:<EmojiPeopleIcon/>,
-    ruta:"/visita"
-  },
+  // {
+  //   nombre:"Visitas",
+  //   icono:<EmojiPeopleIcon/>,
+  //   ruta:"/visita"
+  // },
   {
     nombre:"Tecnicos",
     icono:<BadgeIcon/>,

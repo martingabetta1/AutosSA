@@ -18,6 +18,14 @@ public class VehiculoServiceImpl implements IVehiculoService {
     @Autowired
     IVehiculoRepository repoVehiculo;
 
+
+    // pantente string, observaciones string, anio integer, kilometros float, cliente cliente, modelo modelo
+    
+    @Override
+    public List<Vehiculo> listarVehiculosPorConsultaAnidada(String patente, String observaciones, Integer anio, Float kilometros, String cliente, String modelo){
+        return repoVehiculo.findByParams(patente, observaciones, anio, kilometros, cliente, modelo);
+    }
+
     @Override
     public List<Vehiculo> listarVehiculos() {
         return repoVehiculo.findByEliminadoFalse();
@@ -38,6 +46,7 @@ public class VehiculoServiceImpl implements IVehiculoService {
         repoVehiculo.actualizarVehiculo(vehiculoId, patente, observaciones, anio, kilometros, cliente, modelo);
     }
     
+
 
     @Override
     public void eliminar(Integer id) {
