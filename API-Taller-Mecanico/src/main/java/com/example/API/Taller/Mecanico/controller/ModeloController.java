@@ -1,7 +1,9 @@
 package com.example.API.Taller.Mecanico.controller;
 
+import com.example.API.Taller.Mecanico.model.Cliente;
 import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
+import com.example.API.Taller.Mecanico.model.Vehiculo;
 import com.example.API.Taller.Mecanico.service.IModeloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,16 +19,41 @@ public class ModeloController {
 
     @Autowired
     IModeloService serviceModelo;
-
+    //aca estan los parametros que pide el filtro
+    //modelo tiene: String nombre, Marca marca
     @GetMapping
-    public ResponseEntity<List<Modelo>> listarModelos(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
+    public ResponseEntity<List<Modelo>> listarModelos(
+            @RequestParam(name = "select", required = false, defaultValue = "false") boolean select,
+            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "marca", required = false) String marca) {
+        //aca agrego los parametros que se piden para el filtro
         List<Modelo> modelos = serviceModelo.listarModelos();
+        if(nombre != null || marca != null){
+            List<Modelo> buscarModelos = serviceModelo.listarModelosPorConsultaAnidada(nombre, marca);
+            List<Modelo> modelosConFiltro = new ArrayList<>();
+            for(Modelo modelo : buscarModelos){
+                Modelo modeloFiltrado = new Modelo();
+                //en modelo me hace falta una clave foranea a una marca
+                Marca marcaObj = new Marca();
+                //seteo el ID del objeto marca
+                marcaObj.setId(modelo.getMarca().getId());
+                //seteo la descripcion de la marca
+                marcaObj.setDescripcion(modelo.getMarca().getNombre());
+
+                modeloFiltrado.setMarca(marcaObj);
+                modeloFiltrado.setId(modelo.getId());
+                modeloFiltrado.setNombre(modelo.getNombre());
+
+                modelosConFiltro.add(modeloFiltrado); 
+            }
+            return new ResponseEntity<List<Modelo>>(modelosConFiltro, HttpStatus.OK);
+        };
 
         for (Modelo modelo : modelos) {
-            Marca marca = new Marca();
-            marca.setId(modelo.getMarca().getId());
-            marca.setDescripcion(modelo.getMarca().getNombre());
-            modelo.setMarca(marca);
+            Marca marcaObj = new Marca();
+            marcaObj.setId(modelo.getMarca().getId());
+            marcaObj.setDescripcion(modelo.getMarca().getNombre());
+            modelo.setMarca(marcaObj);
         }
 
         if (select) {
