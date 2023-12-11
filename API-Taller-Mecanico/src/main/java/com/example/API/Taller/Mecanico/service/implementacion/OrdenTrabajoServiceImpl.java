@@ -23,6 +23,11 @@ public class OrdenTrabajoServiceImpl implements IOrdenTrabajoService {
     }
 
     @Override
+    public List<OrdenTrabajo> listarOrdenesPorConsultaAnidada(Integer ordenId, String fechaInicio, String fechaFin, String vehiculo, String tecnico, String estado, String comentario, String cliente){
+        return repoOrden.findByParams(vehiculo, tecnico, estado,comentario,cliente);
+    }
+
+    @Override
     public OrdenTrabajo registrar(OrdenTrabajo ordenTrabajo) {
         return repoOrden.save(ordenTrabajo);
     }

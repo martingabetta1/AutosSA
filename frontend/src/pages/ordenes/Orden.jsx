@@ -18,7 +18,8 @@ export default function Marca() {
         [, setDialogInputs] = CrudContext.inputs,
         [, setEndpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
-        [columns, setColumns] = CrudContext.crudStructure.columns
+        [columns, setColumns] = CrudContext.crudStructure.columns,
+        [filtersQuery] = CrudContext.filters.filtersQuery
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -121,7 +122,7 @@ export default function Marca() {
 
 
     const getRegisters = async () => {
-        await Api.getQuery('/ordenes')
+        await Api.getQuery('/ordenes',null,filtersQuery)
             .then((res) => {
                 setRows(res)
             }).catch((error) => {
@@ -133,6 +134,10 @@ export default function Marca() {
                 )
             })
     }
+
+    useEffect(()=>{
+        getRegisters()
+    },[filtersQuery])
 
     const optionsPopover = true
 
