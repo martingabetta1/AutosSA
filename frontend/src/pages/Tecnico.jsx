@@ -88,14 +88,13 @@ export default function Tecnico() {
     // setRows(rowsTemplate)
     setColumns(columnsTemplate)
     getRegisters()
-    setIsLoading(false)
   }, [])
 
   const getRegisters = async () => {
     await Api.getQuery('/tecnicos', null, filtersQuery)
       .then((res) => {
         setRows(res)
-        // hola
+        setIsLoading(false)
       }).catch((error) => {
         throw new Error(error.message)
       })

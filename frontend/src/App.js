@@ -14,12 +14,14 @@ import Footer from './components/Footer'
 import CrudContextProvider from './contexts/CrudContext/CrudContext'
 import ErrorProvider from './contexts/Error'
 import Servicio from './pages/ordenes/Servicio';
+import { PrincipalLoader } from './global/components/PrincipalLoader'
 
 function App() {
   return (
     <div className="App">
       <ErrorProvider>
         <CrudContextProvider>
+          <PrincipalLoader />
           <Router>
             <Drawer />
             <Routes>

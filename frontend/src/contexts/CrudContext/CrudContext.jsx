@@ -5,7 +5,8 @@ const CrudContexto = createContext();
 export default function CrudContextProvider({ children }) {
 
     // Estados
-    const [bodyData, setBodyData] = useState({}),
+    const [principalLoaderState,setPrincipalLoaderState] = useState(false),
+        [bodyData, setBodyData] = useState({}),
         [args, setArgs] = useState({}),
         [rows, setRows] = useState([]),
         [columns, setColums] = useState([]),
@@ -105,6 +106,9 @@ export default function CrudContextProvider({ children }) {
     // Objeto exportable para todo el contexto de CRUD
     const CrudData = {
         // Estructura de la tabla del CRUD
+        generals:{
+            principalLoaderState: [principalLoaderState,setPrincipalLoaderState] 
+        },
         crudStructure: {
             rows: [rows, setRows],
             columns: [columns, setColums]

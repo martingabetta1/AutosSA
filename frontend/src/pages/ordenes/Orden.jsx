@@ -23,8 +23,10 @@ export default function Marca() {
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
-        { field: 'fechaInicio', headerName: 'Fecha inicio', flex: 1 },
-        { field: 'fechaFin', headerName: 'Fecha fin', flex: 1 },
+        { field: 'fechaInicio', headerName: 'Fecha inicio', flex: 1 ,
+        valueGetter: (params) => params.row.fechaInicio.match(/^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}\+\d{2}:\d{2}$/)[1].split("-").reverse().join("-")},
+        { field: 'fechaFin', headerName: 'Fecha fin', flex: 1,
+        valueGetter: (params) => params.row.fechaFin.match(/^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}\+\d{2}:\d{2}$/)[1].split("-").reverse().join("-") },
         {
             field: 'vehiculo.descripcion',
             headerName: 'Vehiculo',
@@ -116,15 +118,13 @@ export default function Marca() {
         // setRows(rowsTemplate)
         setColumns(columnsTemplate)
         getRegisters()
-        setIsLoading(false)
     }, [])
-
-
 
     const getRegisters = async () => {
         await Api.getQuery('/ordenes',null,filtersQuery)
             .then((res) => {
                 setRows(res)
+                setIsLoading(false)
             }).catch((error) => {
                 ErrorContext.setError(
                     {

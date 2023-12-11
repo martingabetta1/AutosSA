@@ -19,42 +19,36 @@ public class ModeloController {
 
     @Autowired
     IModeloService serviceModelo;
-    //aca estan los parametros que pide el filtro
-    //modelo tiene: String nombre, Marca marca
+
+    // aca estan los parametros que pide el filtro
+    // modelo tiene: String nombre, Marca marca
     @GetMapping
     public ResponseEntity<List<Modelo>> listarModelos(
             @RequestParam(name = "select", required = false, defaultValue = "false") boolean select,
             @RequestParam(name = "nombre", required = false) String nombre,
             @RequestParam(name = "marca", required = false) String marca) {
-        //aca agrego los parametros que se piden para el filtro
+        // aca agrego los parametros que se piden para el filtro
         List<Modelo> modelos = serviceModelo.listarModelos();
-        if(nombre != null || marca != null){
+        if (nombre != null || marca != null) {
             List<Modelo> buscarModelos = serviceModelo.listarModelosPorConsultaAnidada(nombre, marca);
             List<Modelo> modelosConFiltro = new ArrayList<>();
-            for(Modelo modelo : buscarModelos){
+            for (Modelo modelo : buscarModelos) {
                 Modelo modeloFiltrado = new Modelo();
-                //en modelo me hace falta una clave foranea a una marca
+                // en modelo me hace falta una clave foranea a una marca
                 Marca marcaObj = new Marca();
-                //seteo el ID del objeto marca
+                // seteo el ID del objeto marca
                 marcaObj.setId(modelo.getMarca().getId());
-                //seteo la descripcion de la marca
+                // seteo la descripcion de la marca
                 marcaObj.setDescripcion(modelo.getMarca().getNombre());
 
                 modeloFiltrado.setMarca(marcaObj);
                 modeloFiltrado.setId(modelo.getId());
                 modeloFiltrado.setNombre(modelo.getNombre());
 
-                modelosConFiltro.add(modeloFiltrado); 
+                modelosConFiltro.add(modeloFiltrado);
             }
             return new ResponseEntity<List<Modelo>>(modelosConFiltro, HttpStatus.OK);
         };
-
-        for (Modelo modelo : modelos) {
-            Marca marcaObj = new Marca();
-            marcaObj.setId(modelo.getMarca().getId());
-            marcaObj.setDescripcion(modelo.getMarca().getNombre());
-            modelo.setMarca(marcaObj);
-        }
 
         if (select) {
             // Si select es true, formatear la respuesta con el formato deseado
@@ -69,6 +63,12 @@ public class ModeloController {
 
             return new ResponseEntity<List<Modelo>>(modelosConCamposSelect, HttpStatus.OK);
         } else {
+            for (Modelo modelo : modelos) {
+                Marca marcaObj = new Marca();
+                marcaObj.setId(modelo.getMarca().getId());
+                marcaObj.setDescripcion(modelo.getMarca().getNombre());
+                modelo.setMarca(marcaObj);
+            }
             // Si select es false, devolver la lista de técnicos sin formato
             return new ResponseEntity<List<Modelo>>(modelos, HttpStatus.OK);
         }
@@ -76,23 +76,20 @@ public class ModeloController {
 
     @PostMapping()
     public ResponseEntity<?> registrar(@RequestBody Modelo modelo) {
-    Modelo resModelo = serviceModelo.registrar(modelo);
-    return new ResponseEntity<>(resModelo, HttpStatus.CREATED);
-}
-
-
+        Modelo resModelo = serviceModelo.registrar(modelo);
+        return new ResponseEntity<>(resModelo, HttpStatus.CREATED);
+    }
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Modelo modelo) {
 
-       serviceModelo.actualizar(id, modelo.getNombre(), modelo.getMarca());
-       return ResponseEntity.ok("El modelo se actualizo correctamente");
+        serviceModelo.actualizar(id, modelo.getNombre(), modelo.getMarca());
+        return ResponseEntity.ok("El modelo se actualizo correctamente");
     }
 
-
-    //Aca se debe actualizar el campo eliminado a true.
+    // Aca se debe actualizar el campo eliminado a true.
     @PostMapping("/eliminar/{id}")
-    public ResponseEntity<String> eliminar (@PathVariable Integer id) {
+    public ResponseEntity<String> eliminar(@PathVariable Integer id) {
         serviceModelo.eliminar(id);
 
         return ResponseEntity.ok("El modelo se elimino correctamente");

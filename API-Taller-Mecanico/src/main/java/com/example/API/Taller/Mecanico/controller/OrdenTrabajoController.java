@@ -72,18 +72,19 @@ public class OrdenTrabajoController {
                 ordenesConFiltro.add(ordenFiltrada);
             }
             return new ResponseEntity<List<OrdenTrabajo>>(ordenesConFiltro, HttpStatus.OK);
-        }
-        ;
+        };
 
         if (select) {
             // Si select es true, formatear la respuesta con el formato deseado
 
             List<OrdenTrabajo> ordenesConCamposSelect = new ArrayList<>();
             for (OrdenTrabajo orden : ordenes) {
-                OrdenTrabajo ordenConCamposSelect = new OrdenTrabajo();
-                ordenConCamposSelect.setId(orden.getId());
-                ordenConCamposSelect.setDescripcion(orden.getId().toString() + " (" + orden.getComentario() + ")");
-                ordenesConCamposSelect.add(ordenConCamposSelect);
+                if (!orden.getEstado().getNombre().equals("Finalizado")) {
+                    OrdenTrabajo ordenConCamposSelect = new OrdenTrabajo();
+                    ordenConCamposSelect.setId(orden.getId());
+                    ordenConCamposSelect.setDescripcion(orden.getId().toString() + " (" + orden.getComentario() + ")");
+                    ordenesConCamposSelect.add(ordenConCamposSelect);
+                }
             }
 
             return new ResponseEntity<List<OrdenTrabajo>>(ordenesConCamposSelect, HttpStatus.OK);

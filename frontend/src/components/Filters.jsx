@@ -7,7 +7,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useCrudData } from '../contexts/CrudContext/CrudContext';
 import { TextField } from '@mui/material';
 import { useMemo } from 'react';
-import { useCallback } from 'react';
 import {filterQueryConstructor} from '../functions/filterQueryConstructor'
 import { useEffect } from 'react';
 
@@ -43,6 +42,16 @@ export default function Filters() {
         })
     }
 
+    
+    const isFiltersNotEmpty = useMemo(()=>{
+        for(let filter in filtersValues){
+            if(filtersValues[filter] !== ""){
+                return false
+            }
+        }
+        return true
+    },[filtersValues])
+
     return (
         <div>
             <Accordion>
@@ -51,7 +60,8 @@ export default function Filters() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography>Filtros</Typography>
+                    <Typography>Filtros</Typography>&nbsp;&nbsp;
+                    {!isFiltersNotEmpty && (<Typography style={{color:"blue"}}>(Hay filtros colocados)</Typography>)}
                 </AccordionSummary>
                 <AccordionDetails>
                     <div style={{display:"flex",justifyContent:"space-around"}}>
