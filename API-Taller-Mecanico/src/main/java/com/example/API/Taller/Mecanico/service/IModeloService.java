@@ -9,6 +9,10 @@ public interface IModeloService {
 
     List<Modelo> listarModelos();
 
+    List<Modelo> listarModelosPorConsultaAnidada(String nombre, String marca);
+
+    Modelo listarModeloPorId(Integer modeloId);
+
     Modelo registrar(Modelo modelo);
 
     void actualizar(Integer modeloId, String nombre, Marca marca);
