@@ -45,7 +45,7 @@ export default function CrudTemplate(props) {
                 {!props.optionsPopover && (
                     <div className='crud_accions_box'>
                         <div>
-                            <Button variant="contained" className='crud_button_edit' onClick={() => { handleOpenDialog("edit", true, params.row) }}>
+                            <Button disabled={params.row.estado?.descripcion === "Finalizado"} variant="contained" className={`crud_button_edit ${params.row.estado?.descripcion === "Finalizado" ? "disabled" : ""}`} onClick={() => { handleOpenDialog("edit", true, params.row) }}>
                                 <img className='crud_button_image' button-type="edit" alt="Edit icon" src="/images/crud/icon-edit.png" />
                             </Button>
                         </div>

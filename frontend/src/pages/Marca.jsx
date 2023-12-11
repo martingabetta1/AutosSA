@@ -59,7 +59,6 @@ export default function Marca() {
         // setRows(rowsTemplate)
         setColumns(columnsTemplate)
         getRegisters()
-        setIsLoading(false)
     }, [])
 
 
@@ -68,6 +67,7 @@ export default function Marca() {
         await Api.getQuery('/marcas',null,filtersQuery)
             .then((res) => {
                 setRows(res)
+                setIsLoading(false)
             }).catch((error) => {
                 throw new Error(error.message)
             })

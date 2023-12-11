@@ -26,10 +26,11 @@ public class ServicioController {
             @RequestParam(name = "ordenComentario", required = false) String ordenComentario) {
         List<Servicio> servicios = serviceServicio.listarServicios();
 
-        if(precio != null || tipoServicio != null || ordenId != null || ordenComentario != null){
-            List<Servicio> buscarServicios = serviceServicio.listarServiciosPorConsultaAnidada(tipoServicio,precio, ordenId, ordenComentario);
+        if (precio != null || tipoServicio != null || ordenId != null || ordenComentario != null) {
+            List<Servicio> buscarServicios = serviceServicio.listarServiciosPorConsultaAnidada(tipoServicio, precio,
+                    ordenId, ordenComentario);
             List<Servicio> serviciosConFiltro = new ArrayList<>();
-            for(Servicio servicio : buscarServicios){
+            for (Servicio servicio : buscarServicios) {
                 Servicio servicioFiltrado = new Servicio();
                 OrdenTrabajo ordenObj = new OrdenTrabajo();
                 ordenObj.setId(servicio.getOrdenTrabajo().getId());
@@ -39,14 +40,15 @@ public class ServicioController {
                 servicioFiltrado.setPrecio(servicio.getPrecio());
                 servicioFiltrado.setTipoServicio(servicio.getTipoServicio());
 
-                serviciosConFiltro.add(servicioFiltrado); 
+                serviciosConFiltro.add(servicioFiltrado);
             }
             return new ResponseEntity<List<Servicio>>(serviciosConFiltro, HttpStatus.OK);
-        };
+        }
+        ;
 
         if (idOrden != null) {
-             List<Servicio> serviciosConOrden = serviceServicio.listarServiciosPorOrden(idOrden);
-             List<Servicio> serviciosFormateados = new ArrayList<>();
+            List<Servicio> serviciosConOrden = serviceServicio.listarServiciosPorOrden(idOrden);
+            List<Servicio> serviciosFormateados = new ArrayList<>();
 
             for (Servicio servicio : serviciosConOrden) {
                 Servicio servicioFormateado = new Servicio();
@@ -56,7 +58,7 @@ public class ServicioController {
             }
             return new ResponseEntity<List<Servicio>>(serviciosFormateados, HttpStatus.OK);
         } else {
-             servicios = serviceServicio.listarServicios();
+            servicios = serviceServicio.listarServicios();
 
             for (Servicio servicio : servicios) {
                 OrdenTrabajo ordenTrabajo = new OrdenTrabajo();
@@ -84,9 +86,9 @@ public class ServicioController {
         return ResponseEntity.ok("El servicio se actualizo correctamente");
     }
 
-    //Aca se debe actualizar el campo eliminado a true.
+    // Aca se debe actualizar el campo eliminado a true.
     @PostMapping("/eliminar/{id}")
-    public ResponseEntity<String> eliminar (@PathVariable Integer id) {
+    public ResponseEntity<String> eliminar(@PathVariable Integer id) {
         serviceServicio.eliminar(id);
 
         return ResponseEntity.ok("El servicio se elimino correctamente");
