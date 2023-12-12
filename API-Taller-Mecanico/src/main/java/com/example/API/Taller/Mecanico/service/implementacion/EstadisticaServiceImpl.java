@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.API.Taller.Mecanico.dto.EstadosEstadisticaDTO;
 import com.example.API.Taller.Mecanico.dto.ModeloEstadisticaDTO;
+import com.example.API.Taller.Mecanico.dto.TecnicosEstadisticaDTO;
 import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
 import com.example.API.Taller.Mecanico.service.IEstadisticaService;
 import com.example.API.Taller.Mecanico.service.IOrdenTrabajoService;
@@ -71,4 +73,47 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
 
         return estadisticas;
     }
+
+    @Override
+    public List<TecnicosEstadisticaDTO> getPromediosTecnicos() {
+        List<OrdenTrabajo> ordenes = ordenTrabajoService.listarOrdenes();
+    
+        // Utilizamos un mapa para realizar el seguimiento del tiempo total de reparación por técnico
+        Map<String, Integer> tiempoTotalPorTecnico = new HashMap<>();
+        Map<String, Integer> cantidadOrdenesPorTecnico = new HashMap<>();
+    
+        for (OrdenTrabajo orden : ordenes) {
+            String nombreTecnico = orden.getTecnico().getNombre() + " " + orden.getTecnico().getApellido();
+    
+            // Actualizamos el tiempo total de reparación y la cantidad de órdenes para el técnico actual
+            int tiempoTotalActual = tiempoTotalPorTecnico.getOrDefault(nombreTecnico, 0) + calcularDiasDeReparacion(orden);
+            int cantidadOrdenesActual = cantidadOrdenesPorTecnico.getOrDefault(nombreTecnico, 0) + 1;
+    
+            tiempoTotalPorTecnico.put(nombreTecnico, tiempoTotalActual);
+            cantidadOrdenesPorTecnico.put(nombreTecnico, cantidadOrdenesActual);
+        }
+    
+        // Creamos la lista de DTOs a partir del mapa y calculamos el promedio
+        List<TecnicosEstadisticaDTO> estadisticas = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : tiempoTotalPorTecnico.entrySet()) {
+            TecnicosEstadisticaDTO tecnicoEstadistica = new TecnicosEstadisticaDTO();
+            tecnicoEstadistica.setNombreTecnico(entry.getKey());
+    
+            // Calculamos el promedio dividiendo el tiempo total entre la cantidad de órdenes
+            int promedio = entry.getValue() / cantidadOrdenesPorTecnico.get(entry.getKey());
+            tecnicoEstadistica.setDiasPromedio(promedio);
+    
+            estadisticas.add(tecnicoEstadistica);
+        }
+    
+        return estadisticas;
+    }
+    
+    // Método auxiliar para calcular los días de reparación
+    private int calcularDiasDeReparacion(OrdenTrabajo orden) {
+        long diferenciaEnMilis = orden.getFechaFin().getTime() - orden.getFechaInicio().getTime();
+        return (int) TimeUnit.MILLISECONDS.toDays(diferenciaEnMilis);
+    }
+    
+
 }
