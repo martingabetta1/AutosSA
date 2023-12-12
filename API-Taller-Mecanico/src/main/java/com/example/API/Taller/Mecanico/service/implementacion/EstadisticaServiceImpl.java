@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.API.Taller.Mecanico.dto.EstadosEstadisticaDTO;
 import com.example.API.Taller.Mecanico.dto.ModeloEstadisticaDTO;
 import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
 import com.example.API.Taller.Mecanico.service.IEstadisticaService;
@@ -40,6 +41,32 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
             modeloEstadistica.setNombreModelo(entry.getKey());
             modeloEstadistica.setCantidadOrdenes(entry.getValue());
             estadisticas.add(modeloEstadistica);
+        }
+
+        return estadisticas;
+    }
+
+    @Override
+    public List<EstadosEstadisticaDTO> getCantidadOrdenesDeEstados() {
+        List<OrdenTrabajo> ordenes = ordenTrabajoService.listarOrdenes();
+
+        // Utilizamos un mapa para contar la cantidad de órdenes por modelo
+        Map<String, Integer> cantidadOrdenesPorEstado = new HashMap<>();
+
+        for (OrdenTrabajo orden : ordenes) {
+            String nombreEstado = orden.getEstado().getNombre();
+
+            // Incrementamos el contador para el modelo actual
+            cantidadOrdenesPorEstado.put(nombreEstado, cantidadOrdenesPorEstado.getOrDefault(nombreEstado, 0) + 1);
+        }
+
+        // Creamos la lista de DTOs a partir del mapa
+        List<EstadosEstadisticaDTO> estadisticas = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : cantidadOrdenesPorEstado.entrySet()) {
+            EstadosEstadisticaDTO estadoEstadistica = new EstadosEstadisticaDTO();
+            estadoEstadistica.setNombreEstado(entry.getKey());
+            estadoEstadistica.setCantidadOrdenes(entry.getValue());
+            estadisticas.add(estadoEstadistica);
         }
 
         return estadisticas;
