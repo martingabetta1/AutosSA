@@ -1,6 +1,7 @@
 package com.example.API.Taller.Mecanico.controller;
 
 import com.example.API.Taller.Mecanico.dto.EstadosEstadisticaDTO;
+import com.example.API.Taller.Mecanico.dto.GananciasMensualesDTO;
 import com.example.API.Taller.Mecanico.dto.ModeloEstadisticaDTO;
 import com.example.API.Taller.Mecanico.dto.TecnicosEstadisticaDTO;
 import com.example.API.Taller.Mecanico.service.IEstadisticaService;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -43,5 +43,14 @@ public class EstadisticaController {
         List<TecnicosEstadisticaDTO> estadisticas = estadisticaService.getPromediosTecnicos();
         return new ResponseEntity<>(estadisticas,HttpStatus.OK);
     }
+
+    // Tiempo promedio de reparación de órden por técnico
+    @GetMapping("/ganancias-mensuales")
+    public ResponseEntity<List<GananciasMensualesDTO>> getGananciasMensuales() {
+        List<GananciasMensualesDTO> estadisticas = estadisticaService.getGananciasMensuales();
+        return new ResponseEntity<>(estadisticas,HttpStatus.OK);
+    }
+
+
     
 }
