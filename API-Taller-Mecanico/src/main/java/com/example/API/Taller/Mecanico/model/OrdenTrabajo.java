@@ -33,7 +33,7 @@ public class OrdenTrabajo {
     private Tecnico tecnico;
 
     @ManyToOne
-    @JoinColumn(name = "idEstado", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "estado", referencedColumnName = "id", nullable = false)
     private Estado estado;
 
     @Size(max = 100)
