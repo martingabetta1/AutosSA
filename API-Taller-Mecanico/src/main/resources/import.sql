@@ -57,8 +57,8 @@ INSERT INTO tecnico (id, apellido, direccion, documento, nombre, telefono, elimi
 INSERT INTO tecnico (id, apellido, direccion, documento, nombre, telefono, eliminado) VALUES (2, 'Simonin', 'Yugusman 999', '41331231', 'Eloy', '321312634', false);
 
 -- Inserción en la tabla 'orden_trabajo'
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, id_estado, comentario, totalcosto, id_cliente, eliminado) VALUES (0, '2023-12-12', '2023-12-15', 0, 0, 0, 'Comentario 1', 100.0, 0, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, id_estado, comentario, totalcosto, id_cliente, eliminado) VALUES (1, '2023-12-10', '2023-12-14', 1, 1, 1, 'Comentario 2', 150.0, 1, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, id_estado, comentario, totalcosto, id_cliente, eliminado) VALUES (2, '2023-12-11', '2023-12-13', 1, 2, 2, 'Comentario 3', 120.0, 2, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, id_estado, comentario, totalcosto, id_cliente, eliminado) VALUES (3, '2023-12-14', '2023-12-16', 1, 0, 3, 'Comentario 4', 200.0, 3, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, id_estado, comentario, totalcosto, id_cliente, eliminado) VALUES (4, '2023-12-13', '2023-12-17', 3, 1, 0, 'Comentario 5', 180.0, 4, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (0, '2023-12-12', '2023-12-15', 0, 0, 0, 'Comentario 1', 100.0, 0, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (1, '2023-12-10', '2023-12-14', 1, 1, 1, 'Comentario 2', 150.0, 1, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (2, '2023-12-11', '2023-12-13', 1, 2, 2, 'Comentario 3', 120.0, 2, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (3, '2023-12-14', '2023-12-16', 1, 0, 3, 'Comentario 4', 200.0, 3, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (4, '2023-12-13', '2023-12-17', 3, 1, 0, 'Comentario 5', 180.0, 4, false);
