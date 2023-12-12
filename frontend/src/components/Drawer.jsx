@@ -28,6 +28,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
 import { ClickAwayListener } from '@mui/material';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 
 const drawerWidth = 240;
@@ -89,30 +90,30 @@ export default function PersistentDrawerRight() {
     setOpen(false);
   };
 
-  const listContent = [ {
-    nombre:"Inicio",
-    icono:<HomeIcon/>,
-    ruta:"/"
+  const listContent = [{
+    nombre: "Inicio",
+    icono: <HomeIcon />,
+    ruta: "/"
   },
   {
-    nombre:"Marcas",
-    icono:<SellIcon/>,
-    ruta:"/marca"
+    nombre: "Marcas",
+    icono: <SellIcon />,
+    ruta: "/marca"
   },
   {
-    nombre:"Modelos",
-    icono:<InventoryIcon/>,
-    ruta:"/modelo"
+    nombre: "Modelos",
+    icono: <InventoryIcon />,
+    ruta: "/modelo"
   },
   {
-    nombre:"Vehiculos",
-    icono:<DirectionsCarIcon/>,
-    ruta:"/vehiculo"
+    nombre: "Vehiculos",
+    icono: <DirectionsCarIcon />,
+    ruta: "/vehiculo"
   },
   {
-    nombre:"Clientes",
-    icono:<PersonIcon/>,
-    ruta:"/cliente"
+    nombre: "Clientes",
+    icono: <PersonIcon />,
+    ruta: "/cliente"
   },
   // {
   //   nombre:"Visitas",
@@ -120,26 +121,26 @@ export default function PersistentDrawerRight() {
   //   ruta:"/visita"
   // },
   {
-    nombre:"Tecnicos",
-    icono:<BadgeIcon/>,
-    ruta:"/tecnico"
+    nombre: "Tecnicos",
+    icono: <BadgeIcon />,
+    ruta: "/tecnico"
   },
   {
-    nombre:"Ordenes",
-    icono:<ReceiptIcon/>,
-    ruta:"/orden"
+    nombre: "Ordenes",
+    icono: <ReceiptIcon />,
+    ruta: "/orden"
   },
   {
-    nombre:"Servicios",
-    icono:<MiscellaneousServicesIcon/>,
-    ruta:"/servicio"
+    nombre: "Servicios",
+    icono: <MiscellaneousServicesIcon />,
+    ruta: "/servicio"
   }]
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1,display:'inline-flex' }} component="div">
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1, display: 'inline-flex' }} component="div">
             Autos S.A.
           </Typography>
           <IconButton
@@ -153,48 +154,57 @@ export default function PersistentDrawerRight() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Main style={{padding:'0px'}} open={open}>
-      <DrawerHeader />
+      <Main style={{ padding: '0px' }} open={open}>
+        <DrawerHeader />
       </Main>
       <ClickAwayListener
         mouseEvent="onMouseDown"
         touchEvent="onTouchStart"
         onClickAway={() => open && handleDrawerClose()}
       >
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+        <Drawer
+          sx={{
             width: drawerWidth,
-          },
-        }}
-        variant="persistent"
-        anchor="right"
-        open={open}
-        
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {listContent.map(item => {
-            return (
-              <ListItem component={Link} to={item.ruta} key={item.nombre} disablePadding>
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+            },
+          }}
+          variant="persistent"
+          anchor="right"
+          open={open}
+
+        >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {listContent.map(item => {
+              return (
+                <ListItem component={Link} to={item.ruta} key={item.nombre} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {item.icono}
+                    </ListItemIcon>
+                    <ListItemText primary={item.nombre} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            })}
+            <Divider />
+            <ListItem component={Link} to={"/estadisticas"} key={"estadisticas"} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                {item.icono}
+                  <BarChartIcon />
                 </ListItemIcon>
-                <ListItemText primary={item.nombre} />
+                <ListItemText primary={"Estadisticas"} />
               </ListItemButton>
-              </ListItem>
-            )
-            })}      
-      </List>
-      </Drawer>
+            </ListItem>
+          </List>
+        </Drawer>
       </ClickAwayListener>
     </Box>
   );

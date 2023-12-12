@@ -34,14 +34,7 @@ public class TecnicoController {
             
             List<Tecnico> buscarTecnicos = serviceTecnico.listarTecnicosPorConsultaAnidada(nombre,apellido,documento,telefono,direccion);
             List<Tecnico> tecnicosConFiltro = new ArrayList<>();
-            List<Tecnico> tecnicosConCamposSelect = new ArrayList<>();
 
-            for (Tecnico tecnico : tecnicos) {
-                Tecnico tecnicoConCamposSelect = new Tecnico();
-                tecnicoConCamposSelect.setId(tecnico.getId());
-                tecnicoConCamposSelect.setDescripcion(tecnico.getNombre() + ' ' + tecnico.getApellido() );
-                tecnicosConCamposSelect.add(tecnicoConCamposSelect);
-            }
             for (Tecnico tecnico: buscarTecnicos){
                 Tecnico tecnicoFiltrado = new Tecnico();
                 tecnicoFiltrado.setId(tecnico.getId());
@@ -53,7 +46,7 @@ public class TecnicoController {
                 tecnicosConFiltro.add(tecnicoFiltrado);
             }
             //esto lo comente para ver si asi andaba, pero paso de devolver todos los tecnicos a devolver un array vacio
-            return new ResponseEntity<List<Tecnico>>(tecnicosConCamposSelect, HttpStatus.OK);
+            return new ResponseEntity<List<Tecnico>>(tecnicosConFiltro, HttpStatus.OK);
             // return new ResponseEntity<List<Tecnico>>(tecnicosConFiltro, HttpStatus.OK);
         } 
         if (select) {
