@@ -1,15 +1,37 @@
+import { useEffect } from "react"
+import { Graphic } from "./submodules/Graphic"
 import { TableEstadisticas } from "./submodules/TableEstadisticas"
+import { useState } from "react"
+import Api from "../../services/Api"
 
 
-const ModuleEstadisticas = ({endpoint})=>{
+const ModuleEstadisticas = ({ components }) => {
 
+    const [data, setData] = useState([])
 
-    return(
+    const getData = async () => {
+        await Api.getQuery(components.endpoint, null, "")
+            .then((res) => {
+                setData(res)
+            })
+            .catch(() => {
+                throw new Error()
+            })
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+    return (
         <>
-            <h1>Cantidad de ordenes por modelo de vehiculo</h1>
-            <TableEstadisticas endpoint={endpoint}/>
+            <div style={{marginBottom:"150px"}}>
+                <h1>{components.title}</h1>
+                <TableEstadisticas components={components} data={data} />
+                <Graphic components={components} data={data} />
+            </div>
         </>
     )
 }
 
-export {ModuleEstadisticas}
+export { ModuleEstadisticas }
