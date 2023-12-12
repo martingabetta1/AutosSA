@@ -1,5 +1,7 @@
 package com.example.API.Taller.Mecanico.service.implementacion;
 
+import java.time.YearMonth;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.API.Taller.Mecanico.dto.EstadosEstadisticaDTO;
+import com.example.API.Taller.Mecanico.dto.GananciasMensualesDTO;
 import com.example.API.Taller.Mecanico.dto.ModeloEstadisticaDTO;
 import com.example.API.Taller.Mecanico.dto.TecnicosEstadisticaDTO;
 import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
@@ -115,5 +118,35 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
         return (int) TimeUnit.MILLISECONDS.toDays(diferenciaEnMilis);
     }
     
+    @Override
+    public List<GananciasMensualesDTO> getGananciasMensuales() {
+        List<OrdenTrabajo> ordenes = ordenTrabajoService.listarOrdenes();
+
+        // Utilizamos un mapa para realizar el seguimiento de las ganancias por mes
+        Map<YearMonth, Double> gananciasPorMes = new HashMap<>();
+
+        for (OrdenTrabajo orden : ordenes) {
+            // Verificamos si la orden tiene una fecha de finalización
+            if (orden.getFechaFin() != null) {
+                // Obtenemos el mes y el año de la fecha de finalización
+                YearMonth yearMonth = YearMonth.from(orden.getFechaFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+                // Actualizamos las ganancias para el mes actual
+                double gananciaActual = gananciasPorMes.getOrDefault(yearMonth, 0.0) + orden.getTotalCosto();
+                gananciasPorMes.put(yearMonth, gananciaActual);
+            }
+        }
+
+        // Creamos la lista de DTOs a partir del mapa
+        List<GananciasMensualesDTO> estadisticas = new ArrayList<>();
+        for (Map.Entry<YearMonth, Double> entry : gananciasPorMes.entrySet()) {
+            GananciasMensualesDTO gananciasDTO = new GananciasMensualesDTO();
+            gananciasDTO.setMes(entry.getKey());
+            gananciasDTO.setGanancia(entry.getValue());
+            estadisticas.add(gananciasDTO);
+        }
+
+        return estadisticas;
+    }
 
 }
