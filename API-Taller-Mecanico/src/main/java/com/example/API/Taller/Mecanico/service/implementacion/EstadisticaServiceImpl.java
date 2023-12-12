@@ -132,7 +132,7 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
                 YearMonth yearMonth = YearMonth.from(orden.getFechaFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
                 // Actualizamos las ganancias para el mes actual
-                double gananciaActual = gananciasPorMes.getOrDefault(yearMonth, 0.0) + orden.getTotalCosto();
+                Double gananciaActual = gananciasPorMes.getOrDefault(yearMonth, 0.0) + orden.getTotalCosto();
                 gananciasPorMes.put(yearMonth, gananciaActual);
             }
         }

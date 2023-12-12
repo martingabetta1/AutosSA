@@ -56,11 +56,22 @@ INSERT INTO tecnico (id, apellido, direccion, documento, nombre, telefono, elimi
 
 INSERT INTO tecnico (id, apellido, direccion, documento, nombre, telefono, eliminado) VALUES (2, 'Simonin', 'Yugusman 999', '41331231', 'Eloy', '321312634', false);
 
+
 -- Inserción en la tabla 'orden_trabajo'
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (0, '2023-12-12', '2023-12-15', 0, 0, 0, 'Comentario 1', 100.0, 0, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (1, '2023-12-10', '2023-12-14', 1, 1, 1, 'Comentario 2', 150.0, 1, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (2, '2023-12-11', '2023-12-13', 1, 2, 2, 'Comentario 3', 120.0, 2, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (3, '2023-12-14', '2023-12-16', 1, 0, 3, 'Comentario 4', 200.0, 3, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (4, '2023-12-13', '2024-01-17', 3, 1, 0, 'Comentario 5', 500.0, 4, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (5, '2023-12-13', '2024-01-17', 3, 1, 0, 'Comentario 5', 600.0, 4, false);
-INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (6, '2023-12-13', '2024-01-17', 3, 1, 0, 'Comentario 5', 700.0, 4, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (0, '2023-12-12', '2023-12-15', 0, 0, 0, 'Comentario 1', 0.0, 0, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (1, '2023-12-10', '2023-12-14', 1, 1, 1, 'Comentario 2', 0.0, 1, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (2, '2023-12-11', '2023-12-13', 1, 2, 2, 'Comentario 3', 0.0, 2, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (3, '2023-12-14', '2023-12-16', 1, 0, 3, 'Comentario 4', 0.0, 3, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (4, '2023-12-13', '2024-01-17', 3, 1, 0, 'Comentario 5', 0.0, 4, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (5, '2023-12-13', '2024-01-17', 3, 1, 0, 'Comentario 5', 0.0, 4, false);
+INSERT INTO orden_trabajo (id, fecha_inicio, fecha_fin, id_vehiculo, id_tecnico, estado, comentario, totalcosto, id_cliente, eliminado) VALUES (6, '2023-12-13', '2024-01-17', 3, 1, 0, 'Comentario 5', 0.0, 4, false);
+
+-- Inserción en la tabla 'servicio'
+INSERT INTO servicio (id, tipo_servicio, precio, eliminado, id_orden) VALUES (1, 'Cambio de aceite', 50.0, false, 1);
+INSERT INTO servicio (id, tipo_servicio, precio, eliminado, id_orden) VALUES (2, 'Reparación de frenos', 120.0, false, 1);
+INSERT INTO servicio (id, tipo_servicio, precio, eliminado, id_orden) VALUES (3, 'Cambio de neumáticos', 200.0, false, 2);
+INSERT INTO servicio (id, tipo_servicio, precio, eliminado, id_orden) VALUES (4, 'Alineación y balanceo', 80.0, false, 2);
+INSERT INTO servicio (id, tipo_servicio, precio, eliminado, id_orden) VALUES (5, 'Reparación de motor', 300.0, false, 3);
+INSERT INTO servicio (id, tipo_servicio, precio, eliminado, id_orden) VALUES (6, 'Reparación de motor', 350.0, false, 4);
+INSERT INTO servicio (id, tipo_servicio, precio, eliminado, id_orden) VALUES (7, 'Reparación de motor', 100.0, false, 4);
+INSERT INTO servicio (id, tipo_servicio, precio, eliminado, id_orden) VALUES (8, 'Reparación de motor', 900.0, false, 5);
