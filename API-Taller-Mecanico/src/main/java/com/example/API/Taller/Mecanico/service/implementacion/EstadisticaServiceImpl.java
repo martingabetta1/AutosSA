@@ -3,6 +3,8 @@ package com.example.API.Taller.Mecanico.service.implementacion;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +49,7 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
             modeloEstadistica.setCantidadOrdenes(entry.getValue());
             estadisticas.add(modeloEstadistica);
         }
-
+        Collections.sort(estadisticas, Comparator.comparingInt(ModeloEstadisticaDTO::getCantidadOrdenes));
         return estadisticas;
     }
 
@@ -73,7 +75,7 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
             estadoEstadistica.setCantidadOrdenes(entry.getValue());
             estadisticas.add(estadoEstadistica);
         }
-
+        Collections.sort(estadisticas, Comparator.comparingInt(EstadosEstadisticaDTO::getCantidadOrdenes));
         return estadisticas;
     }
 
@@ -108,7 +110,9 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
     
             estadisticas.add(tecnicoEstadistica);
         }
-    
+
+        // Ordenamos la lista de estadísticas por el promedio de días en orden ascendente
+        Collections.sort(estadisticas, Comparator.comparingInt(TecnicosEstadisticaDTO::getDiasPromedio));
         return estadisticas;
     }
     
@@ -126,8 +130,8 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
         Map<YearMonth, Double> gananciasPorMes = new HashMap<>();
 
         for (OrdenTrabajo orden : ordenes) {
-            // Verificamos si la orden tiene una fecha de finalización
-            if (orden.getFechaFin() != null) {
+            // Verificamos si la orden está en estado finalizado
+            if (orden.getEstado().getNombre().equals("Finalizado")) {
                 // Obtenemos el mes y el año de la fecha de finalización
                 YearMonth yearMonth = YearMonth.from(orden.getFechaFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
