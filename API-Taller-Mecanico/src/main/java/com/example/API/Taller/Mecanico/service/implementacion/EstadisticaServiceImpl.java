@@ -149,6 +149,8 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
             gananciasDTO.setGanancia(entry.getValue());
             estadisticas.add(gananciasDTO);
         }
+        // Ordenar fechas
+        Collections.sort(estadisticas, Comparator.comparing(GananciasMensualesDTO::getMes));
 
         return estadisticas;
     }
