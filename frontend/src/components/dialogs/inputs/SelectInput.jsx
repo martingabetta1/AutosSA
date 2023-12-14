@@ -42,10 +42,11 @@ export default function SelectInput(props) {
         <Select
           labelId={props.input.name}
           value={value}
+          style={value === 'n' ? {color:'grey'} : {color:'#171717'}}
           onChange={(event) => handleValueChange(event.target.value)}
           required
         >
-          <MenuItem key={'n'} value={'n'}>{"--Sin seleccionar--"}</MenuItem>
+          <MenuItem key={'n'} value={'n'} style={{color:'grey'}}>{`-- Seleccionar ${props.input.label.toLowerCase()} --`}</MenuItem>
           {options.map((option, key) => {
             return <MenuItem key={key + 1} value={option?.id}>{option?.descripcion}</MenuItem>
           })}
