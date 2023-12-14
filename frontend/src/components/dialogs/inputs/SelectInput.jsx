@@ -9,7 +9,7 @@ import { useCrudData } from '../../../contexts/CrudContext/CrudContext';
 
 export default function SelectInput(props) {
 
-  const [value, setValue] = useState(props.value || 0),
+  const [value, setValue] = useState(props.value || 'n'),
     [options, setOptions] = useState([])
 
   const getOptions = () => {
@@ -26,7 +26,7 @@ export default function SelectInput(props) {
   }, [props.input])
 
   useEffect(() => {
-    setValue(props.value || 0)
+    setValue(props.value === 0 ? props.value : (props.value || 'n'))
   }, [props.value])
 
   const handleValueChange = (newValue) => {
@@ -45,7 +45,7 @@ export default function SelectInput(props) {
           onChange={(event) => handleValueChange(event.target.value)}
           required
         >
-          <MenuItem key={0} value={0}>{"--Sin seleccionar--"}</MenuItem>
+          <MenuItem key={'n'} value={'n'}>{"--Sin seleccionar--"}</MenuItem>
           {options.map((option, key) => {
             return <MenuItem key={key + 1} value={option?.id}>{option?.descripcion}</MenuItem>
           })}
