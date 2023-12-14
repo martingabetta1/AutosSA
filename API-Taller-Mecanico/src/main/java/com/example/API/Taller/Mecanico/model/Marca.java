@@ -33,6 +33,10 @@ public class Marca {
         this.nombre = nombre;
     }
 
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
     private String descripcion;
 
     public String getDescripcion() {

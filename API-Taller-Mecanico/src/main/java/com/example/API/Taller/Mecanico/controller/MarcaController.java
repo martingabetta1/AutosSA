@@ -54,7 +54,7 @@ public class MarcaController {
 
         serviceMarca.actualizar(id, marca.getNombre());
 
-       return ResponseEntity.ok("La marca se actualizo correctamente");
+       return ResponseEntity.ok("La marca se actualizó correctamente");
     }
 
 

@@ -59,7 +59,7 @@ public class ModeloController {
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Modelo modelo) {
 
        serviceModelo.actualizar(id, modelo.getNombre(), modelo.getMarca());
-       return ResponseEntity.ok("El modelo se actualizo correctamente");
+       return ResponseEntity.ok("El modelo se actualizó correctamente");
     }
 
 
