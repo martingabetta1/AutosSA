@@ -109,11 +109,6 @@ export default function Marca() {
                 type: 'select',
                 endpoint: '/clientes',
             },
-            {
-                name: 'adjunto',
-                label: 'Archivo adjunto',
-                type: 'file',
-            },
         ])
         // setRows(rowsTemplate)
         setColumns(columnsTemplate)
