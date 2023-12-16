@@ -9,6 +9,8 @@ public interface IOrdenTrabajoService {
 
     List<OrdenTrabajo> listarOrdenes();
     List<OrdenTrabajo> listarOrdenesPorConsultaAnidada(Integer ordenId, String fechaInicio, String fechaFin, String vehiculo, String tecnico, String estado, String comentario, String cliente);
+    public List<OrdenTrabajo> listarOrdenesPorRangoFechas(Date fechaInicio, Date fechaFin);
+
 
     OrdenTrabajo registrar(OrdenTrabajo ordenTrabajo);
 

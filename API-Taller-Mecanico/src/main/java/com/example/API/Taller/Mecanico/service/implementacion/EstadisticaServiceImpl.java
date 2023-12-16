@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +28,15 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
     @Autowired
     private IOrdenTrabajoService ordenTrabajoService;
 
+
     @Override
-    public List<ModeloEstadisticaDTO> getCantidadOrdenesDeModelos() {
-        List<OrdenTrabajo> ordenes = ordenTrabajoService.listarOrdenes();
+    public List<ModeloEstadisticaDTO> getCantidadOrdenesDeModelos(Date fechaInicio, Date fechaFin) {
+        List<OrdenTrabajo> ordenes; 
+        if(fechaInicio == null || fechaFin == null){
+            ordenes = ordenTrabajoService.listarOrdenes();
+        } else{
+            ordenes = ordenTrabajoService.listarOrdenesPorRangoFechas(fechaInicio, fechaFin);
+        }
 
         // Utilizamos un mapa para contar la cantidad de órdenes por modelo
         Map<String, Integer> cantidadOrdenesPorModelo = new HashMap<>();

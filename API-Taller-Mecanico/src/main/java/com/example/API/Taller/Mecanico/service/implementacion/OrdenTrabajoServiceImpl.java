@@ -17,6 +17,11 @@ public class OrdenTrabajoServiceImpl implements IOrdenTrabajoService {
     @Autowired
     IOrdenTrabajoRepository repoOrden;
 
+    public List<OrdenTrabajo> listarOrdenesPorRangoFechas(Date fechaInicio, Date fechaFin) {
+        return repoOrden.findByFechaInicioBetween(fechaInicio, fechaFin);
+    }
+    
+
     @Override
     public List<OrdenTrabajo> listarOrdenes() {
         return repoOrden.findByEliminadoFalse();

@@ -12,6 +12,8 @@ import java.util.List;
 public interface IOrdenTrabajoRepository extends JpaRepository<OrdenTrabajo, Integer> {
 
     List<OrdenTrabajo> findByEliminadoFalse();
+    List<OrdenTrabajo> findByFechaInicioBetween(Date fechaInicio, Date fechaFin);
+
 
     @Modifying
     @Query("UPDATE OrdenTrabajo o SET o.fechaInicio = :fechaInicio, o.fechaFin = :fechaFin, o.estado = :estado, o.comentario = :comentario, o.cliente =:cliente, o.vehiculo = :vehiculo, o.tecnico = :tecnico WHERE o.id = :ordenId")
