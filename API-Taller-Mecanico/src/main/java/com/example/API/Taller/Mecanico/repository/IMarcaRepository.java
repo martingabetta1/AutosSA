@@ -13,6 +13,7 @@ import java.util.List;
 public interface IMarcaRepository extends JpaRepository<Marca, Integer> {
 
     List<Marca> findByEliminadoFalse();
+    List<Marca> findByEliminadoTrue();
 
     Marca findByIdAndEliminadoFalse(Integer marcaId);
 

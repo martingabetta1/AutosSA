@@ -22,9 +22,10 @@ public class MarcaController {
     @GetMapping
     public ResponseEntity<List<Marca>> listarMarcas(
             @RequestParam(name = "select", required = false, defaultValue = "false") boolean select,
+            @RequestParam(name = "eliminado", required = false, defaultValue = "false") boolean eliminado,
             @RequestParam(name = "nombre",required = false) String nombre,
             @RequestParam(name = "impuesto",required = false) String impuesto) {
-        List<Marca> marcas = serviceMarca.listarMarcas();
+        List<Marca> marcas = serviceMarca.listarMarcas(eliminado);
 
         if (nombre != null || impuesto != null) {
             List<Marca> buscarMarcas = serviceMarca.listarMarcasPorConsultaAnidada(nombre, impuesto);
