@@ -1,6 +1,6 @@
 package com.example.API.Taller.Mecanico.controller;
 
-import com.example.API.Taller.Mecanico.model.Marca;
+import com.example.API.Taller.Mecanico.model.*;
 import com.example.API.Taller.Mecanico.service.IMarcaService;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,30 @@ public class MarcaController {
     IMarcaService serviceMarca;
 
     @GetMapping
-    public ResponseEntity<List<Marca>> listarMarcas(@RequestParam(name = "select", required = false, defaultValue = "false") boolean select) {
-        List<Marca> marcas = serviceMarca.listarMarcas();
+    public ResponseEntity<List<Marca>> listarMarcas(
+            @RequestParam(name = "select", required = false, defaultValue = "false") boolean select,
+            @RequestParam(name = "eliminado", required = false, defaultValue = "false") boolean eliminado,
+            @RequestParam(name = "nombre",required = false) String nombre,
+            @RequestParam(name = "impuesto",required = false) String impuesto) {
+        List<Marca> marcas = serviceMarca.listarMarcas(eliminado);
+
+        if (nombre != null || impuesto != null) {
+            List<Marca> buscarMarcas = serviceMarca.listarMarcasPorConsultaAnidada(nombre, impuesto);
+            List<Marca> marcasConFiltro = new ArrayList<>();
+            for (Marca marca : buscarMarcas) {
+                Marca marcaFiltrada = new Marca();
+                Impuesto impuestoObj = new Impuesto();
+                impuestoObj.setId(marca.getImpuesto().getId());
+                impuestoObj.setDescripcion(marca.getImpuesto().getNombre());
+                marcaFiltrada.setImpuesto(impuestoObj);
+                marcaFiltrada.setId(marca.getId());
+                marcaFiltrada.setNombre(marca.getNombre());
+
+                marcasConFiltro.add(marcaFiltrada);
+            }
+            return new ResponseEntity<List<Marca>>(marcasConFiltro, HttpStatus.OK);
+        }
+        ;
 
         if (select) {
             // Si select es true, formatear la respuesta con el formato deseado
@@ -36,6 +58,13 @@ public class MarcaController {
 
             return new ResponseEntity<List<Marca>>(marcasConCamposSelect, HttpStatus.OK);
         } else {
+            for (Marca marca : marcas) {
+                Impuesto impuestoObj = new Impuesto();
+                impuestoObj.setId(marca.getImpuesto().getId());
+                impuestoObj.setDescripcion(
+                        marca.getImpuesto().getNombre() + " ( " + marca.getImpuesto().getPorcentaje() + "% )");
+                marca.setImpuesto(impuestoObj);
+            }
             // Si select es false, devolver la lista de técnicos sin formato
             return new ResponseEntity<List<Marca>>(marcas, HttpStatus.OK);
         }
@@ -43,7 +72,7 @@ public class MarcaController {
 
     @PostMapping
     public ResponseEntity<Marca> registrar(@RequestBody Marca reqMarca) {
-
+        System.out.println(reqMarca);
         Marca resMarca = serviceMarca.registrar(reqMarca);
 
         return new ResponseEntity<Marca>(resMarca, HttpStatus.CREATED);
@@ -52,13 +81,12 @@ public class MarcaController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Marca marca) {
 
-        serviceMarca.actualizar(id, marca.getNombre());
+        serviceMarca.actualizar(id, marca.getNombre(), marca.getImpuesto());
 
-       return ResponseEntity.ok("La marca se actualizó correctamente");
+        return ResponseEntity.ok("La marca se actualizo correctamente");
     }
 
-
-    //Aca se debe actualizar el campo eliminado a true.
+    // Aca se debe actualizar el campo eliminado a true.
     @PostMapping("/eliminar/{id}")
     public void eliminar(@PathVariable Integer id) {
         serviceMarca.eliminar(id);

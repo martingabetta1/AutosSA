@@ -72,7 +72,6 @@ export default function Servicio() {
             },
         ])
         setColumns(columnsTemplate)
-        setIsLoading(false)
     }, [])
 
 
@@ -81,6 +80,7 @@ export default function Servicio() {
         await Api.getQuery('/servicios',null, filtersQuery)
             .then((res) => {
                 setRows(res)
+                setIsLoading(false)
             }).catch((error) => {
                 throw new Error(error.message)
             })

@@ -17,8 +17,8 @@ public class MarcaServiceImpl implements IMarcaService {
     IMarcaRepository repoMarca;
 
     @Override
-    public List<Marca> listarMarcas() {
-        return repoMarca.findByEliminadoFalse();
+    public List<Marca> listarMarcas(boolean eliminado) {
+        return eliminado ? repoMarca.findByEliminadoTrue() : repoMarca.findByEliminadoFalse();
     }
 
     @Override

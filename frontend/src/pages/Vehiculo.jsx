@@ -140,12 +140,12 @@ export default function Vehiculo() {
     // setRows(rowsTemplate)
     setColumns(columnsTemplate)
     getRegisters()
-    setIsLoading(false)
   }, [])
 
   const getRegisters = async () => {
     await Api.getQuery('/vehiculos', null, filtersQuery)
       .then((res) => {
+        setIsLoading(false)
         setRows(res)
       }).catch((error) => {
         throw new Error(error.message)

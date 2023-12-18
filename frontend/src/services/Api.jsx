@@ -4,7 +4,6 @@ const domain = 'http://localhost:8080'
 
 async function getQuery(endpoint,params = null,filtersQuery="") {
     try {
-        console.log(`PETICIONANDO A: ${domain}${endpoint}${filtersQuery}`);
         const res = await axios.get(`${domain}${endpoint}${filtersQuery}`, {
             params
         })

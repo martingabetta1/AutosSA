@@ -18,7 +18,7 @@ export default function Cliente() {
         [, setArgs] = CrudContext.query.args,
         [rows, setRows] = CrudContext.crudStructure.rows,
         [columns, setColumns] = CrudContext.crudStructure.columns,
-        [filtersQuery, setFiltersQuery] = CrudContext.filters.filtersQuery
+        [filtersQuery] = CrudContext.filters.filtersQuery
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -36,7 +36,6 @@ export default function Cliente() {
             create: '/clientes',
             edit: '/clientes',
             delete: '/clientes',
-            download: '/clientes'
         })
         setArgs({
             multipart: true
@@ -99,26 +98,16 @@ export default function Cliente() {
                     type: "email"
                 }
             },
-            {
-                name: 'frenteLicencia',
-                label: 'Frente de licencia',
-                type: 'file',
-            },
-            {
-                name: 'dorsoLicencia',
-                label: 'Dorso de licencia',
-                type: 'file',
-            },
         ])
         getRegisters()
         setColumns(columnsTemplate)
-        setIsLoading(false)
     }, [])
 
     const getRegisters = async () => {
         await Api.getQuery('/clientes', null, filtersQuery)
             .then((res) => {
                 setRows(res)
+                setIsLoading(false)
             }).catch((error) => {
                 throw new Error(error.message)
             })

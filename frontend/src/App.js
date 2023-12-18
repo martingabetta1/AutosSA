@@ -14,12 +14,15 @@ import Footer from './components/Footer'
 import CrudContextProvider from './contexts/CrudContext/CrudContext'
 import ErrorProvider from './contexts/Error'
 import Servicio from './pages/ordenes/Servicio';
+import { PrincipalLoader } from './global/components/PrincipalLoader'
+import { Estadisticas } from './pages/estadisticas/Estadisticas';
 
 function App() {
   return (
     <div className="App">
       <ErrorProvider>
         <CrudContextProvider>
+          <PrincipalLoader />
           <Router>
             <Drawer />
             <Routes>
@@ -32,6 +35,7 @@ function App() {
               <Route path={"/visita"} element={<Visita />} />
               <Route path={"/orden"} element={<Orden />} />
               <Route path={"/servicio"} element={<Servicio />} />
+              <Route path={"/estadisticas"} element={<Estadisticas />} />
             </Routes>
           </Router>
           <Footer />

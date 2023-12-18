@@ -2,7 +2,6 @@ package com.example.API.Taller.Mecanico.repository;
 
 import com.example.API.Taller.Mecanico.model.OrdenTrabajo;
 import com.example.API.Taller.Mecanico.model.Servicio;
-import com.example.API.Taller.Mecanico.model.Vehiculo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

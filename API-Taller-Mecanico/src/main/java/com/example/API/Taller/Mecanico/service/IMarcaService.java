@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IMarcaService {
 
-    List<Marca> listarMarcas();
+    List<Marca> listarMarcas(boolean eliminado);
 
     Marca listarMarcaPorId(Integer marcaId);
     List<Marca> listarMarcasPorConsultaAnidada(String nombre, String impuesto);

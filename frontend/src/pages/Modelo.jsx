@@ -9,7 +9,7 @@ export default function Modelo() {
   const title = "Modelo",
     { CrudContext } = useCrudData()
 
-    const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   const [, setDialogData] = CrudContext.dialogs.data,
     [, setDialogInputs] = CrudContext.inputs,
@@ -59,13 +59,13 @@ export default function Modelo() {
     // setRows(rowsTemplate)
     setColumns(columnsTemplate)
     getRegisters()
-    setIsLoading(false)
   }, [])
 
 
   const getRegisters = async () => {
     await Api.getQuery('/modelos', null, filtersQuery)
       .then((res) => {
+        setIsLoading(false)
         setRows(res)
       }).catch((error) => {
         throw new Error(error.message)
@@ -85,11 +85,11 @@ export default function Modelo() {
         <CreateDialog />
       </div>
       {!isLoading && (
-                <CrudTemplate
-                    rows={rows}
-                    columns={columns}
-                />
-            )}
+        <CrudTemplate
+          rows={rows}
+          columns={columns}
+        />
+      )}
     </div>
   )
 }

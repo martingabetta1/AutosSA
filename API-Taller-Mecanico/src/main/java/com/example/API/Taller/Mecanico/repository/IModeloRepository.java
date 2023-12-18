@@ -2,7 +2,6 @@ package com.example.API.Taller.Mecanico.repository;
 
 import com.example.API.Taller.Mecanico.model.Marca;
 import com.example.API.Taller.Mecanico.model.Modelo;
-import com.example.API.Taller.Mecanico.model.Vehiculo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -29,7 +28,7 @@ public interface IModeloRepository extends JpaRepository<Modelo, Integer> {
     @Query("SELECT mo, ma.nombre FROM Modelo mo " +
     "LEFT JOIN mo.marca ma " +
     "WHERE (:nombre IS NULL OR mo.nombre LIKE %:nombre%) " +
-    "AND (:marca IS NULL OR m.nombre LIKE %:marca%)")
+    "AND (:marca IS NULL OR ma.nombre LIKE %:marca%)")
     List<Modelo> findByParams(String nombre, String marca);
 
 }
