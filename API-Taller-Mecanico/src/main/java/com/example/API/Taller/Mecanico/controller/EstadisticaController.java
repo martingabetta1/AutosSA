@@ -33,9 +33,11 @@ public class EstadisticaController {
         Date fechaInicio,
         @RequestParam( name = "fechaFin", required = false )
         @DateTimeFormat(pattern = "dd-MM-yyyy")
-        Date fechaFin
+        Date fechaFin,
+        @RequestParam( name= "tecnico", required = false )
+        Integer tecnico
     ) {
-        List<ModeloEstadisticaDTO> estadisticas = estadisticaService.getCantidadOrdenesDeModelos( fechaInicio, fechaFin);
+        List<ModeloEstadisticaDTO> estadisticas = estadisticaService.getCantidadOrdenesDeModelos( fechaInicio, fechaFin, tecnico);
         return new ResponseEntity<>(estadisticas, HttpStatus.OK);
     }
 
@@ -47,9 +49,11 @@ public class EstadisticaController {
         Date fechaInicio,
         @RequestParam( name = "fechaFin", required = false )
         @DateTimeFormat(pattern = "dd-MM-yyyy")
-        Date fechaFin
+        Date fechaFin,
+        @RequestParam( name= "tecnico", required = false )
+        Integer tecnico
     ) {
-        List<EstadosEstadisticaDTO> estadisticas = estadisticaService.getCantidadOrdenesDeEstados(fechaInicio, fechaFin);
+        List<EstadosEstadisticaDTO> estadisticas = estadisticaService.getCantidadOrdenesDeEstados(fechaInicio, fechaFin, tecnico);
         return new ResponseEntity<>(estadisticas, HttpStatus.OK);
     }
     
@@ -75,9 +79,11 @@ public class EstadisticaController {
         Date fechaInicio,
         @RequestParam( name = "fechaFin", required = false )
         @DateTimeFormat(pattern = "dd-MM-yyyy")
-        Date fechaFin
+        Date fechaFin,
+        @RequestParam( name= "tecnico", required = false )
+        Integer tecnico
     ) {
-        List<GananciasMensualesDTO> estadisticas = estadisticaService.getGananciasMensuales(fechaInicio, fechaFin);
+        List<GananciasMensualesDTO> estadisticas = estadisticaService.getGananciasMensuales(fechaInicio, fechaFin, tecnico);
         return new ResponseEntity<>(estadisticas,HttpStatus.OK);
     }
 

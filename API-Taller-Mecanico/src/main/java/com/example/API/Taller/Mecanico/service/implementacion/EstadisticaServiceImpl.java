@@ -30,7 +30,7 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
 
 
     @Override
-    public List<ModeloEstadisticaDTO> getCantidadOrdenesDeModelos(Date fechaInicio, Date fechaFin) {
+    public List<ModeloEstadisticaDTO> getCantidadOrdenesDeModelos(Date fechaInicio, Date fechaFin, Integer tecnico) {
         List<OrdenTrabajo> ordenes; 
         if(fechaInicio == null || fechaFin == null){
             ordenes = ordenTrabajoService.listarOrdenes();
@@ -42,10 +42,13 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
         Map<String, Integer> cantidadOrdenesPorModelo = new HashMap<>();
 
         for (OrdenTrabajo orden : ordenes) {
-            String nombreModelo = orden.getVehiculo().getModelo().getNombre();
-
-            // Incrementamos el contador para el modelo actual
-            cantidadOrdenesPorModelo.put(nombreModelo, cantidadOrdenesPorModelo.getOrDefault(nombreModelo, 0) + 1);
+            if (tecnico == null || orden.getTecnico().getId().equals(tecnico)) {
+                if (orden.getVehiculo() != null && orden.getVehiculo().getModelo() != null) {
+                    String nombreModelo = orden.getVehiculo().getModelo().getNombre();
+                    // Incrementamos el contador para el modelo actual
+                    cantidadOrdenesPorModelo.put(nombreModelo, cantidadOrdenesPorModelo.getOrDefault(nombreModelo, 0) + 1);
+                }
+            }
         }
 
         // Creamos la lista de DTOs a partir del mapa
@@ -61,7 +64,7 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
     }
 
     @Override
-    public List<EstadosEstadisticaDTO> getCantidadOrdenesDeEstados(Date fechaInicio,Date fechaFin) {
+    public List<EstadosEstadisticaDTO> getCantidadOrdenesDeEstados(Date fechaInicio,Date fechaFin, Integer tecnico) {
         List<OrdenTrabajo> ordenes; 
         if(fechaInicio == null || fechaFin == null){
             ordenes = ordenTrabajoService.listarOrdenes();
@@ -73,10 +76,15 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
         Map<String, Integer> cantidadOrdenesPorEstado = new HashMap<>();
 
         for (OrdenTrabajo orden : ordenes) {
-            String nombreEstado = orden.getEstado().getNombre();
+            if (tecnico == null || orden.getTecnico().getId().equals(tecnico)) {
+                if (orden.getEstado() != null) {
+                    String nombreEstado = orden.getEstado().getNombre();
+                    // Incrementamos el contador para el modelo actual
+                    cantidadOrdenesPorEstado.put(nombreEstado, cantidadOrdenesPorEstado.getOrDefault(nombreEstado, 0) + 1);
+                }
 
-            // Incrementamos el contador para el modelo actual
-            cantidadOrdenesPorEstado.put(nombreEstado, cantidadOrdenesPorEstado.getOrDefault(nombreEstado, 0) + 1);
+            }
+
         }
 
         // Creamos la lista de DTOs a partir del mapa
@@ -140,7 +148,7 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
     }
     
     @Override
-    public List<GananciasMensualesDTO> getGananciasMensuales(Date fechaInicio, Date fechaFin) {
+    public List<GananciasMensualesDTO> getGananciasMensuales(Date fechaInicio, Date fechaFin, Integer tecnico) {
         List<OrdenTrabajo> ordenes; 
         if(fechaInicio == null || fechaFin == null){
             ordenes = ordenTrabajoService.listarOrdenes();
@@ -152,14 +160,16 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
         Map<YearMonth, Double> gananciasPorMes = new HashMap<>();
 
         for (OrdenTrabajo orden : ordenes) {
-            // Verificamos si la orden está en estado finalizado
-            if (orden.getEstado().getNombre().equals("Finalizado")) {
-                // Obtenemos el mes y el año de la fecha de finalización
-                YearMonth yearMonth = YearMonth.from(orden.getFechaFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
-                // Actualizamos las ganancias para el mes actual
-                Double gananciaActual = gananciasPorMes.getOrDefault(yearMonth, 0.0) + orden.getTotalCosto();
-                gananciasPorMes.put(yearMonth, gananciaActual);
+            if (tecnico == null || orden.getTecnico().getId().equals(tecnico)) {                
+                // Verificamos si la orden está en estado finalizado
+                if (orden.getEstado().getNombre().equals("Finalizado")) {
+                    // Obtenemos el mes y el año de la fecha de finalización
+                    YearMonth yearMonth = YearMonth.from(orden.getFechaFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+    
+                    // Actualizamos las ganancias para el mes actual
+                    Double gananciaActual = gananciasPorMes.getOrDefault(yearMonth, 0.0) + orden.getTotalCosto();
+                    gananciasPorMes.put(yearMonth, gananciaActual);
+                }
             }
         }
 
