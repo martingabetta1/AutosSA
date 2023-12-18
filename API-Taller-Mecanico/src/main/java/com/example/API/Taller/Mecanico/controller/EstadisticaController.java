@@ -41,23 +41,43 @@ public class EstadisticaController {
 
     // Cantidad de órdenes en cada estado
     @GetMapping("/estados-ordenes")
-    public ResponseEntity<List<EstadosEstadisticaDTO>> getEstadosCantidadOrdenes() {
-        List<EstadosEstadisticaDTO> estadisticas = estadisticaService.getCantidadOrdenesDeEstados();
+    public ResponseEntity<List<EstadosEstadisticaDTO>> getEstadosCantidadOrdenes(
+        @RequestParam( name = "fechaInicio", required = false )
+        @DateTimeFormat(pattern = "dd-MM-yyyy")
+        Date fechaInicio,
+        @RequestParam( name = "fechaFin", required = false )
+        @DateTimeFormat(pattern = "dd-MM-yyyy")
+        Date fechaFin
+    ) {
+        List<EstadosEstadisticaDTO> estadisticas = estadisticaService.getCantidadOrdenesDeEstados(fechaInicio, fechaFin);
         return new ResponseEntity<>(estadisticas, HttpStatus.OK);
     }
     
 
     // Tiempo promedio de reparación de órden por técnico
     @GetMapping("/promedios-tecnicos")
-    public ResponseEntity<List<TecnicosEstadisticaDTO>> getPromediosTecnicos() {
-        List<TecnicosEstadisticaDTO> estadisticas = estadisticaService.getPromediosTecnicos();
+    public ResponseEntity<List<TecnicosEstadisticaDTO>> getPromediosTecnicos(
+        @RequestParam( name = "fechaInicio", required = false )
+        @DateTimeFormat(pattern = "dd-MM-yyyy")
+        Date fechaInicio,
+        @RequestParam( name = "fechaFin", required = false )
+        @DateTimeFormat(pattern = "dd-MM-yyyy")
+        Date fechaFin) {
+        List<TecnicosEstadisticaDTO> estadisticas = estadisticaService.getPromediosTecnicos(fechaInicio, fechaFin);
         return new ResponseEntity<>(estadisticas,HttpStatus.OK);
     }
 
     // Tiempo promedio de reparación de órden por técnico
     @GetMapping("/ganancias-mensuales")
-    public ResponseEntity<List<GananciasMensualesDTO>> getGananciasMensuales() {
-        List<GananciasMensualesDTO> estadisticas = estadisticaService.getGananciasMensuales();
+    public ResponseEntity<List<GananciasMensualesDTO>> getGananciasMensuales(
+        @RequestParam( name = "fechaInicio", required = false )
+        @DateTimeFormat(pattern = "dd-MM-yyyy")
+        Date fechaInicio,
+        @RequestParam( name = "fechaFin", required = false )
+        @DateTimeFormat(pattern = "dd-MM-yyyy")
+        Date fechaFin
+    ) {
+        List<GananciasMensualesDTO> estadisticas = estadisticaService.getGananciasMensuales(fechaInicio, fechaFin);
         return new ResponseEntity<>(estadisticas,HttpStatus.OK);
     }
 

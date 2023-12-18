@@ -11,9 +11,9 @@ import com.example.API.Taller.Mecanico.dto.TecnicosEstadisticaDTO;
 public interface IEstadisticaService {
     List<ModeloEstadisticaDTO> getCantidadOrdenesDeModelos(Date fechaInicio, Date fechaFin);
 
-    List<EstadosEstadisticaDTO> getCantidadOrdenesDeEstados();
+    List<EstadosEstadisticaDTO> getCantidadOrdenesDeEstados(Date fechaInicio, Date fechaFin);
 
-    List<TecnicosEstadisticaDTO> getPromediosTecnicos();
+    List<TecnicosEstadisticaDTO> getPromediosTecnicos(Date fechaInicio, Date fechaFin);
 
-    List<GananciasMensualesDTO> getGananciasMensuales();
+    List<GananciasMensualesDTO> getGananciasMensuales(Date fechaInicio, Date fechaFin);
 }

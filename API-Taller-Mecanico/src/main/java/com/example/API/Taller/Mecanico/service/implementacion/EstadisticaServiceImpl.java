@@ -61,8 +61,13 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
     }
 
     @Override
-    public List<EstadosEstadisticaDTO> getCantidadOrdenesDeEstados() {
-        List<OrdenTrabajo> ordenes = ordenTrabajoService.listarOrdenes();
+    public List<EstadosEstadisticaDTO> getCantidadOrdenesDeEstados(Date fechaInicio,Date fechaFin) {
+        List<OrdenTrabajo> ordenes; 
+        if(fechaInicio == null || fechaFin == null){
+            ordenes = ordenTrabajoService.listarOrdenes();
+        } else{
+            ordenes = ordenTrabajoService.listarOrdenesPorRangoFechas(fechaInicio, fechaFin);
+        }
 
         // Utilizamos un mapa para contar la cantidad de órdenes por modelo
         Map<String, Integer> cantidadOrdenesPorEstado = new HashMap<>();
@@ -87,8 +92,13 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
     }
 
     @Override
-    public List<TecnicosEstadisticaDTO> getPromediosTecnicos() {
-        List<OrdenTrabajo> ordenes = ordenTrabajoService.listarOrdenes();
+    public List<TecnicosEstadisticaDTO> getPromediosTecnicos(Date fechaInicio, Date fechaFin) {
+        List<OrdenTrabajo> ordenes; 
+        if(fechaInicio == null || fechaFin == null){
+            ordenes = ordenTrabajoService.listarOrdenes();
+        } else{
+            ordenes = ordenTrabajoService.listarOrdenesPorRangoFechas(fechaInicio, fechaFin);
+        }
     
         // Utilizamos un mapa para realizar el seguimiento del tiempo total de reparación por técnico
         Map<String, Integer> tiempoTotalPorTecnico = new HashMap<>();
@@ -130,8 +140,13 @@ public class EstadisticaServiceImpl implements IEstadisticaService {
     }
     
     @Override
-    public List<GananciasMensualesDTO> getGananciasMensuales() {
-        List<OrdenTrabajo> ordenes = ordenTrabajoService.listarOrdenes();
+    public List<GananciasMensualesDTO> getGananciasMensuales(Date fechaInicio, Date fechaFin) {
+        List<OrdenTrabajo> ordenes; 
+        if(fechaInicio == null || fechaFin == null){
+            ordenes = ordenTrabajoService.listarOrdenes();
+        } else{
+            ordenes = ordenTrabajoService.listarOrdenesPorRangoFechas(fechaInicio, fechaFin);
+        }
 
         // Utilizamos un mapa para realizar el seguimiento de las ganancias por mes
         Map<YearMonth, Double> gananciasPorMes = new HashMap<>();
