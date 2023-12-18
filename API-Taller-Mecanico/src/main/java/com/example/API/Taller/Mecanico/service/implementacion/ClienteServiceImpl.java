@@ -34,6 +34,11 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
+    public List<Cliente> listarClientesPorFechaVisita(){
+        return repoCliente.listarPorUltimaVisita();
+    }
+
+    @Override
     public Cliente registrar(Cliente cliente)  {
 
         return repoCliente.save(cliente);

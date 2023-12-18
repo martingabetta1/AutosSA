@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/clientes")
@@ -69,6 +72,13 @@ public class ClienteController {
             return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/visitas")
+    public ResponseEntity<List<Cliente>> listarVisitas() {
+        List<Cliente> clientes = serviceCliente.listarClientesPorFechaVisita();
+        return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
+    }
+    
 
     @GetMapping("/download/{id}")
     public ResponseEntity<Resource> descargarImagen(@PathVariable Integer id, HttpServletResponse response) {

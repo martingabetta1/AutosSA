@@ -27,6 +27,10 @@ public interface IClienteRepository extends JpaRepository<Cliente, Integer> {
             "AND c.eliminado = false")
     List<Cliente> findByParams(String nombre, String apellido, String telefono, String localidad,String direccion,String mail);
 
+    @Query("SELECT c FROM Cliente c INNER JOIN (SELECT ot.cliente.id AS clienteId, MAX(ot.fechaInicio) AS ultimaFecha FROM OrdenTrabajo ot GROUP BY ot.cliente.id) ot ON c.id = ot.clienteId ORDER BY ot.ultimaFecha DESC")
+    List<Cliente> listarPorUltimaVisita();
+    
+
     @Modifying
     @Query("UPDATE Cliente c SET c.nombre = :nombre, c.apellido = :apellido, c.direccion = :direccion, c.telefono = :telefono, c.mail = :mail, c.localidad = :localidad WHERE c.id = :clienteId")
     void actualizar(@Param("clienteId") Integer clienteId, @Param("nombre") String nombre,
