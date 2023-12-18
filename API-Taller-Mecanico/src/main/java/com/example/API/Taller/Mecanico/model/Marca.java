@@ -21,6 +21,18 @@ public class Marca {
     @Column(name = "eliminado", nullable = false)
     private boolean eliminado;
 
+    @Size(max = 100)
+    @Column(name = "impuesto", length = 100, nullable = false)
+    private Impuesto impuesto;
+
+    public Impuesto getImpuesto() {
+        return impuesto;
+    }
+
+    public void setImpuesto(Impuesto impuesto) {
+        this.impuesto = impuesto;
+    }
+
     public String getNombre() {
         return nombre;
     }

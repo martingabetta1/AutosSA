@@ -45,7 +45,7 @@ class MarcaControllerTest {
         Marca marca2 = new Marca();
         marca2.setNombre("Renault");
 
-        when(serviceMarca.listarMarcas()).thenReturn(Arrays.asList(marca1, marca2));
+        when(serviceMarca.listarMarcas(false)).thenReturn(Arrays.asList(marca1, marca2));
 
         mvc.perform(MockMvcRequestBuilders.get("/marcas"))
            .andExpect(status().isOk())
@@ -65,7 +65,7 @@ class MarcaControllerTest {
         marca2.setId(2);
         marca2.setNombre("Renault");
 
-        when(serviceMarca.listarMarcas()).thenReturn(Arrays.asList(marca1, marca2));
+        when(serviceMarca.listarMarcas(false)).thenReturn(Arrays.asList(marca1, marca2));
 
         // Caso cuando select es nulo
         mvc.perform(MockMvcRequestBuilders.get("/marcas").param("select", "true"))
@@ -104,7 +104,7 @@ class MarcaControllerTest {
         marca.setId(1);
         marca.setNombre("BMW");
 
-        doNothing().when(serviceMarca).actualizar(eq(marca.getId()), eq(marca.getNombre()));
+        doNothing().when(serviceMarca).actualizar(eq(marca.getId()), eq(marca.getNombre()), eq(marca.getImpuesto()));
 
         mvc.perform(MockMvcRequestBuilders.put("/marcas/actualizar/{id}", marca.getId())
            .contentType(MediaType.APPLICATION_JSON)
@@ -114,7 +114,7 @@ class MarcaControllerTest {
 
 
         //Verifico que se llamo bien el servicio:
-        verify(serviceMarca, times(1)).actualizar(eq(marca.getId()), eq(marca.getNombre()));
+        verify(serviceMarca, times(1)).actualizar(eq(marca.getId()), eq(marca.getNombre()), eq(marca.getImpuesto()));
 
     }
 

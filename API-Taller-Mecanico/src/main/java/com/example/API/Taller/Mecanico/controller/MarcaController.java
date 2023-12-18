@@ -69,7 +69,7 @@ public class MarcaController {
             return new ResponseEntity<List<Marca>>(marcas, HttpStatus.OK);
         }
     }
-
+    //arreglar los estos metodos de aca (el de create y update) para incluir impuestos
     @PostMapping
     public ResponseEntity<Marca> registrar(@RequestBody Marca reqMarca) {
         System.out.println(reqMarca);
