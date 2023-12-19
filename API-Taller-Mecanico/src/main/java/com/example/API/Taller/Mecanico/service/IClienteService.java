@@ -4,6 +4,7 @@ import com.example.API.Taller.Mecanico.model.Cliente;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public interface IClienteService {
@@ -14,7 +15,7 @@ public interface IClienteService {
 
     List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad,String direccion,String mail);
 
-    List<Cliente> listarClientesPorFechaVisita();
+    List<Cliente> listarClientesPorFechaVisita(Date fechaInicio, Date fechaFin);
 
     Cliente registrar(Cliente cliente);
 

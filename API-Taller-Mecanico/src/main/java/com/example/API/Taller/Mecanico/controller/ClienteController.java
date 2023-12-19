@@ -6,6 +6,7 @@ import com.example.API.Taller.Mecanico.service.IClienteService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -74,8 +74,14 @@ public class ClienteController {
     }
 
     @GetMapping("/visitas")
-    public ResponseEntity<List<Cliente>> listarVisitas() {
-        List<Cliente> clientes = serviceCliente.listarClientesPorFechaVisita();
+    public ResponseEntity<List<Cliente>> listarVisitas(
+        @RequestParam( name = "fechaInicio", required = false )
+        @DateTimeFormat(pattern = "dd-MM-yyyy")
+        Date fechaInicio,
+        @RequestParam( name = "fechaFin", required = false )
+        @DateTimeFormat(pattern = "dd-MM-yyyy")
+        Date fechaFin) {
+        List<Cliente> clientes = serviceCliente.listarClientesPorFechaVisita(fechaInicio, fechaFin);
         return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
     }
     

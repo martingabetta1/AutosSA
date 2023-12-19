@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,8 +35,13 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public List<Cliente> listarClientesPorFechaVisita(){
-        return repoCliente.listarPorUltimaVisita();
+    public List<Cliente> listarClientesPorFechaVisita(Date fechaInicio, Date fechaFin){
+        if(fechaInicio != null && fechaFin !=null){
+            return repoCliente.listarPorUltimaVisita(fechaInicio, fechaFin);
+        } else{
+            return repoCliente.listarPorUltimaVisita();
+        }
+
     }
 
     @Override

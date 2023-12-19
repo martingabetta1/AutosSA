@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -29,6 +30,9 @@ public interface IClienteRepository extends JpaRepository<Cliente, Integer> {
 
     @Query("SELECT c FROM Cliente c INNER JOIN (SELECT ot.cliente.id AS clienteId, MAX(ot.fechaInicio) AS ultimaFecha FROM OrdenTrabajo ot GROUP BY ot.cliente.id) ot ON c.id = ot.clienteId ORDER BY ot.ultimaFecha DESC")
     List<Cliente> listarPorUltimaVisita();
+    
+    @Query("SELECT c FROM Cliente c INNER JOIN (SELECT ot.cliente.id AS clienteId, MAX(ot.fechaInicio) AS ultimaFecha FROM OrdenTrabajo ot WHERE ot.fechaInicio BETWEEN :fechaInicio AND :fechaFin GROUP BY ot.cliente.id) ot ON c.id = ot.clienteId ORDER BY ot.ultimaFecha DESC")
+    List<Cliente> listarPorUltimaVisita(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
     
 
     @Modifying
