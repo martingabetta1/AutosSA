@@ -15,7 +15,7 @@ public interface IClienteService {
 
     List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad,String direccion,String mail);
 
-    List<Cliente> listarClientesPorFechaVisita(Date fechaInicio, Date fechaFin);
+    List<Object[]> listarClientesPorFechaVisita(Date fechaInicio, Date fechaFin);
 
     Cliente registrar(Cliente cliente);
 

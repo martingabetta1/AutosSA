@@ -81,8 +81,20 @@ public class ClienteController {
         @RequestParam( name = "fechaFin", required = false )
         @DateTimeFormat(pattern = "dd-MM-yyyy")
         Date fechaFin) {
-        List<Cliente> clientes = serviceCliente.listarClientesPorFechaVisita(fechaInicio, fechaFin);
-        return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
+
+        List<Object[]> resultados = serviceCliente.listarClientesPorFechaVisita(fechaInicio, fechaFin);
+
+        List<Cliente> clientesConVisita = new ArrayList<>();
+    
+        for (Object[] resultado : resultados) {
+            Cliente cliente = (Cliente) resultado[0];
+            Date visita = (Date) resultado[1];
+    
+            cliente.setVisita(visita);
+            clientesConVisita.add(cliente);
+        }
+    
+        return ResponseEntity.ok(clientesConVisita);
     }
     
 

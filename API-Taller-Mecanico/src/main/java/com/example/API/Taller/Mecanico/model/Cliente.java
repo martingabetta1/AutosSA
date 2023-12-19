@@ -1,5 +1,7 @@
 package com.example.API.Taller.Mecanico.model;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -43,6 +45,25 @@ public class Cliente {
 
     @Transient
     private String descripcion;
+
+    @Transient
+    private Date visita;
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
+
+    public Date getVisita() {
+        return visita;
+    }
+
+    public void setVisita(Date visita) {
+        this.visita = visita;
+    }
 
     public String getDescripcion() {
         return descripcion;

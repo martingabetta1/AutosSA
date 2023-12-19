@@ -35,11 +35,11 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public List<Cliente> listarClientesPorFechaVisita(Date fechaInicio, Date fechaFin){
+    public List<Object[]> listarClientesPorFechaVisita(Date fechaInicio, Date fechaFin){
         if(fechaInicio != null && fechaFin !=null){
-            return repoCliente.listarPorUltimaVisita(fechaInicio, fechaFin);
+            return repoCliente.listarClientesConVisita(fechaInicio, fechaFin);
         } else{
-            return repoCliente.listarPorUltimaVisita();
+            return repoCliente.listarClientesConVisita();
         }
 
     }

@@ -28,12 +28,13 @@ public interface IClienteRepository extends JpaRepository<Cliente, Integer> {
             "AND c.eliminado = false")
     List<Cliente> findByParams(String nombre, String apellido, String telefono, String localidad,String direccion,String mail);
 
-    @Query("SELECT c FROM Cliente c INNER JOIN (SELECT ot.cliente.id AS clienteId, MAX(ot.fechaInicio) AS ultimaFecha FROM OrdenTrabajo ot GROUP BY ot.cliente.id) ot ON c.id = ot.clienteId ORDER BY ot.ultimaFecha DESC")
-    List<Cliente> listarPorUltimaVisita();
-    
-    @Query("SELECT c FROM Cliente c INNER JOIN (SELECT ot.cliente.id AS clienteId, MAX(ot.fechaInicio) AS ultimaFecha FROM OrdenTrabajo ot WHERE ot.fechaInicio BETWEEN :fechaInicio AND :fechaFin GROUP BY ot.cliente.id) ot ON c.id = ot.clienteId ORDER BY ot.ultimaFecha DESC")
-    List<Cliente> listarPorUltimaVisita(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
-    
+
+    @Query("SELECT c, MAX(ot.fechaInicio) AS visita FROM Cliente c LEFT JOIN OrdenTrabajo ot ON c.id = ot.cliente.id GROUP BY c.id ORDER BY visita DESC")
+    List<Object[]> listarClientesConVisita();
+
+    @Query("SELECT c, MAX(ot.fechaInicio) AS visita FROM Cliente c LEFT JOIN OrdenTrabajo ot ON c.id = ot.cliente.id WHERE ot.fechaInicio BETWEEN :fechaInicio AND :fechaFin GROUP BY c.id ORDER BY visita DESC")
+    List<Object[]> listarClientesConVisita(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
+
 
     @Modifying
     @Query("UPDATE Cliente c SET c.nombre = :nombre, c.apellido = :apellido, c.direccion = :direccion, c.telefono = :telefono, c.mail = :mail, c.localidad = :localidad WHERE c.id = :clienteId")
