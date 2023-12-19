@@ -18,7 +18,8 @@ export default function Cliente() {
         [, setArgs] = CrudContext.query.args,
         [rows, setRows] = CrudContext.crudStructure.rows,
         [columns, setColumns] = CrudContext.crudStructure.columns,
-        [filtersQuery] = CrudContext.filters.filtersQuery
+        [filtersQuery] = CrudContext.filters.filtersQuery,
+        [showDeleteds] = CrudContext.filters.showDeleteds
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -115,7 +116,7 @@ export default function Cliente() {
 
     useEffect(() => {
         getRegisters()
-    }, [filtersQuery])
+    }, [filtersQuery,showDeleteds])
 
     return (
         <div>

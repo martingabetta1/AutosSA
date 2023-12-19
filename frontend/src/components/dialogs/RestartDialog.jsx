@@ -24,8 +24,8 @@ export default function RestartDialog() {
         handleOpenDialog("restart", false);
     };
 
-    const handleDelete = async () => {
-        await Api.deleteQuery(endpoints.restart, bodyData.id)
+    const handleRestart = async () => {
+        await Api.restartQuery(endpoints.restart, bodyData)
             .then((res) => {
                 window.location.reload()
             }).catch((error) => {
@@ -78,7 +78,7 @@ export default function RestartDialog() {
 
                 </DialogContent>
                 <DialogActions>
-                    <Button variant='contained' onClick={handleDelete}>
+                    <Button variant='contained' onClick={handleRestart}>
                         Reestablecer
                     </Button>
                     <Button onClick={handleClose}>

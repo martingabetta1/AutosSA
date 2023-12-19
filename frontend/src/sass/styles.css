@@ -98,6 +98,16 @@
   filter: saturate(0);
 }
 
+.button-print {
+  background-color: rgb(32, 32, 105) !important;
+}
+
+.img-print {
+  width: 25px;
+  margin: 0 0 0 10px;
+  filter: invert(1);
+}
+
 .principal-loader {
   position: absolute;
   display: flex;
@@ -113,4 +123,12 @@ footer {
   padding: 20px;
   background-color: rgb(15, 15, 15);
   color: rgba(255, 255, 255, 0.521);
+}
+
+@media print {
+  html, body {
+    margin: -5px 5px 0 5px !important;
+    padding: 0 0 !important;
+    overflow: hidden;
+  }
 }/*# sourceMappingURL=styles.css.map */

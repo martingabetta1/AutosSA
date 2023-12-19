@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { forwardRef, useEffect } from "react"
 import { Graphic } from "./submodules/Graphic"
 import { TableEstadisticas } from "./submodules/TableEstadisticas"
 import { FiltersEstadisticas } from "./submodules/FiltersEstadisticas"
@@ -6,7 +6,7 @@ import { useState } from "react"
 import Api from "../../services/Api"
 
 
-const ModuleEstadisticas = ({ components }) => {
+export const ModuleEstadisticas = forwardRef(({ components }, ref) => {
 
     const [data, setData] = useState([])
 
@@ -33,14 +33,12 @@ const ModuleEstadisticas = ({ components }) => {
 
     return (
         <>
-            <div style={{marginBottom:"150px"}}>
+            <div style={{ marginBottom: "50px" }} ref={ref}>
                 <h1>{components.title}</h1>
-                <FiltersEstadisticas filters={components.filters} filtersEstadisticas={[filtersEstadisticas, setFilterEstadisticas]} filtersEstadisticasQuery={[filtersEstadisticasQuery, setFilterEstadisticasQuery]}/>
+                <FiltersEstadisticas filters={components.filters} filtersEstadisticas={[filtersEstadisticas, setFilterEstadisticas]} filtersEstadisticasQuery={[filtersEstadisticasQuery, setFilterEstadisticasQuery]} />
                 <TableEstadisticas components={components} data={data} />
                 <Graphic components={components} data={data} />
             </div>
         </>
     )
-}
-
-export { ModuleEstadisticas }
+})
