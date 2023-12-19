@@ -35,8 +35,8 @@ public class MarcaServiceImpl implements IMarcaService {
         return repoMarca.save(marca);
     }
 
-    public void actualizar(Integer marcaId, String nombre,Impuesto impuesto) {
-        repoMarca.actualizar(marcaId, nombre, impuesto);
+    public void actualizar(Integer marcaId, String nombre,Impuesto impuesto, boolean eliminado) {
+        repoMarca.actualizar(marcaId, nombre, impuesto, eliminado);
     }
 
     public void eliminar(Integer marcaId) {
