@@ -40,7 +40,7 @@ const FilterEstadisticaTecnico = ({filtersEstadisticas,filtersEstadisticasQuery}
         return <FormControl fullWidth>
             <InputLabel>Técnico</InputLabel>
             <Select
-                value={filtersEstadisticas[0].tecnico || 'n'}
+                value={filtersEstadisticas[0].tecnico === 0 ? 0 : filtersEstadisticas[0].tecnico || 'n'}
                 onChange={(event) => handleChange(event.target.value,'tecnico')}
             >
                 <MenuItem key = {'n'} value={'n'}>-- Sin Seleccionar --</MenuItem>

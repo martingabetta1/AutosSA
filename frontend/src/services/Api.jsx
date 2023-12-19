@@ -2,12 +2,12 @@ import axios from 'axios'
 
 const domain = 'http://localhost:8080'
 
-async function getQuery(endpoint,params = null,filtersQuery="",showDeleteds=false) {
+async function getQuery(endpoint, params = null, filtersQuery = "", showDeleteds = false) {
     try {
         const res = await axios.get(`${domain}${endpoint}${filtersQuery}`, {
-            params:{
+            params: {
                 ...params,
-                eliminado:showDeleteds
+                eliminado: showDeleteds
             }
         })
 
@@ -48,7 +48,7 @@ async function postQuery(endpoint, body, params = null, args = {}) {
 
 }
 
-async function putQuery(endpoint, body, params = null,args = {}) {
+async function putQuery(endpoint, body, params = null, args = {}) {
     let res
     try {
         if (!args.multipart) {
@@ -68,6 +68,23 @@ async function putQuery(endpoint, body, params = null,args = {}) {
                 },
             });
         }
+        return res
+    } catch (error) {
+        throw new Error(error.message)
+    } finally {
+        console.log("Petición realizada")
+    }
+}
+
+async function restartQuery(endpoint, bodyData, params = null) {
+    let bodyDataWithEliminadoFalse = {...bodyData}
+    bodyDataWithEliminadoFalse['eliminado'] = false
+    console.log(bodyDataWithEliminadoFalse);
+    let res
+    try {
+        res = await axios.put(`${domain}${endpoint}/actualizar/${bodyData.id}`, { ...bodyDataWithEliminadoFalse }, {
+            params
+        })
         return res
     } catch (error) {
         throw new Error(error.message)
@@ -129,6 +146,7 @@ const Api = {
     postQuery,
     putQuery,
     deleteQuery,
+    restartQuery,
     downloadQuery,
     listServicesQuery
 }

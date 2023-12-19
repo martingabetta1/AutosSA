@@ -44,7 +44,7 @@ const Graphic = ({ components, data }) => {
         <>
             <h3 style={{display:"table",color:"grey"}}>Gráfico de estadisticas</h3>
             {Object.keys(graphicData).length > 0 && (
-                <Bar data={graphicData} />
+                <Bar style={{maxWidth:'100vw'}} data={graphicData} />
             )}
 
         </>
