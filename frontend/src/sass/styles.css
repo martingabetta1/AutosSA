@@ -59,6 +59,12 @@
   width: 45px;
 }
 
+.crud_button_restart {
+  background-color: rgb(221, 184, 0) !important;
+  min-width: unset !important;
+  width: 45px;
+}
+
 .crud_button_download {
   background-color: green !important;
   min-width: unset !important;

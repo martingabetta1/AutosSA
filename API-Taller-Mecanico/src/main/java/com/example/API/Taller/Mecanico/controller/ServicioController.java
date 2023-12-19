@@ -35,6 +35,7 @@ public class ServicioController {
                 OrdenTrabajo ordenObj = new OrdenTrabajo();
                 ordenObj.setId(servicio.getOrdenTrabajo().getId());
                 ordenObj.setDescripcion(servicio.getOrdenTrabajo().getComentario());
+                ordenObj.setEstado(servicio.getOrdenTrabajo().getEstado());
                 servicioFiltrado.setOrdenTrabajo(ordenObj);
                 servicioFiltrado.setId(servicio.getId());
                 servicioFiltrado.setPrecio(servicio.getPrecio());
@@ -64,6 +65,7 @@ public class ServicioController {
                 OrdenTrabajo ordenTrabajo = new OrdenTrabajo();
                 ordenTrabajo.setId(servicio.getOrdenTrabajo().getId());
                 ordenTrabajo.setDescripcion(servicio.getOrdenTrabajo().getComentario());
+                ordenTrabajo.setEstado(servicio.getOrdenTrabajo().getEstado());
                 servicio.setOrdenTrabajo(ordenTrabajo);
             }
 

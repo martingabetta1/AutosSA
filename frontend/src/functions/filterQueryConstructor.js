@@ -7,8 +7,6 @@ const filterQueryConstructor = (filtersValues,setFiltersQuery)=>{
         : void(0)
     }
 
-    console.log(filtersParams);
-
     setFiltersQuery(filtersParams)
 }
 

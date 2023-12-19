@@ -6,27 +6,31 @@ const Estadisticas = () => {
     const estadisticas = {
         modelosPorVehiculo: {
             title: "Cantidad de ordenes por modelo de vehiculo",
-            endpoint: "/estadisticas/modelos-cantidad-ordenes",
+            endpoint: "/estadisticas/modelos-ordenes",
             columns: ["Nombre del modelo", "Cantidad de ordenes asociadas"],
-            keysAccess: ["nombreModelo", "cantidadOrdenes"]
+            keysAccess: ["nombreModelo", "cantidadOrdenes"],
+            filters:['fecha','tecnico']
         },
         ordenesPorEstado: {
             title: "Cantidad de ordenes en cada estado",
             endpoint: "/estadisticas/estados-ordenes",
             columns: ["Nombre del estado", "Cantidad de ordenes asociadas"],
-            keysAccess: ["nombreEstado", "cantidadOrdenes"]
+            keysAccess: ["nombreEstado", "cantidadOrdenes"],
+            filters:['fecha','tecnico']
         },
         diasPromedioPorTecnico: {
             title: "Dias promedio de reparación por técnico",
             endpoint: "/estadisticas/promedios-tecnicos",
             columns: ["Nombre de técnico", "Dias promedio"],
-            keysAccess: ["nombreTecnico", "diasPromedio"]
+            keysAccess: ["nombreTecnico", "diasPromedio"],
+            filters:['fecha','tecnico']
         },
         gananciasMensuales: {
             title: "Ganancias por mes",
             endpoint: "/estadisticas/ganancias-mensuales",
             columns: ["Mes", "Ganancia"],
-            keysAccess: ["mes", "ganancia"]
+            keysAccess: ["mes", "ganancia"],
+            filters:['fecha','tecnico']
         }
     }
 

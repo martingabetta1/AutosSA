@@ -43,12 +43,17 @@ export default function OptionsPopover(props) {
             >
                 <div className='crud_accions_box crud_accions_box--popover'>
                     <div>
-                        <Button disabled={props.params.row.estado?.descripcion === "Finalizado"} variant="contained" className={`crud_button_edit ${props.params.row.estado?.descripcion === "Finalizado" ? "disabled" : ""}`} onClick={() => { handleOpenDialog("edit", true, props.params.row) }}>
+                        <Button disabled={props.params.row.estado?.descripcion === "Finalizado" || props.params.row.ordenTrabajo?.estado.nombre === "Finalizado"} variant="contained" className={`crud_button_edit ${props.params.row.estado?.descripcion === "Finalizado" || props.params.row.ordenTrabajo?.estado.nombre === "Finalizado" ? "disabled" : ""}`} onClick={() => { handleOpenDialog("edit", true, props.params.row) }}>
                             <img className='crud_button_image' button-type="edit" alt="Edit icon" src="/images/crud/icon-edit.png" />
                         </Button>
                     </div>
                     <div>
-                        <Button variant="contained" className='crud_button_delete' onClick={() => { handleOpenDialog("delete", true, props.params.row) }}>
+                        <Button
+                            disabled={props.params.row.estado?.descripcion === "Finalizado" || props.params.row.ordenTrabajo?.estado.nombre === "Finalizado"}
+                            variant="contained"
+                            className={`crud_button_delete ${props.params.row.estado?.descripcion === "Finalizado" || props.params.row.ordenTrabajo?.estado.nombre === "Finalizado" ? "disabled" : ""}`}
+                            onClick={() => { handleOpenDialog("delete", true, props.params.row) }}
+                        >
                             <img className='crud_button_image' button-type="delete" alt="Delete icon" src="/images/crud/icon-delete.png" />
                         </Button>
                     </div>
@@ -68,7 +73,7 @@ export default function OptionsPopover(props) {
                     )}
                     {endpoints.factura && (
                         <div>
-                            <Button variant="contained" className='crud_button_factura' onClick={() => { return PDFGenerator(props.params.row,props.params.row.id,props.endpoints,props.errorGenerator)}}>
+                            <Button variant="contained" className='crud_button_factura' onClick={() => { return PDFGenerator(props.params.row, props.params.row.id, props.endpoints, props.errorGenerator) }}>
                                 <img className='crud_button_image' button-type="factura" alt="Factura icon" src="/images/crud/icon-factura.png" />
                             </Button>
                         </div>
