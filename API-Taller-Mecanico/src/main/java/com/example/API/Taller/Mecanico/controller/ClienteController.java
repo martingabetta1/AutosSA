@@ -75,14 +75,11 @@ public class ClienteController {
 
     @GetMapping("/visitas")
     public ResponseEntity<List<Cliente>> listarVisitas(
-        @RequestParam( name = "fechaInicio", required = false )
+        @RequestParam( name = "fechaVisita", required = false )
         @DateTimeFormat(pattern = "dd-MM-yyyy")
-        Date fechaInicio,
-        @RequestParam( name = "fechaFin", required = false )
-        @DateTimeFormat(pattern = "dd-MM-yyyy")
-        Date fechaFin) {
+        Date fechaVisita) {
 
-        List<Object[]> resultados = serviceCliente.listarClientesPorFechaVisita(fechaInicio, fechaFin);
+        List<Object[]> resultados = serviceCliente.listarClientesPorFechaVisita(fechaVisita);
 
         List<Cliente> clientesConVisita = new ArrayList<>();
     

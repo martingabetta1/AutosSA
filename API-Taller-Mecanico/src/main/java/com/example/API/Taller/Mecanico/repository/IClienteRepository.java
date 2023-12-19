@@ -32,8 +32,8 @@ public interface IClienteRepository extends JpaRepository<Cliente, Integer> {
     @Query("SELECT c, MAX(ot.fechaInicio) AS visita FROM Cliente c LEFT JOIN OrdenTrabajo ot ON c.id = ot.cliente.id GROUP BY c.id ORDER BY visita DESC")
     List<Object[]> listarClientesConVisita();
 
-    @Query("SELECT c, MAX(ot.fechaInicio) AS visita FROM Cliente c LEFT JOIN OrdenTrabajo ot ON c.id = ot.cliente.id WHERE ot.fechaInicio BETWEEN :fechaInicio AND :fechaFin GROUP BY c.id ORDER BY visita DESC")
-    List<Object[]> listarClientesConVisita(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
+    @Query("SELECT c, MAX(ot.fechaInicio) AS visita FROM Cliente c LEFT JOIN OrdenTrabajo ot ON c.id = ot.cliente.id WHERE ot.fechaInicio = :visita GROUP BY c.id ORDER BY visita DESC")
+    List<Object[]> listarClientesConVisita(@Param("visita") Date visita);
 
 
     @Modifying
