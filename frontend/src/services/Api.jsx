@@ -2,10 +2,13 @@ import axios from 'axios'
 
 const domain = 'http://localhost:8080'
 
-async function getQuery(endpoint,params = null,filtersQuery="") {
+async function getQuery(endpoint,params = null,filtersQuery="",showDeleteds=false) {
     try {
         const res = await axios.get(`${domain}${endpoint}${filtersQuery}`, {
-            params
+            params:{
+                ...params,
+                eliminado:showDeleteds
+            }
         })
 
         return res.data

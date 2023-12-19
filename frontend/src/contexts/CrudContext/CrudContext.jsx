@@ -5,7 +5,7 @@ const CrudContexto = createContext();
 export default function CrudContextProvider({ children }) {
 
     // Estados
-    const [principalLoaderState,setPrincipalLoaderState] = useState(false),
+    const [principalLoaderState, setPrincipalLoaderState] = useState(false),
         [bodyData, setBodyData] = useState({}),
         [args, setArgs] = useState({}),
         [rows, setRows] = useState([]),
@@ -13,6 +13,7 @@ export default function CrudContextProvider({ children }) {
         [openCreateDialog, setOpenCreateDialog] = useState(false),
         [openEditDialog, setOpenEditDialog] = useState(false),
         [openDeleteDialog, setOpenDeleteDialog] = useState(false),
+        [openRestartDialog, setOpenRestartDialog] = useState(false),
         [openListDialog, setOpenListDialog] = useState(false),
         [dialogData, setDialogData] = useState({}),
         [dialogInputs, setDialogInputs] = useState([]),
@@ -21,8 +22,9 @@ export default function CrudContextProvider({ children }) {
         [inputStates, setInputStates] = useState({}),
         [inputFocus, setInputFocus] = useState(),
         [buttonState, setButtonState] = useState(false),
-        [filtersValues,setFiltersValues] = useState({}),
-        [filtersQuery,setFiltersQuery] = useState("")
+        [filtersValues, setFiltersValues] = useState({}),
+        [filtersQuery, setFiltersQuery] = useState(""),
+        [showDeleteds, setShowDeleteds] = useState(false)
 
 
     useEffect(() => {
@@ -94,6 +96,10 @@ export default function CrudContextProvider({ children }) {
                 state ? setBodyData(params) : setBodyData({})
                 setOpenDeleteDialog(state)
                 break
+            case "restart":
+                state ? setBodyData(params) : setBodyData({})
+                setOpenRestartDialog(state)
+                break
             case "list":
                 state ? setBodyData(params) : setBodyData({})
                 setOpenListDialog(state)
@@ -106,8 +112,8 @@ export default function CrudContextProvider({ children }) {
     // Objeto exportable para todo el contexto de CRUD
     const CrudData = {
         // Estructura de la tabla del CRUD
-        generals:{
-            principalLoaderState: [principalLoaderState,setPrincipalLoaderState] 
+        generals: {
+            principalLoaderState: [principalLoaderState, setPrincipalLoaderState]
         },
         crudStructure: {
             rows: [rows, setRows],
@@ -119,6 +125,7 @@ export default function CrudContextProvider({ children }) {
             create: [openCreateDialog, setOpenCreateDialog],
             edit: [openEditDialog, setOpenEditDialog],
             delete: [openDeleteDialog, setOpenDeleteDialog],
+            restart: [openRestartDialog, setOpenRestartDialog],
             list: [openListDialog, setOpenListDialog],
             handleOpenDialog
         },
@@ -141,9 +148,10 @@ export default function CrudContextProvider({ children }) {
             endpoints: [endpoints, setEndpoints],
             args: [args, setArgs]
         },
-        filters:{
-            filtersValues: [filtersValues,setFiltersValues],
-            filtersQuery : [filtersQuery,setFiltersQuery]
+        filters: {
+            filtersValues: [filtersValues, setFiltersValues],
+            filtersQuery: [filtersQuery, setFiltersQuery],
+            showDeleteds: [showDeleteds, setShowDeleteds]
         }
     }
 

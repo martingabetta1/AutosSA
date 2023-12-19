@@ -13,10 +13,11 @@ export default function Marca() {
 
     const [, setDialogData] = CrudContext.dialogs.data,
         [, setDialogInputs] = CrudContext.inputs,
-        [endpoints, setEndpoints] = CrudContext.query.endpoints,
+        [, setEndpoints] = CrudContext.query.endpoints,
         [rows, setRows] = CrudContext.crudStructure.rows,
         [columns, setColumns] = CrudContext.crudStructure.columns,
-        [filtersQuery,setFiltersQuery] = CrudContext.filters.filtersQuery
+        [filtersQuery] = CrudContext.filters.filtersQuery,
+        [showDeleteds] = CrudContext.filters.showDeleteds
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
@@ -34,7 +35,8 @@ export default function Marca() {
             fetch:'/marcas',
             create: '/marcas',
             edit: '/marcas',
-            delete: '/marcas'
+            delete: '/marcas',
+            restart:'/marcas'
         })
         setDialogData({
             title: 'marca'
@@ -64,7 +66,7 @@ export default function Marca() {
 
 
     const getRegisters = async () => {
-        await Api.getQuery('/marcas',null,filtersQuery)
+        await Api.getQuery('/marcas',null,filtersQuery,showDeleteds)
             .then((res) => {
                 setRows(res)
                 setIsLoading(false)
@@ -75,7 +77,7 @@ export default function Marca() {
 
     useEffect(()=>{
         getRegisters()
-    },[filtersQuery])
+    },[filtersQuery,showDeleteds])
 
     return (
         <div>

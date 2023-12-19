@@ -67,6 +67,10 @@ $crud_button_image-size: calc($crud_button-size - 20px);
     @include crud_button($color: red);
 }
 
+.crud_button_restart{
+    @include crud_button($color: rgb(221, 184, 0));
+}
+
 .crud_button_download {
     @include crud_button($color: green);
 }
