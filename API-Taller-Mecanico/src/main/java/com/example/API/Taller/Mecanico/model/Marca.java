@@ -29,6 +29,14 @@ public class Marca {
         return nombre;
     }
 
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
+
     public Integer getId() {
         return id;
     }

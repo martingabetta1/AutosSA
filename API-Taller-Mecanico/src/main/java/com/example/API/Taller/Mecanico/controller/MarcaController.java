@@ -81,7 +81,7 @@ public class MarcaController {
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizar(@PathVariable Integer id, @RequestBody Marca marca) {
 
-        serviceMarca.actualizar(id, marca.getNombre(), marca.getImpuesto());
+        serviceMarca.actualizar(id, marca.getNombre(), marca.getImpuesto(), marca.isEliminado());
 
         return ResponseEntity.ok("La marca se actualizo correctamente");
     }
