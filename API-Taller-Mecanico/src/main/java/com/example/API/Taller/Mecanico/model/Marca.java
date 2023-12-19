@@ -21,8 +21,8 @@ public class Marca {
     @Column(name = "eliminado", nullable = false)
     private boolean eliminado;
 
-    @Size(max = 100)
-    @Column(name = "impuesto", length = 100, nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "impuesto", referencedColumnName = "id", nullable = false)
     private Impuesto impuesto;
 
     public Impuesto getImpuesto() {
@@ -53,9 +53,6 @@ public class Marca {
         this.nombre = nombre;
     }
 
-    public boolean isEliminado() {
-        return eliminado;
-    }
 
     private String descripcion;
 

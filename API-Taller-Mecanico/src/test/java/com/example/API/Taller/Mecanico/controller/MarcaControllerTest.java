@@ -104,7 +104,7 @@ class MarcaControllerTest {
         marca.setId(1);
         marca.setNombre("BMW");
 
-        doNothing().when(serviceMarca).actualizar(eq(marca.getId()), eq(marca.getNombre()), eq(marca.getImpuesto()));
+        doNothing().when(serviceMarca).actualizar(eq(marca.getId()), eq(marca.getNombre()), eq(marca.getImpuesto()), eq(marca.isEliminado()));
 
         mvc.perform(MockMvcRequestBuilders.put("/marcas/actualizar/{id}", marca.getId())
            .contentType(MediaType.APPLICATION_JSON)
@@ -114,7 +114,7 @@ class MarcaControllerTest {
 
 
         //Verifico que se llamo bien el servicio:
-        verify(serviceMarca, times(1)).actualizar(eq(marca.getId()), eq(marca.getNombre()), eq(marca.getImpuesto()));
+        verify(serviceMarca, times(1)).actualizar(eq(marca.getId()), eq(marca.getNombre()), eq(marca.getImpuesto()), eq(marca.isEliminado()));
 
     }
 

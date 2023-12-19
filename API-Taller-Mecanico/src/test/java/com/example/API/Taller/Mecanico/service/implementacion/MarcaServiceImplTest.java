@@ -81,10 +81,10 @@ class MarcaServiceImplTest {
         marca.setId(1);
         marca.setNombre("Renault");
 
-        marcaService.actualizar(marca.getId(), marca.getNombre(), marca.getImpuesto());
+        marcaService.actualizar(marca.getId(), marca.getNombre(), marca.getImpuesto(), marca.isEliminado());
 
         // Verifica que el método save del repositorio fue llamado una vez con la entidad correcta
-        verify(marcaRepo, times(1)).actualizar(marca.getId(), marca.getNombre(), marca.getImpuesto());
+        verify(marcaRepo, times(1)).actualizar(marca.getId(), marca.getNombre(), marca.getImpuesto(), marca.isEliminado());
     }
 
     @Test
