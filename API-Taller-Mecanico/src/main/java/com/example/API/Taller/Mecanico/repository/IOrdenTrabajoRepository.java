@@ -34,7 +34,9 @@ public interface IOrdenTrabajoRepository extends JpaRepository<OrdenTrabajo, Int
             "AND (:cliente IS NULL OR c.nombre LIKE %:cliente%) " +
             "AND (:tecnico IS NULL OR t.nombre LIKE %:tecnico%)" +
             "AND (:estado IS NULL OR e.nombre LIKE %:estado%)" +
+            "AND (:fechaInicio IS NULL OR o.fechaInicio = TO_DATE(:fechaInicio, 'dd-MM-yyyy'))" +
+            "AND (:fechaFin IS NULL OR o.fechaFin = TO_DATE(:fechaFin, 'dd-MM-yyyy'))" +
             "AND (:vehiculo IS NULL OR v.patente LIKE %:vehiculo%)")
     List<OrdenTrabajo> findByParams(String vehiculo,
-            String tecnico, String estado, String comentario, String cliente);
+            String tecnico, String estado, String comentario, String cliente, String fechaInicio, String fechaFin);
 }
