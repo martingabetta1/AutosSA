@@ -23,7 +23,7 @@ const TableEstadisticas = ({ components, data }) => {
         <TableCell component="th" scope="row">
           {row[components.keysAccess[0]]}
         </TableCell>
-        <TableCell align="right">{row[components.keysAccess[1]]}</TableCell>
+        <TableCell align="right">{row[components.keysAccess[1]].toLocaleString()}</TableCell>
       </TableRow>
     ))
   }, [data])

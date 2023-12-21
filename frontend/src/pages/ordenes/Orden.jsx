@@ -23,10 +23,14 @@ export default function Marca() {
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
-        { field: 'fechaInicio', headerName: 'Fecha inicio', flex: 1 ,
-        valueGetter: (params) => params.row.fechaInicio.match(/^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}\+\d{2}:\d{2}$/)[1].split("-").reverse().join("-")},
-        { field: 'fechaFin', headerName: 'Fecha fin', flex: 1,
-        valueGetter: (params) => params.row.fechaFin.match(/^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}\+\d{2}:\d{2}$/)[1].split("-").reverse().join("-") },
+        {
+            field: 'fechaInicio', headerName: 'Fecha inicio', flex: 1,
+            valueGetter: (params) => params.row.fechaInicio.match(/^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}\+\d{2}:\d{2}$/)[1].split("-").reverse().join("-")
+        },
+        {
+            field: 'fechaFin', headerName: 'Fecha fin', flex: 1,
+            valueGetter: (params) => params.row.fechaFin.match(/^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}\+\d{2}:\d{2}$/)[1].split("-").reverse().join("-")
+        },
         {
             field: 'vehiculo.descripcion',
             headerName: 'Vehiculo',
@@ -52,7 +56,10 @@ export default function Marca() {
             valueGetter: (params) => params.row.cliente?.descripcion
         },
         { field: 'comentario', headerName: 'Comentario', flex: 1 },
-        { field: 'totalCosto', headerName: 'Costo total', flex: 1 }
+        {
+            field: 'totalCosto', headerName: 'Costo total', flex: 1,
+            valueGetter: (params) => params.row.totalCosto?.toLocaleString()
+        }
     ];
     useEffect(() => {
         setEndpoints({
@@ -116,7 +123,7 @@ export default function Marca() {
     }, [])
 
     const getRegisters = async () => {
-        await Api.getQuery('/ordenes',null,filtersQuery)
+        await Api.getQuery('/ordenes', null, filtersQuery)
             .then((res) => {
                 setRows(res)
                 setIsLoading(false)
@@ -130,9 +137,9 @@ export default function Marca() {
             })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getRegisters()
-    },[filtersQuery])
+    }, [filtersQuery])
 
     const optionsPopover = true
 

@@ -117,7 +117,6 @@ public class OrdenTrabajoController {
                 List<Servicio> serviciosPorOrden = serviceServicio.listarServiciosPorOrden(orden.getId());
                 Double total = 0.0;
                 for (Servicio servicio : serviciosPorOrden) {
-                    total = 0.0;
                     total += servicio.getPrecio();
                 }
                 orden.setTotalCosto(total);

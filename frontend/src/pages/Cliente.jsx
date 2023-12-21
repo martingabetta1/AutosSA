@@ -23,6 +23,11 @@ export default function Cliente() {
 
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
+        {
+            field: 'fechaVisita', headerName: 'Ultima visita', flex: 1,
+            typeField:'date',
+            valueGetter: (params) => params.row.visita.match(/^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}\+\d{2}:\d{2}$/)[1].split("-").reverse().join("-")
+        },
         { field: 'nombre', headerName: 'Nombre', flex: 1 },
         { field: 'apellido', headerName: 'Apellido', flex: 1 },
         { field: 'telefono', headerName: 'Telefono', flex: 1 },
@@ -33,7 +38,7 @@ export default function Cliente() {
 
     useEffect(() => {
         setEndpoints({
-            fetch: '/clientes',
+            fetch: '/clientes/visitas',
             create: '/clientes',
             edit: '/clientes',
             delete: '/clientes',
@@ -105,7 +110,7 @@ export default function Cliente() {
     }, [])
 
     const getRegisters = async () => {
-        await Api.getQuery('/clientes', null, filtersQuery)
+        await Api.getQuery('/clientes/visitas', null, filtersQuery)
             .then((res) => {
                 setRows(res)
                 setIsLoading(false)
@@ -116,7 +121,7 @@ export default function Cliente() {
 
     useEffect(() => {
         getRegisters()
-    }, [filtersQuery,showDeleteds])
+    }, [filtersQuery, showDeleteds])
 
     return (
         <div>

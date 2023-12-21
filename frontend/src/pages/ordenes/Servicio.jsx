@@ -20,7 +20,10 @@ export default function Servicio() {
     const columnsTemplate = [
         { field: 'id', headerName: 'ID', flex: 1 },
         { field: 'tipoServicio', headerName: 'Tipo de servicio', flex: 1 },
-        { field: 'precio', headerName: 'Precio', flex: 1 },
+        {
+            field: 'precio', headerName: 'Precio', flex: 1,
+            valueGetter: (params) => params.row.precio?.toLocaleString()
+        },
         {
             field: 'ordenId',
             headerName: 'Orden',
@@ -77,7 +80,7 @@ export default function Servicio() {
 
 
     const getRegisters = async () => {
-        await Api.getQuery('/servicios',null, filtersQuery)
+        await Api.getQuery('/servicios', null, filtersQuery)
             .then((res) => {
                 setRows(res)
                 setIsLoading(false)
@@ -86,9 +89,9 @@ export default function Servicio() {
             })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getRegisters()
-    },[filtersQuery])
+    }, [filtersQuery])
 
     return (
         <div>

@@ -89,7 +89,7 @@ export default function PDFGenerator(ordenData, idOrden, endpoints, errorGenerat
             y += 15
             services.map((value, index) => {
                 doc.text(value.tipoServicio, x, y);
-                doc.text("$ " + value.precio.toString(), x + 135, y);
+                doc.text("$ " + value.precio.toLocaleString(), x + 135, y);
                 y += 10
                 totalLiquido += value.precio
             })
@@ -101,15 +101,15 @@ export default function PDFGenerator(ordenData, idOrden, endpoints, errorGenerat
             y += 15
             doc.setFontSize(12);
             doc.text("TOTAL LIQUIDO", x + 80, y);
-            doc.text("$ " + totalLiquido, x + 135, y);
+            doc.text("$ " + totalLiquido.toLocaleString(), x + 135, y);
             doc.setFontSize(12);
             y += 8
             doc.text(`${ordenData.vehiculo.modelo.marca.impuesto.nombre} ( ${ordenData.vehiculo.modelo.marca.impuesto.porcentaje.toString()}% )`, x + 80, y);
-            doc.text("$ " + totalPorcentaje.toString(), x + 135, y);
+            doc.text("$ " + totalPorcentaje.toLocaleString(), x + 135, y);
             doc.setFontSize(14);
             y += 8
             doc.text("TOTAL", x + 80, y);
-            doc.text("$ " + totalFinal.toString(), x + 135, y);
+            doc.text("$ " + totalFinal.toLocaleString(), x + 135, y);
             y += 30
             doc.line(x + 115, y, x + 180, y, "S")
             doc.setFontSize(12);

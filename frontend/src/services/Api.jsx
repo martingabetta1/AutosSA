@@ -76,13 +76,10 @@ async function putQuery(endpoint, body, params = null, args = {}) {
     }
 }
 
-async function restartQuery(endpoint, bodyData, params = null) {
-    let bodyDataWithEliminadoFalse = {...bodyData}
-    bodyDataWithEliminadoFalse['eliminado'] = false
-    console.log(bodyDataWithEliminadoFalse);
+async function restartQuery(endpoint, body, params = null) {
     let res
     try {
-        res = await axios.put(`${domain}${endpoint}/actualizar/${bodyData.id}`, { ...bodyDataWithEliminadoFalse }, {
+        res = await axios.put(`${domain}${endpoint}/actualizar/${body.id}`, {...body,eliminado:false}, {
             params
         })
         return res

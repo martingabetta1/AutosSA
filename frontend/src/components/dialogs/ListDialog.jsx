@@ -89,13 +89,13 @@ export default function DeleteDialog() {
                   {value.tipoServicio}
                 </div>
                 <div>
-                  {value.precio}
+                  {value.precio?.toLocaleString()}
                 </div>
               </div>
             );
           })}
         </DialogContent>
-        <div style={{ padding: '10px' }}><b>Total: </b>${total}</div>
+        <div style={{ padding: '10px' }}><b>Total: </b>${total.toLocaleString()}</div>
         <DialogActions>
           <Button onClick={handleClose}>Cerrar</Button>
         </DialogActions>

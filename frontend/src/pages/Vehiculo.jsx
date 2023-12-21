@@ -9,7 +9,7 @@ export default function Vehiculo() {
   const title = "Vehiculo",
     { CrudContext } = useCrudData()
 
-    const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   const [, setDialogData] = CrudContext.dialogs.data,
     [, setDialogInputs] = CrudContext.inputs,
@@ -67,7 +67,10 @@ export default function Vehiculo() {
       valueGetter: (params) => params.row.modelo?.descripcion
     },
     { field: 'anio', headerName: 'Año', flex: 1 },
-    { field: 'kilometros', headerName: 'Kilómetros', flex: 1 },
+    {
+      field: 'kilometros', headerName: 'Kilómetros', flex: 1,
+      valueGetter: (params) => params.row.kilometros?.toLocaleString()
+    },
     {
       field: 'cliente.descripcion',
       headerName: 'Cliente',
@@ -164,11 +167,11 @@ export default function Vehiculo() {
         <CreateDialog />
       </div>
       {!isLoading && (
-                <CrudTemplate
-                    rows={rows}
-                    columns={columns}
-                />
-            )}
+        <CrudTemplate
+          rows={rows}
+          columns={columns}
+        />
+      )}
     </div>
   )
 }
