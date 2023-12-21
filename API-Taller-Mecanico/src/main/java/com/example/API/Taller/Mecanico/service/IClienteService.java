@@ -13,7 +13,7 @@ public interface IClienteService {
 
     Cliente listarClientePorId(Integer idCliente);
 
-    List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad,String direccion,String mail);
+    List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad,String direccion,String mail, String fechaVisita);
 
     List<Object[]> listarClientesPorFechaVisita(Date visita);
 
@@ -24,6 +24,5 @@ public interface IClienteService {
     void actualizar(Integer clienteId, String nombre, String apellido, String direccion, String telefono, String mail, String localidad);
 
     void eliminar(Integer id);
-
 
 }

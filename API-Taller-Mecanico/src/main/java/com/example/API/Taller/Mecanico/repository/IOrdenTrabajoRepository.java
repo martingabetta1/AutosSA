@@ -15,6 +15,9 @@ public interface IOrdenTrabajoRepository extends JpaRepository<OrdenTrabajo, Int
     List<OrdenTrabajo> findByFechaInicioBetween(Date fechaInicio, Date fechaFin);
 
 
+    @Query("SELECT MAX(o.fechaInicio) FROM OrdenTrabajo o WHERE o.cliente.id = :clienteId")
+    Date findUltimaFechaInicioPorCliente(@Param("clienteId") Integer clienteId);
+
     @Modifying
     @Query("UPDATE OrdenTrabajo o SET o.fechaInicio = :fechaInicio, o.fechaFin = :fechaFin, o.estado = :estado, o.comentario = :comentario, o.cliente =:cliente, o.vehiculo = :vehiculo, o.tecnico = :tecnico WHERE o.id = :ordenId")
     void actualizarOrden(@Param("ordenId") Integer ordenId, @Param("fechaInicio") Date fechaInicio,

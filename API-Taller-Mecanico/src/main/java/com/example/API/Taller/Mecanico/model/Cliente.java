@@ -46,7 +46,6 @@ public class Cliente {
     @Transient
     private String descripcion;
 
-    @Transient
     private Date visita;
 
     public boolean isEliminado() {
