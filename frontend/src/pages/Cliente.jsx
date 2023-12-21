@@ -39,7 +39,7 @@ export default function Cliente() {
 
     useEffect(() => {
         setEndpoints({
-            fetch: '/clientes/visitas',
+            fetch: '/clientes',
             create: '/clientes',
             edit: '/clientes',
             delete: '/clientes',
@@ -111,7 +111,7 @@ export default function Cliente() {
     }, [])
 
     const getRegisters = async () => {
-        await Api.getQuery('/clientes/visitas', null, filtersQuery)
+        await Api.getQuery('/clientes', null, filtersQuery)
             .then((res) => {
                 setRows(res)
                 setIsLoading(false)
