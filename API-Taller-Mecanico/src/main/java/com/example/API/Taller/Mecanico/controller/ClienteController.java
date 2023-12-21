@@ -34,12 +34,14 @@ public class ClienteController {
                                                         @RequestParam(name = "telefono", required = false) String telefono,
                                                         @RequestParam(name = "localidad", required = false) String localidad,
                                                         @RequestParam(name = "direccion", required = false) String direccion,
-                                                        @RequestParam(name = "mail", required = false) String mail) {
+                                                        @RequestParam(name = "mail", required = false) String mail,
+                                                        @RequestParam(name = "visita", required = false) String fechaVisita
+                                                        ) {
 
         List<Cliente> clientes = serviceCliente.listarClientes();
 
-        if(nombre != null || apellido != null || telefono != null || localidad != null || direccion != null || mail != null) {
-            List<Cliente> buscarClientes = serviceCliente.listarClientesPorConsultaAnidada(nombre, apellido, telefono, localidad,direccion,mail);
+        if(nombre != null || apellido != null || telefono != null || localidad != null || direccion != null || mail != null || fechaVisita != null) {
+            List<Cliente> buscarClientes = serviceCliente.listarClientesPorConsultaAnidada(nombre, apellido, telefono, localidad,direccion,mail, fechaVisita);
             List<Cliente> clientesConFiltro = new ArrayList<>();
             for(Cliente cliente : buscarClientes){
                 Cliente clienteFiltrado = new Cliente();
@@ -50,6 +52,7 @@ public class ClienteController {
                 clienteFiltrado.setTelefono(cliente.getTelefono());
                 clienteFiltrado.setMail(cliente.getMail());
                 clienteFiltrado.setLocalidad(cliente.getLocalidad());
+                clienteFiltrado.setVisita(cliente.getVisita());
                 clientesConFiltro.add(clienteFiltrado);
             }
             return new ResponseEntity<List<Cliente>>(clientesConFiltro, HttpStatus.OK);

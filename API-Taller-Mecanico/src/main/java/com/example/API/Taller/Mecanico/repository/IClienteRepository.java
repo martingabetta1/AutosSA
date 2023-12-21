@@ -25,8 +25,9 @@ public interface IClienteRepository extends JpaRepository<Cliente, Integer> {
             "AND (:localidad IS NULL OR c.localidad LIKE %:localidad%) " +
             "AND (:direccion IS NULL OR c.direccion LIKE %:direccion%) " +
             "AND (:mail IS NULL OR c.mail LIKE %:mail%) " +
+            "AND (:visita IS NULL OR c.visita = TO_DATE(:visita, 'dd-MM-yyyy'))" +
             "AND c.eliminado = false")
-    List<Cliente> findByParams(String nombre, String apellido, String telefono, String localidad,String direccion,String mail);
+    List<Cliente> findByParams(String nombre, String apellido, String telefono, String localidad,String direccion,String mail, String visita);
 
 
     @Query("SELECT c, MAX(ot.fechaInicio) AS visita FROM Cliente c LEFT JOIN OrdenTrabajo ot ON c.id = ot.cliente.id GROUP BY c.id ORDER BY visita DESC")

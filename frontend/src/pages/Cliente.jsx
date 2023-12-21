@@ -34,6 +34,7 @@ export default function Cliente() {
         { field: 'localidad', headerName: 'Localidad', flex: 1 },
         { field: 'direccion', headerName: 'Direccion', flex: 1 },
         { field: 'mail', headerName: 'Mail', flex: 1 },
+        { field: 'visita', headerName: 'Última visita', flex: 1,valueGetter: (params) => params.row.visita.match(/^(\d{4}-\d{2}-\d{2})T\d{2}:\d{2}:\d{2}.\d{3}\+\d{2}:\d{2}$/)[1].split("-").reverse().join("-") },
     ];
 
     useEffect(() => {

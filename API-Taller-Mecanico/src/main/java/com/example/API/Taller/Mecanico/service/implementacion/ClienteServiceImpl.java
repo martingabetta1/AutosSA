@@ -2,6 +2,7 @@ package com.example.API.Taller.Mecanico.service.implementacion;
 
 import com.example.API.Taller.Mecanico.model.Cliente;
 import com.example.API.Taller.Mecanico.repository.IClienteRepository;
+import com.example.API.Taller.Mecanico.repository.IOrdenTrabajoRepository;
 import com.example.API.Taller.Mecanico.service.IClienteService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +20,21 @@ public class ClienteServiceImpl implements IClienteService {
 
     @Autowired
     IClienteRepository repoCliente;
-
+    
+    @Autowired
+    IOrdenTrabajoRepository ordenTrabajoRepository;
+    
     @Override
     public List<Cliente> listarClientes() {
-        return repoCliente.findByEliminadoFalse();
+        List<Cliente> clientesTotal = repoCliente.findByEliminadoFalse();
+        List<Cliente> clientesVisitas = new ArrayList<>();
+        for (Cliente cliente : clientesTotal) {
+            
+            Date ultimaFechaInicio = ordenTrabajoRepository.findUltimaFechaInicioPorCliente(cliente.getId());
+            cliente.setVisita(ultimaFechaInicio);
+            clientesVisitas.add(cliente);
+        }
+        return clientesVisitas;
     }
 
     @Override
@@ -30,8 +43,8 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad,String direccion,String mail) {
-        return repoCliente.findByParams(nombre, apellido, telefono, localidad,direccion,mail);
+    public List<Cliente> listarClientesPorConsultaAnidada(String nombre, String apellido, String telefono, String localidad,String direccion,String mail, String fechaVisita) {
+        return repoCliente.findByParams(nombre, apellido, telefono, localidad,direccion,mail, fechaVisita);
     }
 
     @Override
@@ -46,7 +59,7 @@ public class ClienteServiceImpl implements IClienteService {
 
     @Override
     public Cliente registrar(Cliente cliente)  {
-
+        Date ultimaFechaInicio = ordenTrabajoRepository.findUltimaFechaInicioPorCliente(cliente.getId());
         return repoCliente.save(cliente);
     }
 
